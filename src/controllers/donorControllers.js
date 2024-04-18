@@ -16,7 +16,7 @@ exports.donor_detail = asyncHandler(async (req, res, next) => {
     next();
 })
 
-// Display Customer create form on GET.
+// Display Donor create form on GET.
 exports.donor_create_get = asyncHandler(async (req, res, next) => {
     res.render('donor_form', { title: 'Criar Doador' });
     next();
@@ -53,7 +53,7 @@ exports.donor_delete_get = asyncHandler(async (req, res, next) => {
         const donor = await Donor.findById(req.params.id);
 
         if (!donor) {
-            // If customer not found, return a 404 error
+            // If donor not found, return a 404 error
             res.status(404).json({ message: "Donor not found" });
             next();
         } else {
@@ -79,7 +79,7 @@ exports.donor_delete_post = asyncHandler(async (req, res, next) => {
             res.status(404).json({ message: "Donor not found" });
             next();
         } else {
-            // Delete the customer from the database
+            // Delete the donor from the database
             await donor.remove();
             res.json({ message: "Donor deleted successfully" });
             next();
@@ -145,6 +145,7 @@ exports.donor_update_post = asyncHandler(async (req, res, next) => {
     }
 })
 
+// Handle Donor donation create on GET.
 exports.donor_donation_create_get = asyncHandler(async (req, res, next) => {
     try {
         donationControllers.donation_create_get;
@@ -154,6 +155,7 @@ exports.donor_donation_create_get = asyncHandler(async (req, res, next) => {
     }
 })
 
+// Handle Donor donation create on POST.
 exports.donor_donation_create_post = asyncHandler(async (req, res, next) => {
     try {
         donationControllers.donation_create_post;
@@ -163,6 +165,7 @@ exports.donor_donation_create_post = asyncHandler(async (req, res, next) => {
     }
 })
 
+// Handle Donor donation update on GET.
 exports.donor_donation_update_get = asyncHandler(async (req, res, next) => {
     try {
         donationControllers.donation_update_get;
@@ -172,6 +175,7 @@ exports.donor_donation_update_get = asyncHandler(async (req, res, next) => {
     }
 })
 
+// Handle Donor donation update on POST.
 exports.donor_donation_update_post = asyncHandler(async (req, res, next) => {
     try {
         donationControllers.donation_update_post;
@@ -181,6 +185,7 @@ exports.donor_donation_update_post = asyncHandler(async (req, res, next) => {
     }
 })
 
+// Handle Donor donation delete on GET.
 exports.donor_donation_delete_get = asyncHandler(async (req, res, next) => {
     try {
         donationControllers.donation_delete_get;
@@ -190,7 +195,8 @@ exports.donor_donation_delete_get = asyncHandler(async (req, res, next) => {
     }
 })
 
-exports.donor_donation_deletes_post = asyncHandler(async (req, res, next) => {
+// Handle Donor donation delete on POST.
+exports.donor_donation_delete_post = asyncHandler(async (req, res, next) => {
     try {
         donationControllers.donation_delete_post;
         next();

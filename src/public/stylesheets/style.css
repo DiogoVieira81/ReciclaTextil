@@ -7,30 +7,119 @@ a {
   color: #00B7FF;
 }
 
-/* Add a black background color to the top navigation */
-.topnav {
-  background-color: #333;
-  overflow: hidden;
+.header {
+  background: rgba(0, 128, 0);
+  padding: 20px;
+  text-align: center;
 }
 
-/* Style the links inside the navigation bar */
+.footer {
+  background: rgba(0, 128, 0, 0.5);
+  text-align: center;
+  padding: 10px;
+}
+
+.topnav {
+  border-left: rgba(0, 128, 0);
+  background-color: #333;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
 .topnav a {
   float: left;
-  color: #f2f2f2;
+  background: rgba(0, 128, 0, 0.9);
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
   font-size: 17px;
 }
 
-/* Change the color of links on hover */
 .topnav a:hover {
   background-color: #ddd;
   color: black;
 }
 
-/* Add a color to the active/current link */
 .topnav a.active {
   background-color: #04AA6D;
   color: white;
+}
+
+.div {
+  margin: auto;
+}
+
+.main {
+  border-radius: 5px;
+  float: left;
+  background: rgba(0, 128, 0, 0.4);
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+input[type=submit], input[type=reset] {
+  width: 100%;
+  background: rgba(0, 128, 0, 0.8);
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+input[type=submit]:hover {
+  background: rgba(0, 128, 0);
+}
+
+input[type=reset]:hover {
+  background: rgba(0, 128, 0);
+}
+
+input[type=text] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  background-color: #f8f8f8;
+}
+
+input[type=text]:focus {
+  border: 3px solid #555;
+}
+
+textarea {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: none;
+  background-color: #f8f8f8;
+}
+
+.pagination {
+  display: inline-block;
+}
+
+.pagination a {
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+  transition: background-color .3s;
+  border: 1px solid #ddd;
+  margin: 0 4px;
+}
+
+.pagination a.active {
+  background: rgba(0, 128, 0, 0.3);
+  color: white;
+  border: 1px rgba(0, 128, 0);
 }

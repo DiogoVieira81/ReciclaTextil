@@ -4,31 +4,30 @@ body {
 }
 
 a {
-  color: #00B7FF;
+  color: black;
 }
 
 .header {
-  background: rgba(0, 128, 0);
+  background: rgb(155, 183, 212, 0.7);
   padding: 20px;
   text-align: center;
 }
 
 .footer {
-  background: rgba(0, 128, 0, 0.5);
+  background: rgb(155, 183, 212, 0.3);
   text-align: center;
   padding: 10px;
 }
 
 .topnav {
-  border-left: rgba(0, 128, 0);
-  background-color: #333;
+  border-left: rgb(155, 183, 212, 0.7);
+  background-color: rgb(155, 183, 212, 0.7);
   overflow: hidden;
-  border-radius: 10px;
 }
 
 .topnav a {
   float: left;
-  background: rgba(0, 128, 0, 0.9);
+  background: rgb(155, 183, 212, 0.9);
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
@@ -41,8 +40,8 @@ a {
 }
 
 .topnav a.active {
-  background-color: #04AA6D;
-  color: white;
+  background-color: grey;
+  color: black;
 }
 
 .div {
@@ -52,16 +51,17 @@ a {
 .main {
   border-radius: 5px;
   float: left;
-  background: rgba(0, 128, 0, 0.4);
+  background: rgb(155, 183, 212, 0.5);
+  width: 98%;
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
   font-size: 17px;
 }
 
-input[type=submit], input[type=reset] {
+button[type=submit] {
   width: 100%;
-  background: rgba(0, 128, 0, 0.8);
+  background: rgb(155, 183, 212, 0.5);
   color: white;
   padding: 14px 20px;
   margin: 8px 0;
@@ -70,15 +70,37 @@ input[type=submit], input[type=reset] {
   cursor: pointer;
 }
 
-input[type=submit]:hover {
-  background: rgba(0, 128, 0);
+input[type=reset] {
+  width: 100%;
+  background: rgb(155, 183, 212, 0.5);
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button[type=submit]:hover {
+  background: rgb(155, 183, 212, 0.9);
 }
 
 input[type=reset]:hover {
-  background: rgba(0, 128, 0);
+  background: rgb(155, 183, 212, 0.9);
 }
 
 input[type=text] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  background-color: #f8f8f8;
+}
+
+input[type=email] {
   width: 100%;
   padding: 12px 20px;
   margin: 8px 0;
@@ -93,6 +115,10 @@ input[type=text]:focus {
   border: 3px solid #555;
 }
 
+input[type=email]:focus {
+  border: 3px solid #555;
+}
+
 textarea {
   width: 100%;
   padding: 12px 20px;
@@ -102,10 +128,12 @@ textarea {
   border-radius: 4px;
   resize: none;
   background-color: #f8f8f8;
+  width: 97%;
 }
 
 .pagination {
   display: inline-block;
+  text-align: center;
 }
 
 .pagination a {
@@ -119,7 +147,7 @@ textarea {
 }
 
 .pagination a.active {
-  background: rgba(0, 128, 0, 0.3);
+  background: rgb(155, 183, 212, 0.2);
   color: white;
-  border: 1px rgba(0, 128, 0);
+  border: 1px rgb(155, 183, 212);
 }

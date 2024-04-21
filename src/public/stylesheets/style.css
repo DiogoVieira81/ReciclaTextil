@@ -1,0 +1,201 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: black;
+}
+
+.header {
+  background: rgb(155, 183, 212, 0.7);
+  padding: 20px;
+  text-align: center;
+}
+
+.footer {
+  background: rgb(155, 183, 212, 0.3);
+  text-align: center;
+  padding: 10px;
+}
+
+.topnav {
+  border-left: rgb(155, 183, 212, 0.7);
+  background-color: rgb(155, 183, 212, 0.7);
+  overflow: hidden;
+}
+
+.topnav a {
+  float: left;
+  background: rgb(155, 183, 212, 0.9);
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.topnav a.active {
+  background-color: grey;
+  color: black;
+}
+
+.div {
+  margin: auto;
+}
+
+.main {
+  border-radius: 5px;
+  float: left;
+  background: rgb(155, 183, 212, 0.5);
+  width: 98%;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+button[type=submit] {
+  width: 100%;
+  background: rgb(155, 183, 212, 0.5);
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+input[type=reset] {
+  width: 100%;
+  background: rgb(155, 183, 212, 0.5);
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button[type=submit]:hover {
+  background: rgb(155, 183, 212, 0.9);
+}
+
+input[type=reset]:hover {
+  background: rgb(155, 183, 212, 0.9);
+}
+
+input[type=text] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  background-color: #f8f8f8;
+}
+
+input[type=email] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  background-color: #f8f8f8;
+}
+
+input[type=text]:focus {
+  border: 3px solid #555;
+}
+
+input[type=email]:focus {
+  border: 3px solid #555;
+}
+
+textarea {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: none;
+  background-color: #f8f8f8;
+  width: 97%;
+}
+
+.pagination {
+  display: inline-block;
+  text-align: center;
+}
+
+.pagination a {
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+  transition: background-color .3s;
+  border: 1px solid #ddd;
+  margin: 0 4px;
+}
+
+.pagination a.active {
+  background: rgb(155, 183, 212, 0.2);
+  color: white;
+  border: 1px rgb(155, 183, 212);
+}
+.login-image{
+ margin-top: 0px;
+  width: 100%;
+  height: auto;
+  max-height: 15rem; /* Ajuste o valor conforme necessário */
+}
+.social-buttons {
+  text-align: center;
+}
+
+.btn-facebook,
+.btn-google {
+  margin-bottom: 10px;
+  font-size: 16px;
+  padding: 10px 30px;
+  border-radius: 20px;
+  color: #ffffff;
+  cursor: pointer;
+  position: relative;
+  display: block;
+  width: fit-content;
+  margin: auto;
+}
+
+.btn-facebook {
+  background-color: #3b5998;
+  border: 2px solid #3b5998;
+}
+
+.btn-google {
+  background-color: #d6d5d5;
+  border: 2px solid #ebeaea;
+}
+
+.btn-facebook:hover {
+  background-color: #5474b8;
+}
+
+.btn-google:hover {
+  background-color: #cf3727;
+}
+
+.btn-google img,.btn-facebook img {
+  width: 20px;
+  height: 20px;
+  vertical-align: middle;
+  margin-left: 5px;
+}

@@ -166,3 +166,51 @@ textarea {
   color: white;
   border: 1px rgb(155, 183, 212);
 }
+.login-image{
+ margin-top: 0px;
+  width: 100%;
+  height: auto;
+  max-height: 15rem; /* Ajuste o valor conforme necessário */
+}
+.social-buttons {
+  text-align: center;
+}
+
+.btn-facebook,
+.btn-google {
+  margin-bottom: 10px;
+  font-size: 16px;
+  padding: 10px 30px;
+  border-radius: 20px;
+  color: #ffffff;
+  cursor: pointer;
+  position: relative;
+  display: block;
+  width: fit-content;
+  margin: auto;
+}
+
+.btn-facebook {
+  background-color: #3b5998;
+  border: 2px solid #3b5998;
+}
+
+.btn-google {
+  background-color: #d6d5d5;
+  border: 2px solid #ebeaea;
+}
+
+.btn-facebook:hover {
+  background-color: #5474b8;
+}
+
+.btn-google:hover {
+  background-color: #cf3727;
+}
+
+.btn-google img,.btn-facebook img {
+  width: 20px;
+  height: 20px;
+  vertical-align: middle;
+  margin-left: 5px;
+}

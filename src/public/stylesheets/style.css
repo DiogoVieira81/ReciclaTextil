@@ -151,3 +151,9 @@ textarea {
   color: white;
   border: 1px rgb(155, 183, 212);
 }
+.login-image{
+ margin-top: 0px;
+  width: 100%;
+  height: auto;
+  max-height: 15rem; /* Ajuste o valor conforme necessário */
+}

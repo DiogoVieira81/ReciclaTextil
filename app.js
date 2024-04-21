@@ -3,10 +3,20 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const mongoose = require('mongoose');
+const Admin = require('./src/models/Admin');
 
 var indexRouter = require('./src/routes/index');
 var loginRouter = require('./src/routes/login');
+var entityRouter = require('./src/routes/entities');
+
 var app = express();
+
+//connection to dataBase
+mongoose.connect('mongodb+srv://paw24:MzGoBjFDQ9D3BQ7h@cluster0.49yetzm.mongodb.net/reciclaDB?retryWrites=true&w=majority')
+.then(() => console.log('Conexão com MongoDB estabelecida com sucesso!'))
+.catch(err => console.error('Erro ao conectar com o MongoDB:', err));
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'src/views'));
@@ -21,6 +31,8 @@ app.use(express.static(path.join(__dirname, 'src/public')));
 
 app.use('/', indexRouter);
 app.use('/login', loginRouter);
+app.use('/entities', entityRouter);
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

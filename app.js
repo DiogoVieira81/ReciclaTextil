@@ -9,6 +9,7 @@ const Admin = require('./src/models/Admin');
 var indexRouter = require('./src/routes/index');
 var loginRouter = require('./src/routes/login');
 var entityRouter = require('./src/routes/entities');
+var donationRouter = require('./src/routes/donations');
 
 var app = express();
 
@@ -32,6 +33,7 @@ app.use(express.static(path.join(__dirname, 'src/public')));
 app.use('/', indexRouter);
 app.use('/login', loginRouter);
 app.use('/entities', entityRouter);
+app.use('/donations', donationRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -1,13 +1,16 @@
 var express = require('express');
+const asyncHandler = require("express-async-handler");
 var router = express.Router();
 const entitiesController = require('../controllers/entityControllers');
 
-router.get('/').get(entitiesController.entity_list);
+router.get('/entities/:id', function(req, res) {
+  entities.show(req, res);
+});
 
-router.get('/').post(entitiesController.entity_create_get);
+// Create entity
+router.post('/create', function(req, res) {
+  entitiesController.entity_create_post(req, res);
+});
 
-//router.route('/:id').get(entitiesController.getEntity);
-//router.route('/:id').put(entitiesController.updateEntity);
-//router.route('/:id').delete(entitiesController.deleteEntity);
 
 module.exports = router;

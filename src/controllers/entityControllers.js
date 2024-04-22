@@ -24,19 +24,20 @@ exports.entity_create_get = asyncHandler(async (req, res, next) => {
 // Handle Entity create on POST.
 exports.entity_create_post = asyncHandler(async (req, res, next) => {
     // Extract data from request body
-    const { name, email, description } = req.body;
+    const { name, email, description, image } = req.body;
 
     // Create a new Entity object
     const newEntity = new Entity({
         name,
         email,
         description,
+        image
     });
 
     try {
-        // Save the new donor to the database
-        const savedDonor = await newDonor.save();
-        res.status(201).json(savedDonor); // Return the newly created customer
+        // Save the new entity to the database
+        const savedEntity = await newEntity.save();
+        res.status(201).json(savedDonor);
         next();
     } catch (error) {
         // Handle validation or database errors
@@ -130,6 +131,7 @@ exports.entity_update_post = asyncHandler(async (req, res, next) => {
             entity.name = name;
             entity.email = email;
             entity.description = description;
+            entity.image = image;
 
             // Save the updated donor to the database
             entity = await entity.save();

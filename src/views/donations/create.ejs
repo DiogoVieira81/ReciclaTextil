@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Criar entidade</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="header">
+      <h1> Recicla Têxtil </h1>
+    </div>
+    <div class="topnav">
+      <a class="active" href="/"> Home </a>
+      <a href="/entities"> Entities </a>
+      <a href="/users"> Users </a>
+      <a href="/donations/create"> Donations </a>
+    </div>
+    <div class="main">
+      <form action="donations/create" method="post">
+        <p></p>
+        <label for="description"> Description: </label>
+        <p></p>
+        <textarea name="description" id="description" cols="30" rows="10" required> Write the description here. </textarea>
+        <p></p>
+        <label for="value"> Value: </label>
+        <p></p>
+        <input type="number" name="value" id="value">
+        <p></p>
+        <button type="submit"> Submit </button>
+        <input type="reset" value="Reset">
+      </form>
+    </div>
+  </body>
+</html>

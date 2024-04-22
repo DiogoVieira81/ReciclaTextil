@@ -49,8 +49,6 @@ a {
 }
 
 .main {
-  border-radius: 5px;
-  float: left;
   background: rgb(155, 183, 212, 0.5);
   width: 98%;
   text-align: center;
@@ -122,6 +120,17 @@ input[type=password] {
   background-color: #f8f8f8;
 }
 
+input[type=number] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  background-color: #f8f8f8;
+}
+
 input[type=text]:focus {
   border: 3px solid #555;
 }
@@ -131,6 +140,10 @@ input[type=email]:focus {
 }
 
 input[type=password]:focus {
+  border: 3px solid #555;
+}
+
+input[type=number]:focus {
   border: 3px solid #555;
 }
 

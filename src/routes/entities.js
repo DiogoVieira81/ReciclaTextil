@@ -2,9 +2,9 @@ var express = require('express');
 var router = express.Router();
 const entitiesController = require('../controllers/entityControllers');
 
-router.get('/').get(entitiesController.getAllEntities);
+router.get('/').get(entitiesController.entity_list);
 
-router.get('/').post(entitiesController.createEntity);
+router.get('/').post(entitiesController.entity_create_get);
 
 //router.route('/:id').get(entitiesController.getEntity);
 //router.route('/:id').put(entitiesController.updateEntity);

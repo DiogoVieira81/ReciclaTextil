@@ -142,25 +142,3 @@ exports.entity_update_post = asyncHandler(async (req, res, next) => {
         next();
     }
 })
-
-exports.getAllEntities = (req, res) => {
-    
-}
-
-exports.createEntity = async (req, res) => {
-    try{
-        const entity = await Entity.create(req.body);
-
-        res.status(201).json({
-            status : 'success',
-            data : {
-                entity
-            }
-        });
-    }catch(err){
-        res.status(400).json({
-            status : 'fail',
-            message : err.message
-        });
-    }
-}

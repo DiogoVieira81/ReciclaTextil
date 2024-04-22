@@ -24,14 +24,13 @@ exports.entity_create_get = asyncHandler(async (req, res, next) => {
 // Handle Entity create on POST.
 exports.entity_create_post = asyncHandler(async (req, res, next) => {
     // Extract data from request body
-    const { name, email, description, image } = req.body;
+    const { name, email, description } = req.body;
 
     // Create a new Entity object
     const newEntity = new Entity({
         name,
         email,
         description,
-        image
     });
 
     try {
@@ -131,7 +130,6 @@ exports.entity_update_post = asyncHandler(async (req, res, next) => {
             entity.name = name;
             entity.email = email;
             entity.description = description;
-            entity.image = image;
 
             // Save the updated donor to the database
             entity = await entity.save();
@@ -144,3 +142,25 @@ exports.entity_update_post = asyncHandler(async (req, res, next) => {
         next();
     }
 })
+
+exports.getAllEntities = (req, res) => {
+    
+}
+
+exports.createEntity = async (req, res) => {
+    try{
+        const entity = await Entity.create(req.body);
+
+        res.status(201).json({
+            status : 'success',
+            data : {
+                entity
+            }
+        });
+    }catch(err){
+        res.status(400).json({
+            status : 'fail',
+            message : err.message
+        });
+    }
+}

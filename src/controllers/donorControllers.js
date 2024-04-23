@@ -25,12 +25,12 @@ exports.donor_create_get = asyncHandler(async (req, res, next) => {
 // Handle Donor create on POST.
 exports.donor_create_post = asyncHandler(async (req, res, next) => {
     // Extract data from request body
-    const { username, password, description } = req.body;
+    const { username, email, description } = req.body;
 
     // Create a new Donor object
     const newDonor = new Donor({
         username,
-        password,
+        email,
         description
     });
 

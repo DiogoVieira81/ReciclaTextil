@@ -22,4 +22,6 @@ router.get("/list", entitiesController.entity_list);
 
 router.get("/show/:id", entitiesController.entity_detail);
 
+//adianbifbn
+
 module.exports = router;

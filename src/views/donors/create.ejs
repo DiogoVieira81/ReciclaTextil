@@ -44,22 +44,18 @@
     </nav>
    
     <div class="main">
-      <form action="/action_page.php" method="post">
-        <label for="name"> Name: </label>
+      <form action="/donors/create" method="post">
+        <label for="username"> Username: </label>
         <p></p>
-        <input type="text" name="name" id="name" required>
-        <p></p>
-        <label for="pwd"> Password: </label>
-        <p></p>
-        <input type="password" name="pwd" id="pwd" required>
+        <input type="text" name="username" id="username" required>
         <p></p>
         <label for="email"> Email: </label>
         <p></p>
         <input type="email" name="email" id="email" required>
         <p></p>
-        <label for="image"> User image: </label>
+        <label for="description"> Description: </label>
         <p></p>
-        <input type="image" name="image" id="image">
+        <textarea name="description" id="description" cols="30" rows="10" required></textarea>
         <p></p>
         <button type="submit"> Submit </button>
         <input type="reset" value="Reset">

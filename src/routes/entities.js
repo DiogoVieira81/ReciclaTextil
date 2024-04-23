@@ -1,13 +1,27 @@
-var express = require('express');
+var express = require("express");
 var router = express.Router();
-const entitiesController = require('../controllers/entityControllers');
+const entitiesController = require("../controllers/entityControllers");
 
-router.get('/').get(entitiesController.entity_list);
+router.get("/", function (req, res, next) {
+  res.render("entities");
+});
 
-router.get('/').post(entitiesController.entity_create_get);
+router.get("/create", entitiesController.entity_create_get);
 
-//router.route('/:id').get(entitiesController.getEntity);
-//router.route('/:id').put(entitiesController.updateEntity);
-//router.route('/:id').delete(entitiesController.deleteEntity);
+router.post("/create", entitiesController.entity_create_post);
+
+router.get("/update", entitiesController.entity_update_get);
+
+router.post("/update", entitiesController.entity_update_post);
+
+router.get("/delete", entitiesController.entity_delete_get);
+
+router.post("/delete", entitiesController.entity_delete_post);
+
+router.get("/list", entitiesController.entity_list);
+
+router.get("/show/:id", entitiesController.entity_detail);
+
+//adianbifbn
 
 module.exports = router;

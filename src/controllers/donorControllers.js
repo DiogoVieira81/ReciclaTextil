@@ -1,6 +1,7 @@
 const asyncHandler = require("express-async-handler");
 const donationControllers = require("../controllers/donationControllers");
 const Donor = require("../models/Donor");
+const { calculatePointsForDonation } = require("../utils/donationUtils");
 
 // Display list of all  Donors
 exports.donor_list = asyncHandler(async (req, res, next) => {
@@ -158,11 +159,22 @@ exports.donor_donation_create_get = asyncHandler(async (req, res, next) => {
 // Handle Donor donation create on POST.
 exports.donor_donation_create_post = asyncHandler(async (req, res, next) => {
     try {
-        donationControllers.donation_create_post;
-        next();
-    } catch (error) {
+        // Extract donation details from the request body
+        const { value, donor } = req.body;
+    
+        // Calculate the number of points to award
+        const pointsToAdd = calculatePointsForDonation(value);
+    
+        // Find the donor by ID and update their points balance
+        const theDonor = await Donor.findById(donor);
+        theDonor.points += pointsToAdd;
+        await theDonor.save();
+    
+        // Create the donation and associate it with the donor
+        donationControllers.donation_create_post(req, res, next);
+      } catch (error) {
         res.status(500).json({ message: error.message });
-    }
+      }
 })
 
 // Handle Donor donation update on GET.

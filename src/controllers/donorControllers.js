@@ -18,7 +18,7 @@ exports.donor_detail = asyncHandler(async (req, res, next) => {
 
 // Display Donor create form on GET.
 exports.donor_create_get = asyncHandler(async (req, res, next) => {
-    res.render('donor_form', { title: 'Criar Doador' });
+    res.render('/donors/create', { title: 'Criar Doador' });
     next();
 })
 

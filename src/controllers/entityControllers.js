@@ -24,14 +24,13 @@ exports.entity_create_get = asyncHandler(async (req, res, next) => {
 // Handle Entity create on POST.
 exports.entity_create_post = asyncHandler(async (req, res, next) => {
     // Extract data from request body
-    const { name, email, description, image } = req.body;
+    const { name, email, description } = req.body;
 
     // Create a new Entity object
     const newEntity = new Entity({
         name,
         email,
-        description,
-        image
+        description
     });
 
     try {

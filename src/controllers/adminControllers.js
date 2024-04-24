@@ -1,5 +1,8 @@
 const asyncHandler = require("express-async-handler");
 const Admin = require("../models/Admin");
+const bcrypt = require("bcryptjs");
+const jwt = require('jsonwebtoken')
+const jwtSecret = '424fdce80b01e737a19c9d465aae7b552e1354e181007475a6029fc9307d78ab0ae09f';
 
 // Display list of all  Admins
 exports.admin_list = asyncHandler(async (req, res, next) => {
@@ -26,22 +29,36 @@ exports.admin_create_post = asyncHandler(async (req, res, next) => {
     // Extract data from request body
     const { email, password } = req.body;
 
-    // Create a new Admin object
-    const newAdmin = new Admin ({
-        email,
-        password
+    bcrypt.hash(password, 10).then(async (hash) => {
+        await Admin.create({
+            email,
+            password: hash,
+        })
+            .then((admin) => {
+                const maxAge = 3 * 60 * 60;
+                const token = jwt.sign(
+                    { id: admin._id, email },
+                    jwtSecret,
+                    {
+                        expiresIn: maxAge, // 3hrs in sec
+                    }
+                );
+                res.cookie("jwt", token, {
+                    httpOnly: true,
+                    maxAge: maxAge * 1000, // 3hrs in ms
+                });
+                res.status(201).json({
+                    message: "Admin successfully created",
+                    admin: admin._id,
+                });
+            })
+            .catch((error) =>
+                res.status(400).json({
+                    message: "Admin not successful created",
+                    error: error.message,
+                })
+            );
     });
-
-    try {
-        // Save the new Admin to the database
-        const savedAdmin = await newAdmin.save();
-        res.status(201).json(savedAdmin);
-        next();
-    } catch (error) {
-        // Handle validation or database errors
-        res.status(400).json({ message: error.message });
-        next();
-    }
 })
 
 // Display Admin delete form on GET.
@@ -139,3 +156,16 @@ exports.admin_update_post = asyncHandler(async (req, res, next) => {
         next();
     }
 })
+
+// Display Admin login form on GET.
+exports.admin_login_get = asyncHandler(async (req, res, next) => {
+    res.render('admins/login', { title: 'Login' });
+    next();
+})
+
+// Display Admin login form on POST.
+exports.admin_login_post = passport.authenticate('admin-local', {
+    successRedirect: '/admin/dashboard',
+    failureRedirect: '/admin/login',
+    failureFlash: true
+  });

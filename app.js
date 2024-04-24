@@ -3,6 +3,9 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+
 const mongoose = require('mongoose');
 const Admin = require('./src/models/Admin');
 
@@ -29,11 +32,52 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'src/public')));
 
+passport.use('admin-local', new LocalStrategy({
+  usernameField: 'email',
+  passwordField: 'password'
+},
+async (email, password, done) => {
+  try {
+    const admin = await Admin.findOne({ email });
+    if (!admin) {
+      return done(null, false, { message: 'Incorrect email or password.' });
+    }
+    bcrypt.compare(password, admin.password, (err, result) => {
+      if (err) {
+        return done(err);
+      }
+      if (result) {
+        return done(null, admin);
+      } else {
+        return done(null, false, { message: 'Incorrect email or password.' });
+      }
+    });
+  } catch (error) {
+    return done(error);
+  }
+}
+));
+
+passport.serializeUser((user, done) => {
+  done(null, user.id);
+});
+
+passport.deserializeUser((id, done) => {
+  Admin.findById(id, (err, user) => {
+    done(err, user);
+  });
+});
+
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use('/', indexRouter);
 app.use('/login', loginRouter);
 app.use('/entities', entityRouter);
 app.use('/donors', donorRouter);
+
+app.get('/admin/dashboard', adminAuth, admin_controller.admin_dashboard_get);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

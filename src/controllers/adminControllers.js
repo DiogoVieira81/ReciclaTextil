@@ -20,7 +20,7 @@ exports.admin_detail = asyncHandler(async (req, res, next) => {
 
 // Display Admin create form on GET.
 exports.admin_create_get = asyncHandler(async (req, res, next) => {
-    res.render('admins/create', { title: 'Create admin' });
+    res.render('admins/login', { title: 'Create admin' });
     next();
 })
 

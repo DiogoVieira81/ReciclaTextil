@@ -10,7 +10,7 @@ const mongoose = require('mongoose');
 const Admin = require('./src/models/Admin');
 
 var indexRouter = require('./src/routes/index');
-var loginRouter = require('./src/routes/login');
+var adminRouter = require('./src/routes/admins');
 var entityRouter = require('./src/routes/entities');
 var donorRouter = require('./src/routes/donors');
 
@@ -73,11 +73,11 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use('/', indexRouter);
-app.use('/login', loginRouter);
+app.use('/admins', adminRouter);
 app.use('/entities', entityRouter);
 app.use('/donors', donorRouter);
 
-app.get('/admin/dashboard', adminAuth, admin_controller.admin_dashboard_get);
+//app.get('/admin/dashboard', adminAuth, admin_controller.admin_dashboard_get);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

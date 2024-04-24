@@ -165,7 +165,7 @@ exports.admin_login_get = asyncHandler(async (req, res, next) => {
 
 // Display Admin login form on POST.
 exports.admin_login_post = passport.authenticate('admin-local', {
-    successRedirect: '/admin/dashboard',
-    failureRedirect: '/admin/login',
+    successRedirect: '/admins/dashboard',
+    failureRedirect: '/admins/login',
     failureFlash: true
   });

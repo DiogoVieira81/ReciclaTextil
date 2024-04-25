@@ -1,8 +1,9 @@
 var express = require('express');
 var router = express.Router();
+const connectEnsureLogin = require('connect-ensure-login');
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/', connectEnsureLogin.ensureLoggedIn(), (req, res) => {
   res.render('index');
 });
 

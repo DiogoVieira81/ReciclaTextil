@@ -3,6 +3,7 @@ const Admin = require("../models/Admin");
 const bcrypt = require("bcryptjs");
 const jwt = require('jsonwebtoken')
 const jwtSecret = '424fdce80b01e737a19c9d465aae7b552e1354e181007475a6029fc9307d78ab0ae09f';
+const passport = require('passport');
 
 // Display list of all  Admins
 exports.admin_list = asyncHandler(async (req, res, next) => {
@@ -169,3 +170,9 @@ exports.admin_login_post = passport.authenticate('admin-local', {
     failureRedirect: '/admins/login',
     failureFlash: true
   });
+
+  // Admin Dashboard Route Handler
+exports.admin_dashboard_get = asyncHandler(async (req, res, next) => {
+    // Render the admin dashboard interface
+    res.render('admins/dashboard', { title: 'Admin Dashboard' });
+});

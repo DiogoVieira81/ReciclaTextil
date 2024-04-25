@@ -1,12 +1,25 @@
 var express = require("express");
 var router = express.Router();
+const multer=require('multer')
 const entitiesController = require("../controllers/entityControllers");
+
+// Configuração do Multer
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'public/images/');
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + '-' + file.originalname);
+  }
+});
+
+const upload = multer({ storage: storage });
 
 router.get("/", function (req, res, next) {
   res.render("entities");
 });
 
-router.get("/create", entitiesController.entity_create_get);
+router.get("/create", upload.single("image"),entitiesController.entity_create_get);
 
 router.post("/create", entitiesController.entity_create_post);
 

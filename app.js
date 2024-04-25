@@ -7,8 +7,11 @@ const logger = require('morgan');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const mongoose = require('mongoose');
+const multer = require('multer'); 
+const fs = require('fs');
 
 const Admin = require('./src/models/Admin');
+const Entity = require('./src/models/Entity'); 
 
 var adminControllers = require('./src/controllers/adminControllers');
 var adminAuth = require('./src/middleware/adminAuth');
@@ -83,7 +86,15 @@ passport.deserializeUser((id, done) => {
     done(err, admin);
   });
 });
-
+// Multer configuration for upload imagens
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'public/images/');
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + '-' + file.originalname);
+  }
+});
 
 app.use(passport.initialize());
 app.use(passport.session());

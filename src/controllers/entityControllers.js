@@ -29,8 +29,14 @@ exports.entity_create_post = asyncHandler(async (req, res, next) => {
     // Create a new Entity object
     const newEntity = new Entity({
         name,
+        taxpayerNumber,
         email,
-        description
+        phoneNumber,
+        address,
+        city,
+        district,
+        description,
+        image
     });
 
     try {
@@ -116,7 +122,7 @@ exports.entity_update_get = asyncHandler(async (req, res, next) => {
 exports.entity_update_post = asyncHandler(async (req, res, next) => {
     try {
         // Extract updated entity details from the request body
-        const { name, email, description, image } = req.body;
+        const { name,taxpayerNumber, email, phoneNumber,address,city,district, description, image } = req.body;
 
         // Find the entity by ID from the request parameters
         let entity = await Entity.findById(req.params.id);
@@ -128,7 +134,12 @@ exports.entity_update_post = asyncHandler(async (req, res, next) => {
         } else {
             // Update the entity fields
             entity.name = name;
+            entity.taxpayerNumber=taxpayerNumber;
             entity.email = email;
+            entity.phoneNumber=phoneNumber;
+            entity.address=address,
+            entity.city=city;
+            entity.district=district;
             entity.description = description;
             entity.image = image;
 

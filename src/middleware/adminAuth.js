@@ -1,5 +1,5 @@
 // Middleware function for admin authentication
-exports.adminAuth = (req, res, next) => {
+const adminAuth = (req, res, next) => {
     const token = req.cookies.jwt;
     if (token) {
         jwt.verify(token, jwtSecret, (err, decodedToken) => {
@@ -17,3 +17,5 @@ exports.adminAuth = (req, res, next) => {
         return res.status(401).json({ message: "Not authorized, token not available" });
     }
 };
+
+module.exports = adminAuth;

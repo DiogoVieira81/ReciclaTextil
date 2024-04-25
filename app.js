@@ -18,7 +18,6 @@ var loginRouter = require('./src/routes/login');
 var entityRouter = require('./src/routes/entities');
 var donorRouter = require('./src/routes/donors');
 
-
 var app = express();
 
 mongoose.Promise = global.Promise;

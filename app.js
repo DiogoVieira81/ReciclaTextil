@@ -13,7 +13,7 @@ const Admin = require('./src/models/Admin');
 var adminControllers = require('./src/controllers/adminControllers');
 var adminAuth = require('./src/middleware/adminAuth');
 
-var indexRouter = require('./src/routes/index');
+var indexRouter = require('./src/routes/dashboard');
 var loginRouter = require('./src/routes/login');
 var entityRouter = require('./src/routes/entities');
 var donorRouter = require('./src/routes/donors');
@@ -91,7 +91,6 @@ app.use(passport.session());
 
 app.use('/', indexRouter);
 app.use('/login', loginRouter);
-
 app.use('/entities', entityRouter);
 app.use('/donors', donorRouter);
 app.get('/logout', function (req, res) {

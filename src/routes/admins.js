@@ -21,7 +21,7 @@ router.post("/login", adminsController.admin_login_post);
 router.get("/show/:id", adminsController.admin_detail);
 
 router.get('/dashboard', function(req, res) {
-    res.render('admins/dashboard');
+    res.render('dashboard');
   });
 
 module.exports = router;

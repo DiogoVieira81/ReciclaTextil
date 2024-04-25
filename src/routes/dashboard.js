@@ -4,7 +4,7 @@ const connectEnsureLogin = require('connect-ensure-login');
 
 /* GET home page. */
 router.get('/', connectEnsureLogin.ensureLoggedIn(), (req, res) => {
-  res.render('index');
+  res.render('dashboard');
 });
 
 module.exports = router;

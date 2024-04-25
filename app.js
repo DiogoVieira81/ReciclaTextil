@@ -9,10 +9,14 @@ var LocalStrategy = require('passport-local').Strategy;
 const mongoose = require('mongoose');
 const Admin = require('./src/models/Admin');
 
+var adminControllers = require('./src/controllers/adminControllers');
+var adminAuth = require('./src/middleware/adminAuth');
+
 var indexRouter = require('./src/routes/index');
 var loginRouter = require('./src/routes/login');
 var entityRouter = require('./src/routes/entities');
 var donorRouter = require('./src/routes/donors');
+
 
 var app = express();
 
@@ -77,7 +81,7 @@ app.use('/login', loginRouter);
 app.use('/entities', entityRouter);
 app.use('/donors', donorRouter);
 
-app.get('/admin/dashboard', adminAuth, admin_controller.admin_dashboard_get);
+app.get('/admin/dashboard', adminAuth, adminControllers.admin_dashboard_get);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -6,6 +6,11 @@ const entitySchema = new mongoose.Schema({
         required: true,
         unique: true,
     },
+    taxpayerNumber:{
+        type: String,
+        required: true,
+        unique: true,
+    },
     email: {
         type: String,
         required: true,
@@ -19,9 +24,33 @@ const entitySchema = new mongoose.Schema({
             message: props => `${props.value} is not a valid email address!`
         }
     },
+    phoneNumber:{
+        type: String,
+        required: true,
+        unique: true,
+    },
+    address:{
+        type: String,
+        required: true,
+        unique: true,   
+          },
+    city:{
+        type: String,
+        required: true,
+        unique: true,
+    },
+    district:{
+        type: String,
+        required: true,
+        unique: true,
+    },
     description: {
         type: String,
         maxlength: 200
+    },
+    image:{
+        data: Buffer,  
+        contentType: String
     },
     createdAt: {
         type: Date,

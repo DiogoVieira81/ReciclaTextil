@@ -24,9 +24,11 @@ exports.entity_create_get = asyncHandler(async (req, res, next) => {
 // Handle Entity create on POST.
 exports.entity_create_post = asyncHandler(async (req, res, next) => {
     // Extract data from request body
-    const { name, email, description } = req.body;
-
+    console.log(req.body)
+    const { name,taxpayerNumber, email, phoneNumber,address,city,district, description} = req.body;
     // Create a new Entity object
+    
+   
     const newEntity = new Entity({
         name,
         taxpayerNumber,
@@ -36,7 +38,7 @@ exports.entity_create_post = asyncHandler(async (req, res, next) => {
         city,
         district,
         description,
-        image
+     
     });
 
     try {
@@ -44,6 +46,7 @@ exports.entity_create_post = asyncHandler(async (req, res, next) => {
         const savedEntity = await newEntity.save();
         res.status(201).json(savedEntity);
         next();
+        res.redirect('/entities/show/')
     } catch (error) {
         // Handle validation or database errors
         res.status(400).json({ message: error.message });
@@ -122,7 +125,7 @@ exports.entity_update_get = asyncHandler(async (req, res, next) => {
 exports.entity_update_post = asyncHandler(async (req, res, next) => {
     try {
         // Extract updated entity details from the request body
-        const { name,taxpayerNumber, email, phoneNumber,address,city,district, description, image } = req.body;
+        const { name,taxpayerNumber, email, phoneNumber,address,city,district, description} = req.body;
 
         // Find the entity by ID from the request parameters
         let entity = await Entity.findById(req.params.id);
@@ -141,7 +144,7 @@ exports.entity_update_post = asyncHandler(async (req, res, next) => {
             entity.city=city;
             entity.district=district;
             entity.description = description;
-            entity.image = image;
+          
 
             // Save the updated donor to the database
             entity = await entity.save();

@@ -1,22 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-<<<<<<< Updated upstream
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>View entity</title>
-    <link rel="stylesheet" href="/stylesheets/style.css" />
-  </head>
-  <body>
-    <div class="header">
-      <h1>Recicla Têxtil</h1>
-    </div>
-    <div class="topnav">
-      <a class="active" href="/"> Home </a>
-      <a href="/entities"> Entities </a>
-      <a href="/users"> Users </a>
-    </div>
-=======
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -25,7 +8,12 @@
     <style>
         .active {
             color: #ff0000; }
-    </style>
+   h1{
+    margin-top:3rem,
+    padding: 3rem
+   }
+   
+   </style>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
@@ -59,30 +47,40 @@
         </ul>
       </div>
     </nav>
->>>>>>> Stashed changes
-    <div class="container">
-      <h3><a href="/entities"> Entity: </a></h3>
-      <h1>Entity detail</h1>
-      <table>
+    
+    <h1>List of Entities</h1>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Id</th>
+          <th scope="col">Nome</th>
+          <th scope="col">Email</th>
+          <th scope="col">More Info</th>
+           <th scope="col">Delete</th>
+        </tr>
+      </thead>
+      <tbody>
         <tbody>
+          <% entities.forEach(function(entity) { %>
           <tr>
-            <td>Name:</td>
-            <td>entity.name</td>
+            <td><%= entity.id %></td>
+            <td><%= entity.name %></td>
+            <td><%= entity.email %></td>
+            <td>
+              <a href="/entities/update/<%= entity.id %>" class="btn btn-warning">Editar</a>
+            </td>
+            <td>
+              <form action="/entities/delete/<%= entity.id %>" method="post">
+                <button type="" class="btn btn-danger">Excluir</button>
+              </form>
+            </td>
           </tr>
+          <% }); %>
         </tbody>
       </table>
-    </div>
-    <div class="footer">
-      <div class="pagination">
-        <a href="#">&laquo;</a>
-        <a href="#" class="active">1</a>
-        <a href="#">2</a>
-        <a href="#">3</a>
-        <a href="#">4</a>
-        <a href="#">5</a>
-        <a href="#">...</a>
-        <a href="#">&raquo;</a>
-      </div>
-    </div>
+       
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
   </body>
 </html>

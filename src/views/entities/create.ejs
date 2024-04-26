@@ -48,39 +48,39 @@
     </nav>
  
     </div>
-    <form action="entities/create" method="post" enctype="multipart/form-data">
+    <form action="/entities/create" method="post" enctype="multipart/form-data">
       <div class="form-row ">
         <div class="form-group col-md-6">
           <label for="inputEmail4">Empresa:</label>
-          <input type="text" class="form-control" id="inputEmail4" placeholder="Insira o nome da empresa" name="name">
+          <input type="text" class="form-control" id="inputEmail4" placeholder="Insira o nome da empresa" name="name" required>
         </div>
         <div class="form-group col-md-6">
           <label for="inputContribuinte4">Contribuinte:</label>
-          <input type="text" class="form-control" id="inputContribuinte4" pattern="[0-9]{9}" placeholder="Insira o Contribuinte da empresa" name="taxpayerNumber">
+          <input type="text" class="form-control" id="inputContribuinte4" pattern="[0-9]{9}" placeholder="Insira o Contribuinte da empresa" name="taxpayerNumber" required>
         </div>
       </div>
         <div class="form-group">
           <label for="inputEmail4">Email</label>
-          <input type="email" class="form-control" id="inputEmail4" placeholder="Insira o seu email" name="email" >
+          <input type="email" class="form-control" id="inputEmail4" placeholder="Insira o seu email" name="email" required>
         </div>
       <div class="form-group">
         <label for="inputAddress">Telefone:</label>
-        <input type="Telefone" class="form-control" id="inputTelefone4" placeholder="Insira o nº telefone da empresa" name="phoneNumber">
+        <input type="Telefone" class="form-control" id="inputTelefone4" pattern="[0-9]{9}" placeholder="Insira o nº telefone da empresa" name="phoneNumber" required>
       </div>
       <div class="form-group">
         <label for="inputAddress2">Morada:</label>
-        <input type="text" class="form-control" id="inputAddress2" pattern="[0-9]{9}" placeholder="Rua, nº porta,andar" name="address">
+        <input type="text" class="form-control" id="inputAddress2"  placeholder="Rua, nº porta,andar" name="address" required>
       </div>
       <div class="form-row">
         <div class="form-group col-md-6">
           <label for="inputCity">Cidade</label>
-          <input type="text" class="form-control" id="inputCity" name="city">
+          <input type="text" class="form-control" id="inputCity" name="city" required>
         </div>
       </div>
       <div class="form-row">
         <div class="form-group col-md-6">
           <label for="inputEstado">Estado</label>
-          <select id="inputEstado" class="form-control" name="district">
+          <select id="inputEstado" class="form-control" name="district" required>
             <option selected>Selecione</option>
             <option> Aveiro</option>
             <option> Beja</option>
@@ -105,13 +105,14 @@
       <div class="form-row ">
       <div class="form-group col-md-6">
         <label for="exampleFormControlTextarea1">Descrição</label>
-        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Faça uma breve descrição acerca da empresa" name="description"></textarea>
+        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Faça uma breve descrição acerca da empresa" name="description" required></textarea>
       </div>
+      <!--
       <div class="form-group col-md-6" >
       <label for="formFileLg" class="form-label">Imagem da empresa</label>
-      <input class="form-control form-control-lg" id="formFileLg" type="file" name="image"/>
+      <input class="form-control form-control-lg" id="formFileLg" type="file" name="image" required/>
     </div>
- 
+ -->
       </div>
       <button type="submit" class="btn btn-primary">Entrar</button>
     </form>

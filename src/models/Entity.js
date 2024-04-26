@@ -1,10 +1,14 @@
 const mongoose = require('mongoose');
 
 const entitySchema = new mongoose.Schema({
+   id:{
+    type:Number,
+    unique: true 
+   },
     name: {
         type: String,
         required: true,
-        unique: true,
+     
     },
     taxpayerNumber:{
         type: String,
@@ -27,31 +31,24 @@ const entitySchema = new mongoose.Schema({
     phoneNumber:{
         type: String,
         required: true,
-        unique: true,
     },
     address:{
         type: String,
         required: true,
-        unique: true,   
           },
     city:{
         type: String,
         required: true,
-        unique: true,
     },
     district:{
         type: String,
         required: true,
-        unique: true,
     },
     description: {
         type: String,
         maxlength: 200
     },
-    image:{
-        data: Buffer,  
-        contentType: String
-    },
+   
     createdAt: {
         type: Date,
         default: Date.now,
@@ -61,6 +58,16 @@ const entitySchema = new mongoose.Schema({
         ref: 'Admin'
     }
 });
+entitySchema.pre('save', async function(next) {
+    if (!this.isNew) return next();
 
+    try {
+        const count = await this.constructor.countDocuments();
+        this.id = count + 1;
+        next();
+    } catch (error) {
+        next(error);
+    }
+});
 const Entity = mongoose.model('Entity', entitySchema);
 module.exports = Entity;

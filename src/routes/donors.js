@@ -2,6 +2,10 @@ var express = require("express");
 var router = express.Router();
 const donorsController = require("../controllers/donorControllers");
 
+router.get("/", function (req, res) {
+    res.render("donors");
+  });
+
 router.get("/create", donorsController.donor_create_get);
 
 router.post("/create", donorsController.donor_create_post);

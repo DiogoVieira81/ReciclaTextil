@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
+const ObjectId = mongoose.Types.ObjectId;
 
 const entitySchema = new mongoose.Schema({
-   id:{
+   numCliente:{
     type:Number,
     unique: true 
    },
@@ -63,7 +64,7 @@ entitySchema.pre('save', async function(next) {
 
     try {
         const count = await this.constructor.countDocuments();
-        this.id = count + 1;
+        this.numCliente = count + 1;
         next();
     } catch (error) {
         next(error);

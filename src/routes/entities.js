@@ -23,9 +23,9 @@ router.get("/create",entitiesController.entity_create_get);
 
 router.post("/create",upload.single("image"),entitiesController.entity_create_post);
 
-router.get("/update", entitiesController.entity_update_get);
+router.get("/update/:id", entitiesController.entity_update_get);
 
-router.post("/update", entitiesController.entity_update_post);
+router.post("/update/:id", entitiesController.entity_update_post);
 
 router.get("/delete", entitiesController.entity_delete_get);
 

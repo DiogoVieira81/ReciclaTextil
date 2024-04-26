@@ -6,9 +6,9 @@ router.get("/create", adminsController.admin_create_get);
 
 router.post("/create", adminsController.admin_create_post);
 
-router.get("/update", adminsController.admin_update_get);
+router.get("/update/:id", adminsController.admin_update_get);
 
-router.post("/update", adminsController.admin_update_post);
+router.post("/update/:id", adminsController.admin_update_post);
 
 router.get("/delete", adminsController.admin_delete_get);
 

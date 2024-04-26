@@ -19,9 +19,9 @@ router.get("/", function (req, res, next) {
   res.render("entities");
 });
 
-router.get("/create", upload.single("image"),entitiesController.entity_create_get);
+router.get("/create",entitiesController.entity_create_get);
 
-router.post("/create", entitiesController.entity_create_post);
+router.post("/create",upload.single("image"),entitiesController.entity_create_post);
 
 router.get("/update", entitiesController.entity_update_get);
 
@@ -32,6 +32,7 @@ router.get("/delete", entitiesController.entity_delete_get);
 router.post("/delete", entitiesController.entity_delete_post);
 
 router.get("/list", entitiesController.entity_list);
+
 
 router.get("/show/:id", entitiesController.entity_detail);
 

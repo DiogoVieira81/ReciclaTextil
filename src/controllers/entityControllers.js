@@ -4,8 +4,9 @@ const Entity = require("../models/Entity");
 // Display list of all  Entities
 exports.entity_list = asyncHandler(async (req, res, next) => {
     const entities = await Entity.find({});
-    res.json(entities);
+    res.render('entities/show', { entities: entities });
     next();
+  
 })
 
 // Display detail page for a specific Entity
@@ -25,11 +26,12 @@ exports.entity_create_get = asyncHandler(async (req, res, next) => {
 exports.entity_create_post = asyncHandler(async (req, res, next) => {
     // Extract data from request body
     console.log(req.body)
-    const { name,taxpayerNumber, email, phoneNumber,address,city,district, description} = req.body;
+    const { id,name,taxpayerNumber, email, phoneNumber,address,city,district, description} = req.body;
     // Create a new Entity object
     
    
     const newEntity = new Entity({
+        id,
         name,
         taxpayerNumber,
         email,
@@ -125,7 +127,7 @@ exports.entity_update_get = asyncHandler(async (req, res, next) => {
 exports.entity_update_post = asyncHandler(async (req, res, next) => {
     try {
         // Extract updated entity details from the request body
-        const { name,taxpayerNumber, email, phoneNumber,address,city,district, description} = req.body;
+        const { id,name,taxpayerNumber, email, phoneNumber,address,city,district, description} = req.body;
 
         // Find the entity by ID from the request parameters
         let entity = await Entity.findById(req.params.id);
@@ -136,6 +138,7 @@ exports.entity_update_post = asyncHandler(async (req, res, next) => {
             next();
         } else {
             // Update the entity fields
+            entity.id=id,
             entity.name = name;
             entity.taxpayerNumber=taxpayerNumber;
             entity.email = email;

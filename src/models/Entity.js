@@ -1,11 +1,6 @@
 const mongoose = require('mongoose');
-const ObjectId = mongoose.Types.ObjectId;
 
 const entitySchema = new mongoose.Schema({
-   numCliente:{
-    type:Number,
-    unique: true 
-   },
     name: {
         type: String,
         required: true,
@@ -59,16 +54,6 @@ const entitySchema = new mongoose.Schema({
         ref: 'Admin'
     }
 });
-entitySchema.pre('save', async function(next) {
-    if (!this.isNew) return next();
 
-    try {
-        const count = await this.constructor.countDocuments();
-        this.numCliente = count + 1;
-        next();
-    } catch (error) {
-        next(error);
-    }
-});
 const Entity = mongoose.model('Entity', entitySchema);
 module.exports = Entity;

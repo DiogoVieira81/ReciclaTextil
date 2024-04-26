@@ -27,8 +27,7 @@ exports.entity_create_post = asyncHandler(async (req, res, next) => {
     console.log(req.body)
     const { name,taxpayerNumber, email, phoneNumber,address,city,district, description} = req.body;
     // Create a new Entity object
-    
-   
+
     const newEntity = new Entity({
         name,
         taxpayerNumber,
@@ -46,7 +45,7 @@ exports.entity_create_post = asyncHandler(async (req, res, next) => {
         const savedEntity = await newEntity.save();
         res.status(201).json(savedEntity);
         next();
-        res.redirect('/entities/show/')
+        res.render('entities/show')
     } catch (error) {
         // Handle validation or database errors
         res.status(400).json({ message: error.message });

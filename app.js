@@ -14,7 +14,7 @@ const Admin = require('./src/models/Admin');
 const Entity = require('./src/models/Entity'); 
 
 var adminControllers = require('./src/controllers/adminControllers');
-var adminAuth = require('./src/middleware/adminAuth');
+var adminAuth = require('./src/middleware/auth');
 
 var indexRouter = require('./src/routes/dashboard');
 var loginRouter = require('./src/routes/login');

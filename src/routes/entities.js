@@ -27,9 +27,9 @@ router.get("/update/:id", entitiesController.entity_update_get);
 
 router.post("/update/:id", entitiesController.entity_update_post);
 
-router.get("/delete", entitiesController.entity_delete_get);
+router.get("/delete/:id", entitiesController.entity_delete_get);
 
-router.post("/delete", entitiesController.entity_delete_post);
+router.post("/delete/:id", entitiesController.entity_delete_post);
 
 router.get("/list", entitiesController.entity_list);
 

@@ -44,7 +44,7 @@ exports.entity_create_post = asyncHandler(async (req, res, next) => {
         const savedEntity = await newEntity.save();
         res.status(201).json(savedEntity);
        
-        res.redirect('/entities/show/')
+      
     } catch (error) {
         // Handle validation or database errors
         res.status(400).json({ message: error.message });

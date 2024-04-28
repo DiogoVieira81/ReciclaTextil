@@ -48,94 +48,100 @@
     </nav>
  
     </div>
-    <form action="/entities/update/<%= entity._id %>" method="post" enctype="multipart/form-data" >
+   
+    <form action="/entities/update/<%= entity._id %>" method="POST">
       <div class="form-row ">
         <div class="form-group col-md-6">
-          <label for="inputEmail4">Empresa:</label>
-          <input type="text" class="form-control" id="inputEmail4" placeholder="Insira o nome da empresa" name="name" value="<%= entity.name %> "readonly required>
+          <label for="name">Empresa:</label>
+          <input type="text" class="form-control" id="name" name="name" value="<%= entity.name %> "readonly required>
         </div>
         <div class="form-group col-md-6">
-          <label for="inputContribuinte4">Contribuinte:</label>
-          <input type="text" class="form-control" id="inputContribuinte4" pattern="[0-9]{9}" placeholder="Insira o Contribuinte da empresa" name="taxpayerNumber" value="<%= entity.taxpayerNumber %>" readonly required>
+          <label for="taxpayerNumber">Contribuinte:</label>
+          <input type="text" class="form-control" id="taxpayerNumber" pattern="[0-9]{9}"  name="taxpayerNumber" value="<%= entity.taxpayerNumber %>" readonly required>
         </div>
       </div>
         <div class="form-group">
-          <label for="inputEmail4">Email</label>
-          <input type="email" class="form-control" id="inputEmail4" placeholder="Insira o seu email" name="email"  value="<%= entity.email %>" readonly required>
+          <label for="email">Email</label>
+          <input type="email" class="form-control" id="email"  name="email"  value="<%= entity.email %>" readonly required>
         </div>
       <div class="form-group">
-        <label for="inputAddress">Telefone:</label>
-        <input type="Telefone" class="form-control" id="inputTelefone4" pattern="[0-9]{9}" placeholder="Insira o nº telefone da empresa" name="phoneNumber" value="<%= entity.phoneNumber %>" readonly required>
+        <label for="phoneNumber">Telefone:</label>
+        <input type="Telefone" class="form-control" id="phoneNumber" pattern="[0-9]{9}"  name="phoneNumber" value="<%= entity.phoneNumber %>" readonly required>
       </div>
       <div class="form-group">
-        <label for="inputAddress2">Morada:</label>
-        <input type="text" class="form-control" id="inputAddress2"  placeholder="Rua, nº porta,andar" name="address"value="<%= entity.address %>" readonly required>
+        <label for="adress">Morada:</label>
+        <input type="text" class="form-control" id="adress"   name="address" value="<%= entity.address %>" readonly required>
       </div>
       <div class="form-row">
         <div class="form-group col-md-6">
-          <label for="inputCity">Cidade</label>
-          <input type="text" class="form-control" id="inputCity" name="city" value="<%= entity.city %>"readonly required>
+          <label for="city">Cidade</label>
+          <input type="text" class="form-control" id="city" name="city" value="<%= entity.city %>"readonly required>
         </div>
       </div>
       <div class="form-row">
         <div class="form-group col-md-6">
-          <label for="inputEstado">Estado</label>
-          <select id="inputEstado" class="form-control" name="district" readonly required>
-            <option selected>Selecione</option>
-            <option <%= (entity.district === 'Aveiro') ? 'selected' : '' %>> Aveiro</option>
-                    <option <%= (entity.district === 'Beja') ? 'selected' : '' %>> Beja</option>
-                    <option <%= (entity.district === 'Braga') ? 'selected' : '' %>> Braga</option>
-                    <option <%= (entity.district === 'Bragança') ? 'selected' : '' %>> Bragança</option>
-                    <option <%= (entity.district === 'Coimbra') ? 'selected' : '' %>> Coimbra</option>
-                    <option <%= (entity.district === 'Évora') ? 'selected' : '' %>> Évora</option>
-                    <option <%= (entity.district === 'Faro') ? 'selected' : '' %>> Faro</option>
-                    <option <%= (entity.district === 'Guarda') ? 'selected' : '' %>> Guarda</option>
-                    <option <%= (entity.district === 'Leiria') ? 'selected' : '' %>> Leiria</option>
-                    <option <%= (entity.district === 'Lisboa') ? 'selected' : '' %>> Lisboa</option>
-                    <option <%= (entity.district === 'Portalegre') ? 'selected' : '' %>> Portalegre</option>
-                    <option <%= (entity.district === 'Santarém') ? 'selected' : '' %>> Santarém</option>
-                    <option <%= (entity.district === 'Setubal') ? 'selected' : '' %>> Setubal</option>
-                    <option <%= (entity.district === 'Viana do Castelo') ? 'selected' : '' %>> Viana do Castelo</option>
-                    <option <%= (entity.district === 'Vila Real') ? 'selected' : '' %>> Vila Real</option>
-                    <option <%= (entity.district === 'Viseu') ? 'selected' : '' %>> Viseu</option>
+          <label for="district">Distrito</label>
+          <select  class="form-control" id="district"name="district" readonly required>
+            <option value="">Selecione</option>
+            <option value="">Selecione</option>
+                    <option value="Aveiro" <%= (entity.district === "Aveiro") ? "selected" : "" %>>Aveiro</option>
+                    <option value="Beja" <%= (entity.district === "Beja") ? "selected" : "" %>>Beja</option>
+                    <option value="Braga" <%= (entity.district === "Braga") ? "selected" : "" %>>Braga</option>
+                    <option value="Bragança" <%= (entity.district === "Bragança") ? "selected" : "" %>>Bragança</option>
+                    <option value="Coimbra" <%= (entity.district === "Coimbra") ? "selected" : "" %>>Coimbra</option>
+                    <option value="Évora" <%= (entity.district === "Évora") ? "selected" : "" %>>Évora</option>
+                    <option value="Faro" <%= (entity.district === "Faro") ? "selected" : "" %>>Faro</option>
+                    <option value="Guarda" <%= (entity.district === "Guarda") ? "selected" : "" %>>Guarda</option>
+                    <option value="Leiria" <%= (entity.district === "Leiria") ? "selected" : "" %>>Leiria</option>
+                    <option value="Lisboa" <%= (entity.district === "Lisboa") ? "selected" : "" %>>Lisboa</option>
+                    <option value="Portalegre" <%= (entity.district === "Portalegre") ? "selected" : "" %>>Portalegre</option>
+                    <option value="Santarém" <%= (entity.district === "Santarém") ? "selected" : "" %>>Santarém</option>
+                    <option value="Setúbal" <%= (entity.district === "Setúbal") ? "selected" : "" %>>Setúbal</option>
+                    <option value="Viana do Castelo" <%= (entity.district === "Viana do Castelo") ? "selected" : "" %>>Viana do Castelo</option>
+                    <option value="Vila Real" <%= (entity.district === "Vila Real") ? "selected" : "" %>>Vila Real</option>
+                    <option value="Viseu" <%= (entity.district === "Viseu") ? "selected" : "" %>>Viseu</option>
             
           </select>
         </div>
       </div>
       <div class="form-row ">
-      <div class="form-group col-md-6">
-        <label for="exampleFormControlTextarea1">Descrição</label>
-        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Faça uma breve descrição acerca da empresa" name="description" readonly required><%= entity.description %></textarea>
+        <div class="form-group col-md-6">
+          <label for="description">Descrição</label>
+          <textarea class="form-control" id="description" rows="3" 
+         name="description" readonly required><%= entity.description %></textarea>
       </div>
+    </div>
       <!--
       <div class="form-group col-md-6" >
       <label for="formFileLg" class="form-label">Imagem da empresa</label>
       <input class="form-control form-control-lg" id="formFileLg" type="file" name="image" required/>
     </div>
  -->
-      </div>
       
-      <button type="submit" id="submitButton" class="btn btn-primary" disabled>Concluido</button>
+      
+            <button type="submit" id="submitButton" class="btn btn-primary" style="display: none;">Concluido</button>
 </form>
-<button class="btn btn-primary edit-button">Editar</button>
+<button type="button" class="btn btn-primary edit-button">Editar</button>
 <script>
-    const editButton = document.querySelector('.edit-button');
-    const submitButton = document.querySelector('#submitButton');
+   const editButton = document.querySelector('.edit-button');
+        const submitButton = document.querySelector('#submitButton');
 
-    const formInputs = document.querySelectorAll('form input:not([type="submit"]), form textarea, form select');
+        const formInputs = document.querySelectorAll('form input:not([type="submit"]), form textarea, form select');
 
-    editButton.addEventListener('click', function () {
-        formInputs.forEach(input => {
-            input.removeAttribute('readonly');
+        editButton.addEventListener('click', function () {
+            formInputs.forEach(input => {
+                input.removeAttribute('readonly');
+            });
+            submitButton.style.display = 'block';
         });
-        submitButton.removeAttribute('disabled');
-    });
-    document.getElementById('entityForm').addEventListener('submit', function () {
-        formInputs.forEach(input => {
-            input.removeAttribute('readonly');
+
+        document.getElementById('entityForm').addEventListener('submit', function () {
+            formInputs.forEach(input => {
+                input.removeAttribute('readonly');
+            });
         });
-    });
-</script>
+    </script>
+
   </script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>

@@ -20,6 +20,7 @@ var indexRouter = require('./src/routes/dashboard');
 //var loginRouter = require('./src/routes/login');
 var entityRouter = require('./src/routes/entities');
 var donorRouter = require('./src/routes/donors');
+var adminsRouter = require('./src/routes/admins');
 
 var app = express();
 
@@ -107,6 +108,7 @@ app.get('/logout', function (req, res) {
   req.logout();
   res.redirect('/login');
 });
+app.use('/admins', adminsRouter);
 
 // Admin Dashboard Route
 //app.get('/admin/dashboard', adminAuth, (req, res) => {

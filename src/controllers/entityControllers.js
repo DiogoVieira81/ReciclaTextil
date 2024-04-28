@@ -86,8 +86,8 @@ exports.entity_delete_post = asyncHandler(async (req, res, next) => {
             next();
         } else {
             // Delete the donor from the database
-            await entity.remove();
-            res.json({ message: "Entity deleted successfully" });
+            await Entity.deleteOne({ _id: entity.id });
+           res.render('entities/message')
             next();
         }
     } catch (error) {

@@ -146,7 +146,7 @@ exports.entity_update_post = asyncHandler(async (req, res, next) => {
 
             // Save the updated donor to the database
             entity = await entity.save();
-            res.json(entity);
+            res.render('entities/message')
             next();
         }
     } catch (error) {

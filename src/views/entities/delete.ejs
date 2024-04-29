@@ -15,6 +15,9 @@
       font-size:50px;  
       color: #8B4513;
     }
+    .botaoBack{
+      font-color:#FFFFFF
+    }
     </style>
 
 </head>
@@ -60,6 +63,7 @@
       <form action="/entities/delete/<%= entity.id %>" method="POST">
           <button type="submit" class="btn btn-primary">Confirmar Exclusão</button>
       </form>
+        <button type="submit" class=" btn btn-primary" ><a href="entities/list" class="text-white"  style="text-decoration: none;">Voltar à lista de entidades</a></button>
   </div>
 <script>
    

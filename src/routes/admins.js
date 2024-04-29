@@ -10,15 +10,15 @@ router.get("/update/:id", adminsController.admin_update_get);
 
 router.post("/update/:id", adminsController.admin_update_post);
 
-router.get("/delete", adminsController.admin_delete_get);
+router.get("/delete:id", adminsController.admin_delete_get);
 
-router.post("/delete", adminsController.admin_delete_post);
+router.post("/delete:id", adminsController.admin_delete_post);
 
-router.get("/login", adminsController.admin_login_get);
+router.get("/login:id", adminsController.admin_login_get);
 
-router.post("/login", adminsController.admin_login_post);
+router.post("/login:id", adminsController.admin_login_post);
 
-router.get("/show/:id", adminsController.admin_detail);
+
 
 router.get('/dashboard', function(req, res) {
     res.render('dashboard');

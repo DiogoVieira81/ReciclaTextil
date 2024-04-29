@@ -34,6 +34,4 @@ router.post("/delete/:id", entitiesController.entity_delete_post);
 router.get("/list", entitiesController.entity_list);
 
 
-router.get("/show/:id", entitiesController.entity_detail);
-
 module.exports = router;

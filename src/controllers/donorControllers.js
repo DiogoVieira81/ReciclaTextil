@@ -26,13 +26,18 @@ exports.donor_create_get = asyncHandler(async (req, res, next) => {
 // Handle Donor create on POST.
 exports.donor_create_post = asyncHandler(async (req, res, next) => {
     // Extract data from request body
-    const { username, email, description } = req.body;
+    const { username, email, phoneNumber,adress,city,district,points} = req.body;
 
     // Create a new Donor object
     const newDonor = new Donor({
         username,
         email,
-        description
+        phoneNumber,
+        adress,
+        city,
+        district,
+        points
+
     });
 
     try {
@@ -81,7 +86,7 @@ exports.donor_delete_post = asyncHandler(async (req, res, next) => {
             next();
         } else {
             // Delete the donor from the database
-            await donor.remove();
+            await Entity.deleteOne({ _id: entity.id });
             res.json({ message: "Donor deleted successfully" });
             next();
         }
@@ -118,7 +123,7 @@ exports.donor_update_get = asyncHandler(async (req, res, next) => {
 exports.donor_update_post = asyncHandler(async (req, res, next) => {
     try {
         // Extract updated donor details from the request body
-        const { username, password, description, points } = req.body;
+        const { username, email, phoneNumber,adress,city,district,points} = req.body;
 
         // Find the donor by ID from the request parameters
         let donor = await Donor.findById(req.params.id);
@@ -130,8 +135,11 @@ exports.donor_update_post = asyncHandler(async (req, res, next) => {
         } else {
             // Update the donor fields
             donor.username = username;
-            donor.password = password;
-            donor.description = description;
+            donor.email=email;
+            donor.phoneNumber=phoneNumber;
+            donor.adress=adress;
+            donor.city=city;
+            donor.district=district
             donor.points = points;
 
             // Save the updated donor to the database

@@ -26,11 +26,11 @@ exports.donor_create_get = asyncHandler(async (req, res, next) => {
 // Handle Donor create on POST.
 exports.donor_create_post = asyncHandler(async (req, res, next) => {
     // Extract data from request body
-    const { username, email, phoneNumber,adress,city,district,points} = req.body;
+    const { name, email, phoneNumber,adress,city,district,points} = req.body;
 
     // Create a new Donor object
     const newDonor = new Donor({
-        username,
+        name,
         email,
         phoneNumber,
         adress,
@@ -123,7 +123,7 @@ exports.donor_update_get = asyncHandler(async (req, res, next) => {
 exports.donor_update_post = asyncHandler(async (req, res, next) => {
     try {
         // Extract updated donor details from the request body
-        const { username, email, phoneNumber,adress,city,district,points} = req.body;
+        const {name, email, phoneNumber,adress,city,district,points} = req.body;
 
         // Find the donor by ID from the request parameters
         let donor = await Donor.findById(req.params.id);
@@ -134,7 +134,7 @@ exports.donor_update_post = asyncHandler(async (req, res, next) => {
             next();
         } else {
             // Update the donor fields
-            donor.username = username;
+            donor.name = name;
             donor.email=email;
             donor.phoneNumber=phoneNumber;
             donor.adress=adress;

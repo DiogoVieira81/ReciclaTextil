@@ -8,7 +8,11 @@
     <style>
         .active {
             color: #ff0000; }
+    form{
+      margin-top: 2rem;
+    }
     </style>
+
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
@@ -23,11 +27,11 @@
             <a class="nav-link " href="#">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" href="#">Doadores</a>
+            <a class="nav-link " href="#">Doadores</a>
           </li>
 
           <li class="nav-item">
-            <a class="nav-link" href="#">Entidades beneficiadoras</a>
+            <a class="nav-link active " href="entities/list">Entidades beneficiadoras</a>
           </li>
     
           
@@ -42,28 +46,74 @@
         </ul>
       </div>
     </nav>
-   
-    <div class="main">
-      <form action="/donors/create" method="post">
-        <label for="username"> Username: </label>
-        <p></p>
-        <input type="text" name="username" id="username" required>
-        <p></p>
-        <label for="email"> Email: </label>
-        <p></p>
-        <input type="email" name="email" id="email" required>
-        <p></p>
-        <label for="description"> Description: </label>
-        <p></p>
-        <textarea name="description" id="description" cols="30" rows="10" required></textarea>
-        <p></p>
-        <button type="submit"> Submit </button>
-        <input type="reset" value="Reset">
-      </form>
+ 
     </div>
-  </div>
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <form action="/donors/create" method="post" enctype="multipart/form-data">
+      <div class="form-row ">
+        <div class="form-group col-md-6">
+          <label for="inputEmail4">Nome</label>
+          <input type="text" class="form-control" id="inputEmail4" placeholder="Insira o nome da empresa" name="name" required>
+        </div>
+        <div class="form-group">
+          <label for="inputEmail4">Email</label>
+          <input type="email" class="form-control" id="inputEmail4" placeholder="Insira o seu email" name="email" required>
+        </div>
+      <div class="form-group">
+        <label for="inputAddress">Telefone:</label>
+        <input type="Telefone" class="form-control" id="inputTelefone4" pattern="[0-9]{9}" placeholder="Insira o nº telefone da empresa" name="phoneNumber" required>
+      </div>
+      <div class="form-group">
+        <label for="inputAddress2">Morada:</label>
+        <input type="text" class="form-control" id="inputAddress2"  placeholder="Rua, nº porta,andar" name="address" required>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="inputCity">Cidade</label>
+          <input type="text" class="form-control" id="inputCity" name="city" required>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="inputEstado">Distrito</label>
+          <select id="inputEstado" class="form-control" name="district" required>
+            <option selected>Selecione</option>
+            <option> Aveiro</option>
+            <option> Beja</option>
+            <option> Braga</option>
+            <option> Bragança</option>
+            <option> Coimbra</option>
+            <option> Évora</option>
+            <option> Faro</option>
+            <option> Guarda</option>
+            <option> Leiria</option>
+            <option> Lisboa</option>
+            <option> Portalegre</option>
+            <option> Porto</option>
+            <option> Santarém</option>
+            <option> Setubal</option>
+            <option> Viana do Castelo</option>
+            <option> Vila Real</option>
+            <option> Viseu</option>
+            
+          </select>
+        </div>
+      </div>
+      <div class="form-row ">
+      <div class="form-group col-md-6">
+        <label for="exampleFormControlTextarea1">Pontos Acumulados</label>
+        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Faça uma breve descrição acerca da empresa" name="points" required></textarea>
+      </div>
+      <!--
+      <div class="form-group col-md-6" >
+      <label for="formFileLg" class="form-label">Imagem da empresa</label>
+      <input class="form-control form-control-lg" id="formFileLg" type="file" name="image" required/>
+    </div>
+ -->
+      </div>
+      <button type="submit" class="btn btn-primary">Registar</button>
+    </form>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
   </body>
 </html>

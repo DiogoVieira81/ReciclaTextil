@@ -19,7 +19,7 @@ exports.donor_detail = asyncHandler(async (req, res, next) => {
 
 // Display Donor create form on GET.
 exports.donor_create_get = asyncHandler(async (req, res, next) => {
-    res.render('/donors/create', { title: 'Criar Doador' });
+    res.render('donors/create', { title: 'Criar Doador' });
     next();
 })
 
@@ -36,7 +36,7 @@ exports.donor_create_post = asyncHandler(async (req, res, next) => {
         address,
         city,
         district,
-        points
+        points,
 
     });
 
@@ -139,7 +139,7 @@ exports.donor_update_post = asyncHandler(async (req, res, next) => {
             donor.phoneNumber=phoneNumber;
             donor.address=address;
             donor.city=city;
-            donor.district=district
+            donor.district=district;
             donor.points = points;
 
             // Save the updated donor to the database

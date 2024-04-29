@@ -8,6 +8,9 @@
     <style>
         .active {
             color: #ff0000; }
+            form{
+      margin-top: 2rem;
+    }
     </style>
 </head>
 <body>
@@ -43,6 +46,98 @@
       </div>
     </nav>
   </div>
+    <form action="/donors/update/<%= donor._id %>" method="POST">
+      <div class="form-row ">
+        <div class="form-group col-md-6">
+          <label for="name">Nome:</label>
+          <input type="text" class="form-control" id="name" name="name" value="<%= donor.name %> "readonly required>
+        </div>
+      </div>
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input type="email" class="form-control" id="email"  name="email"  value="<%= donor.email %>" readonly required>
+        </div>
+      <div class="form-group">
+        <label for="phoneNumber">Telefone:</label>
+        <input type="Telefone" class="form-control" id="phoneNumber" pattern="[0-9]{9}"  name="phoneNumber" value="<%= donor.phoneNumber %>" readonly required>
+      </div>
+      <div class="form-group">
+        <label for="adress">Morada:</label>
+        <input type="text" class="form-control" id="adress"   name="address" value="<%= donor.address %>" readonly required>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="city">Cidade</label>
+          <input type="text" class="form-control" id="city" name="city" value="<%= donor.city %>"readonly required>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="district">Distrito</label>
+          <select  class="form-control" id="district"name="district" readonly required>
+            <option value="">Selecione</option>
+            <option value="">Selecione</option>
+                    <option value="Aveiro" <%= (donor.district === "Aveiro") ? "selected" : "" %>>Aveiro</option>
+                    <option value="Beja" <%= (donor.district === "Beja") ? "selected" : "" %>>Beja</option>
+                    <option value="Braga" <%= (donor.district === "Braga") ? "selected" : "" %>>Braga</option>
+                    <option value="Bragança" <%= (donor.district === "Bragança") ? "selected" : "" %>>Bragança</option>
+                    <option value="Coimbra" <%= (donor.district === "Coimbra") ? "selected" : "" %>>Coimbra</option>
+                    <option value="Évora" <%= (donor.district === "Évora") ? "selected" : "" %>>Évora</option>
+                    <option value="Faro" <%= (donor.district === "Faro") ? "selected" : "" %>>Faro</option>
+                    <option value="Guarda" <%= (donor.district === "Guarda") ? "selected" : "" %>>Guarda</option>
+                    <option value="Leiria" <%= (donor.district === "Leiria") ? "selected" : "" %>>Leiria</option>
+                    <option value="Lisboa" <%= (donor.district === "Lisboa") ? "selected" : "" %>>Lisboa</option>
+                    <option value="Portalegre" <%= (donor.district === "Portalegre") ? "selected" : "" %>>Portalegre</option>
+                    <option value="Santarém" <%= (donor.district === "Santarém") ? "selected" : "" %>>Santarém</option>
+                    <option value="Setúbal" <%= (donor.district === "Setúbal") ? "selected" : "" %>>Setúbal</option>
+                    <option value="Viana do Castelo" <%= (donor.district === "Viana do Castelo") ? "selected" : "" %>>Viana do Castelo</option>
+                    <option value="Vila Real" <%= (donor.district === "Vila Real") ? "selected" : "" %>>Vila Real</option>
+                    <option value="Viseu" <%= (donor.district === "Viseu") ? "selected" : "" %>>Viseu</option>
+            
+          </select>
+        </div>
+      </div>
+    <div class="form-row">
+  <div class="form-group col-md-6">
+      <label for="inputKg">Quantidade de Kg doados</label>
+      <input type="number" class="form-control" id="inputKg" value="<%= donor.kg %>" name="kg" required readonly disabled>
+  </div>
+  <div class="form-group col-md-6">
+      <label for="inputPoints">Quantidade de Pontos Acumulados</label>
+      <input type="number" class="form-control" id="inputPoints" value="<%= donor.points %>" name="points" required readonly disabled>
+  </div>
+      
+      <!--
+      <div class="form-group col-md-6" >
+      <label for="formFileLg" class="form-label">Imagem da empresa</label>
+      <input class="form-control form-control-lg" id="formFileLg" type="file" name="image" required/>
+    </div>
+ -->
+      
+      
+            <button type="submit" id="submitButton" class="btn btn-primary" style="display: none;">Concluido</button>
+</form>
+<button type="button" class="btn btn-primary edit-button">Editar</button>
+<script>
+   const editButton = document.querySelector('.edit-button');
+        const submitButton = document.querySelector('#submitButton');
+
+        const formInputs = document.querySelectorAll('form input:not([type="submit"]), form textarea, form select');
+
+        editButton.addEventListener('click', function () {
+            formInputs.forEach(input => {
+                input.removeAttribute('readonly');
+            });
+            submitButton.style.display = 'block';
+        });
+
+        document.getElementById('entityForm').addEventListener('submit', function () {
+            formInputs.forEach(input => {
+                input.removeAttribute('readonly');
+            });
+        });
+    </script>
+  
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>

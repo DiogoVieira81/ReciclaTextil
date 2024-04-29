@@ -38,7 +38,6 @@ const donorSchema = new mongoose.Schema({
     },
     kg: {
         type: Number,
-        required: true,
         default: 0,
         validate: {
             validator: function (value) {
@@ -49,7 +48,6 @@ const donorSchema = new mongoose.Schema({
     },
     points: {
         type: Number,
-        required: true,
         default: 0,
         validate: {
             validator: function (value) {

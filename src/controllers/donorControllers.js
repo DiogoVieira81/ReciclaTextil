@@ -6,8 +6,7 @@ const { calculatePointsForDonation } = require("../utils/donationUtils");
 // Display list of all  Donors
 exports.donor_list = asyncHandler(async (req, res, next) => {
     const donors = await Donor.find({});
-    res.json(donors);
-    next();
+    res.render('donors/show', { donors: donors });
 })
 
 // Display detail page for a specific Donor

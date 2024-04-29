@@ -36,6 +36,17 @@ const donorSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    kg: {
+        type: Number,
+        required: true,
+        default: 0,
+        validate: {
+            validator: function (value) {
+                return value >= 0;
+            },
+            message: props => `${props.value} is not a valid value for points! Points cannot be negative.`
+        }
+    },
     points: {
         type: Number,
         required: true,

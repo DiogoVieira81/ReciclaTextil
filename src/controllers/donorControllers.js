@@ -26,7 +26,7 @@ exports.donor_create_get = asyncHandler(async (req, res, next) => {
 // Handle Donor create on POST.
 exports.donor_create_post = asyncHandler(async (req, res, next) => {
     // Extract data from request body
-    const { name, email, phoneNumber,address,city,district,points} = req.body;
+    const { name, email, phoneNumber,address,city,district,kg,points} = req.body;
 
     // Create a new Donor object
     const newDonor = new Donor({
@@ -36,6 +36,7 @@ exports.donor_create_post = asyncHandler(async (req, res, next) => {
         address,
         city,
         district,
+        kg,
         points,
 
     });
@@ -123,7 +124,7 @@ exports.donor_update_get = asyncHandler(async (req, res, next) => {
 exports.donor_update_post = asyncHandler(async (req, res, next) => {
     try {
         // Extract updated donor details from the request body
-        const {name, email, phoneNumber,address,city,district,points} = req.body;
+        const {name, email, phoneNumber,address,city,district,kg,points} = req.body;
 
         // Find the donor by ID from the request parameters
         let donor = await Donor.findById(req.params.id);
@@ -140,6 +141,7 @@ exports.donor_update_post = asyncHandler(async (req, res, next) => {
             donor.address=address;
             donor.city=city;
             donor.district=district;
+            donor.kg=kg;
             donor.points = points;
 
             // Save the updated donor to the database

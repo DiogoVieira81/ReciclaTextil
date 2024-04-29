@@ -70,7 +70,7 @@
       <div class="form-row">
         <div class="form-group col-md-6">
           <label for="inputCity">Cidade</label>
-          <input type="text" class="form-control" id="inputCity" name="city" required>
+          <input type="text" class="form-control" id="inputCity"placeholder="Introduza a sua cidade" name="city" required>
         </div>
       </div>
       <div class="form-row">
@@ -99,18 +99,24 @@
           </select>
         </div>
       </div>
-      <div class="form-row ">
-      <div class="form-group col-md-6">
-        <label for="points">Pontos Acumulados</label>
-        <textarea class="form-control" id="points" rows="3" placeholder="Faça uma breve descrição acerca da empresa" name="points" required></textarea>
-      </div>
+      
+      
       <!--
       <div class="form-group col-md-6" >
       <label for="formFileLg" class="form-label">Imagem da empresa</label>
       <input class="form-control form-control-lg" id="formFileLg" type="file" name="image" required/>
     </div>
  -->
-      </div>
+ <div class="form-row">
+  <div class="form-group col-md-6">
+      <label for="inputKg">Kg doados</label>
+      <input type="number" class="form-control" id="inputKg" placeholder="Adicione a quantidade de kg doados" name="kg" required>
+  </div>
+  <div class="form-group col-md-6">
+      <label for="inputPoints">Pontos Acumulados</label>
+      <input type="number" class="form-control" id="inputPoints" placeholder="Adicione os pontos ganhos" name="points" required>
+  </div>
+</div>
       <button type="submit" class="btn btn-primary">Registar</button>
     </form>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

@@ -12,14 +12,13 @@ router.post("/create", donorsController.donor_create_post);
 
 router.get("/update", donorsController.donor_update_get);
 
-router.post("/update", donorsController.donor_update_post);
+router.post("/update:id", donorsController.donor_update_post);
 
-router.get("/delete", donorsController.donor_delete_get);
+router.get("/delete:id", donorsController.donor_delete_get);
 
-router.post("/delete", donorsController.donor_delete_post);
+router.post("/delete:id", donorsController.donor_delete_post);
 
 router.get("/list", donorsController.donor_list);
 
-router.get("/show/:id", donorsController.donor_detail);
 
 module.exports = router;

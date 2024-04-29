@@ -6,6 +6,7 @@ const donorSchema = new mongoose.Schema({
         required: true,
         unique: true,
     },
+
     email: {
         type: String,
         required: true,
@@ -19,9 +20,21 @@ const donorSchema = new mongoose.Schema({
             message: props => `${props.value} is not a valid email address!`
         }
     },
-    description: {
+    phoneNumber:{
         type: String,
-        maxlength: 200
+        required: true,
+    },
+    address:{
+        type: String,
+        required: true,
+          },
+    city:{
+        type: String,
+        required: true,
+    },
+    district:{
+        type: String,
+        required: true,
     },
     points: {
         type: Number,

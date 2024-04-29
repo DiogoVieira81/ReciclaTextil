@@ -10,7 +10,7 @@ router.get("/create", donorsController.donor_create_get);
 
 router.post("/create", donorsController.donor_create_post);
 
-router.get("/update", donorsController.donor_update_get);
+router.get("/update/:id", donorsController.donor_update_get);
 
 router.post("/update:id", donorsController.donor_update_post);
 

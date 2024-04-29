@@ -43,7 +43,7 @@ exports.donor_create_post = asyncHandler(async (req, res, next) => {
     try {
         // Save the new donor to the database
         const savedDonor = await newDonor.save();
-        res.status(201).json(savedDonor); // Return the newly created customer
+       res.render('donors/message')// Return the newly created customer
         next();
     } catch (error) {
         // Handle validation or database errors
@@ -64,8 +64,8 @@ exports.donor_delete_get = asyncHandler(async (req, res, next) => {
             next();
         } else {
             // Render a delete confirmation form or page
-            res.render("donor_delete", { donor: donor });
-            next();
+            res.render("donors/delete", { donor: donor });
+           
         }
     } catch (error) {
         // Handle database errors
@@ -86,8 +86,8 @@ exports.donor_delete_post = asyncHandler(async (req, res, next) => {
             next();
         } else {
             // Delete the donor from the database
-            await Entity.deleteOne({ _id: entity.id });
-            res.json({ message: "Donor deleted successfully" });
+            await Donor.deleteOne({ _id: donor.id });
+            res.render('donors/message')
             next();
         }
     } catch (error) {
@@ -109,7 +109,7 @@ exports.donor_update_get = asyncHandler(async (req, res, next) => {
             next();
         } else {
             // Render the donor update form with the existing donor details
-            res.render("donor_update", { donor: donor });
+            res.render("donors/update", { donor: donor });
             next();
         }
     } catch (error) {
@@ -145,7 +145,7 @@ exports.donor_update_post = asyncHandler(async (req, res, next) => {
 
             // Save the updated donor to the database
             donor = await donor.save();
-            res.json(donor);
+            res.render('donors/message')
             next();
         }
     } catch (error) {

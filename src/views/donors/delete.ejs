@@ -42,6 +42,15 @@
         </ul>
       </div>
     </nav>
+ 
+    <div class="alert alert-warning" role="alert">
+      <h2 class="alert-heading">Atenção!</h2>
+      <h3>Tem certeza que deseja excluir a entidade <span class="text1"><%= donor.name %>?</span></h3>
+      <hr>
+      <form action="/donors/delete/<%= donor.id %>" method="POST">
+          <button type="submit" class="btn btn-primary">Confirmar Exclusão</button>
+      </form>
+        <button type="submit" class=" btn btn-primary" ><a href="/donors/list" class="text-white"  style="text-decoration: none;">Voltar à lista de doadores</a></button>
   </div>
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>

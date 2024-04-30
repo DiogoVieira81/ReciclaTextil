@@ -13,6 +13,7 @@ const fs = require('fs');
 
 const Admin = require('./src/models/Admin');
 const Entity = require('./src/models/Entity'); 
+const Donation = require('./src/models/Donation'); 
 
 var adminControllers = require('./src/controllers/adminControllers');
 //var adminAuth = require('./src/middleware/adminAuth');
@@ -21,6 +22,7 @@ var indexRouter = require('./src/routes/dashboard');
 //var loginRouter = require('./src/routes/login');
 var entityRouter = require('./src/routes/entities');
 var donorRouter = require('./src/routes/donors');
+var donationRouter = require('./src/routes/donations');
 
 var app = express();
 
@@ -105,6 +107,7 @@ app.use('/', indexRouter);
 //app.use('/login', loginRouter);
 app.use('/entities', entityRouter);
 app.use('/donors', donorRouter);
+app.use('/donations', donationRouter);
 app.get('/logout', function (req, res) {
   req.logout();
   res.redirect('/login');

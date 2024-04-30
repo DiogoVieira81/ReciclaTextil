@@ -18,14 +18,19 @@ exports.donor_detail = asyncHandler(async (req, res, next) => {
 
 // Display Donor create form on GET.
 exports.donor_create_get = asyncHandler(async (req, res, next) => {
-    res.render('donors/create', { title: 'Criar Doador' });
-    next();
+    try {
+        const donors = await Donor.find({}, 'name');
+        const entities = await Entity.find({}, 'name');
+        res.render('donations/create', { title: 'Criar Doação', donors, entities });
+    } catch (error) {
+        return next(error);
+    }
 })
 
 // Handle Donor create on POST.
 exports.donor_create_post = asyncHandler(async (req, res, next) => {
     // Extract data from request body
-    const { name, email, phoneNumber,address,city,district,kg,points} = req.body;
+    const { name, email, phoneNumber,address,city,district,kg,points,donor,entitie} = req.body;
 
     // Create a new Donor object
     const newDonor = new Donor({
@@ -37,6 +42,8 @@ exports.donor_create_post = asyncHandler(async (req, res, next) => {
         district,
         kg,
         points,
+        donor,
+        entitie
 
     });
 

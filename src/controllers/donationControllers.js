@@ -24,14 +24,15 @@ exports.donation_create_get = asyncHandler(async (req, res, next) => {
 // Handle Donation create on POST.
 exports.donation_create_post = asyncHandler(async (req, res, next) => {
     // Extract data from request body
-    const { description, value, donor, entity } = req.body;
+    const { numberOfParts,condition,kg } = req.body;
 
     // Create a new Donation object
     const newDonation = new Donation({
-        description,
-        value,
-        donor,
-        entity
+        numberOfParts,
+        condition,
+        kg,
+        donor: req.body.donor, 
+        entity: req.body.entity
     });
 
     try {
@@ -117,7 +118,7 @@ exports.donation_update_get = asyncHandler(async (req, res, next) => {
 exports.donation_update_post = asyncHandler(async (req, res, next) => {
     try {
         // Extract updated donation details from the request body
-        const { description, value } = req.body;
+        const { numberOfParts,condition,kg } = req.body;
 
         // Find the donor by ID from the request parameters
         let donation = await Donation.findById(req.params.id);
@@ -128,8 +129,9 @@ exports.donation_update_post = asyncHandler(async (req, res, next) => {
             next();
         } else {
             // Update the donation fields
-            donation.description = description;
-            donation.value = value;
+            donation.numberOfParts=numberOfParts,
+            donation.condition=condition,
+            donation.kg=kg
 
             // Save the updated donation to the database
             donation = await donation.save();

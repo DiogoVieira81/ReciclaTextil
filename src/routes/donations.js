@@ -1,6 +1,5 @@
 var express = require("express");
 var router = express.Router();
-const multer=require('multer')
 const donationController = require("../controllers/donationControllers");
 
 
@@ -18,6 +17,8 @@ router.get("/delete/:id", donationController.donation_delete_get);
 router.post("/delete/:id", donationController.donation_delete_post);
 
 router.get("/list", donationController.donation_list);
+
+router.post('/calculatePoints', donationController.donation_calculate_points);
 
 
 module.exports = router;

@@ -1,5 +1,24 @@
 const asyncHandler = require("express-async-handler");
-const Donation = require("../models/Donation");
+const Entity = require("../models/Entity");
+const Donor=require("../models/Donor")
+const Donation=require("../models/Donation")
+
+exports.donation_calculate_points = asyncHandler(async (req, res, next) => {
+    const { kg, condition } = req.body;
+    let pontos = 0;
+    
+    if (kg && condition) {
+        if (condition === 'nova') {
+            pontos = kg * 9;
+        } else if (condition === 'semi-nova') {
+            pontos = kg * 5;
+        } else if (condition === 'desgastada') {
+            pontos = kg * 2;
+        }
+    }
+    
+    res.json({ points: pontos });
+});
 
 // Display list of all  Donations
 exports.donation_list = asyncHandler(async (req, res, next) => {
@@ -8,40 +27,43 @@ exports.donation_list = asyncHandler(async (req, res, next) => {
     next();
 })
 
-// Display detail page for a specific Donation
-exports.donation_detail = asyncHandler(async (req, res, next) => {
-    const donation = await Donation.findById(req.params.id);
-    res.json(donation);
-    next();
-})
 
 // Display Donation create form on GET.
 exports.donation_create_get = asyncHandler(async (req, res, next) => {
-    res.render('donation_form', { title: 'Criar Donativo' });
-    next();
+    try {
+        const donors = await Donor.find({}, 'name');
+        const entities = await Entity.find({}, 'name');
+        res.render('donations/create', { title: 'Criar Doação', donors, entities });
+    } catch (error) {
+        return next(error);
+    }
 })
 
 // Handle Donation create on POST.
 exports.donation_create_post = asyncHandler(async (req, res, next) => {
     // Extract data from request body
-    const { numberOfParts,condition,kg } = req.body;
-
+    const { numberOfParts,condition,kg,points,donor,entity } = req.body;
+    
     // Create a new Donation object
     const newDonation = new Donation({
         numberOfParts,
         condition,
         kg,
-        donor: req.body.donor, 
-        entity: req.body.entity
+        points,
+        donor,
+        entity
     });
-
+    console.log("New Donation object:", newDonation);
     try {
+        
         // Save the new donation to the database
         const savedDonation = await newDonation.save();
+        
         res.status(201).json(savedDonation); // Return the newly created donation
         next();
     } catch (error) {
         // Handle validation or database errors
+        
         res.status(400).json({ message: error.message });
         next();
     }
@@ -118,7 +140,7 @@ exports.donation_update_get = asyncHandler(async (req, res, next) => {
 exports.donation_update_post = asyncHandler(async (req, res, next) => {
     try {
         // Extract updated donation details from the request body
-        const { numberOfParts,condition,kg } = req.body;
+        const { numberOfParts,condition,kg,points,donor,entity } = req.body;
 
         // Find the donor by ID from the request parameters
         let donation = await Donation.findById(req.params.id);
@@ -132,6 +154,9 @@ exports.donation_update_post = asyncHandler(async (req, res, next) => {
             donation.numberOfParts=numberOfParts,
             donation.condition=condition,
             donation.kg=kg
+            donation.points=points,
+            donation.donor,donor,
+            donation.entity=entity
 
             // Save the updated donation to the database
             donation = await donation.save();

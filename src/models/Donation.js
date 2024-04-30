@@ -1,19 +1,16 @@
 const mongoose = require('mongoose');
 
 const donationSchema = new mongoose.Schema({
-    id: {
-        type: String,
-        required: true,
-        unique: true,
-        default: function () {
-            return generateId();
-        }
+  
+    numberOfParts:{
+tyepe:Number,
+require:true
     },
-    description: {
-        type: String,
-        maxlength: 200
-    },
-    value: {
+condition:{
+    type: String,
+    maxlength: 200
+},
+    kg: {
         type: Number,
         required: true,
         min: 1,
@@ -39,11 +36,6 @@ const donationSchema = new mongoose.Schema({
     }
 });
 
-function generateId() {
-    const length = Math.floor(Math.random() * 9) + 1;
-    const id = 'D' + Math.random().toString(36).substr(2, length);
-    return id;
-}
 
 const Donation = mongoose.model('Donation', donationSchema);
 module.exports = Donation;

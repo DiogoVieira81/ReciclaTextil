@@ -34,7 +34,6 @@ mongoose.connect('mongodb+srv://paw24:MzGoBjFDQ9D3BQ7h@cluster0.49yetzm.mongodb.
 .catch(err => console.error('Erro ao conectar com o MongoDB:', err));
 
 
-
 // view engine setup
 app.set('views', path.join(__dirname, 'src/views'));
 app.set('view engine', 'ejs');

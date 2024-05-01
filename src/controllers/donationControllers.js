@@ -22,8 +22,10 @@ exports.donation_calculate_points = asyncHandler(async (req, res, next) => {
 
 // Display list of all  Donations
 exports.donation_list = asyncHandler(async (req, res, next) => {
-    const donations = await Donation.find({});
-    res.json(donations);
+    const donations = await Donation.find({})
+    .populate('donor')
+    .populate('entity');
+    res.render('donations/show', { donations: donations });
     next();
 })
 
@@ -42,14 +44,16 @@ exports.donation_create_get = asyncHandler(async (req, res, next) => {
 // Handle Donation create on POST.
 exports.donation_create_post = asyncHandler(async (req, res, next) => {
     // Extract data from request body
-    const { numberOfParts,condition,kg,points,donor,entity } = req.body;
+    const {id,numberOfParts,condition,kg,points,state,donor,entity } = req.body;
     
     // Create a new Donation object
     const newDonation = new Donation({
+       id,
         numberOfParts,
         condition,
         kg,
         points,
+        state,
         donor,
         entity
     });
@@ -140,7 +144,7 @@ exports.donation_update_get = asyncHandler(async (req, res, next) => {
 exports.donation_update_post = asyncHandler(async (req, res, next) => {
     try {
         // Extract updated donation details from the request body
-        const { numberOfParts,condition,kg,points,donor,entity } = req.body;
+        const { id,numberOfParts,condition,kg,points,state,donor,entity } = req.body;
 
         // Find the donor by ID from the request parameters
         let donation = await Donation.findById(req.params.id);
@@ -151,10 +155,12 @@ exports.donation_update_post = asyncHandler(async (req, res, next) => {
             next();
         } else {
             // Update the donation fields
+            donation.id=id,
             donation.numberOfParts=numberOfParts,
             donation.condition=condition,
             donation.kg=kg
             donation.points=points,
+            donation.state=state,
             donation.donor,donor,
             donation.entity=entity
 

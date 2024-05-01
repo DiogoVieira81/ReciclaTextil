@@ -162,7 +162,7 @@ exports.donation_update_post = asyncHandler(async (req, res, next) => {
             donation.condition=condition,
             donation.kg=kg
             donation.points=points,
-            donation.state=state;
+            donation.state=state,
             donation.donor,donor,
             donation.entity=entity
 

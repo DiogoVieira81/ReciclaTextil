@@ -176,7 +176,7 @@ exports.admin_login_post = passport.authenticate('admin-local', {
   // Admin Dashboard Route Handler
 exports.admin_dashboard_get = asyncHandler(async (req, res, next) => {
     const donors = await Donor.find({ kg: { $exists: true, $nin: [0] } }).sort({kg:-1}).limit(5);
-    const entities = await Entity.find({});
+    const entities = await Entity.find({ kg: { $exists: true, $nin: [0] } });
     // Render the admin dashboard interface
     res.render('dashboard', { donors : donors, entities : entities });
 });

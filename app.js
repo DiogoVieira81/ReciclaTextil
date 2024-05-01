@@ -18,8 +18,8 @@ const Donation = require('./src/models/Donation');
 var adminControllers = require('./src/controllers/adminControllers');
 //var adminAuth = require('./src/middleware/adminAuth');
 
-var indexRouter = require('./src/routes/dashboard');
-//var loginRouter = require('./src/routes/login');
+var dashboardRouter = require('./src/routes/dashboard');
+var loginRouter = require('./src/routes/login');
 var entityRouter = require('./src/routes/entities');
 var donorRouter = require('./src/routes/donors');
 var donationRouter = require('./src/routes/donations');
@@ -103,8 +103,8 @@ const storage = multer.diskStorage({
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use('/', indexRouter);
-//app.use('/login', loginRouter);
+app.use('/dashboard', dashboardRouter);
+app.use('/', loginRouter);
 app.use('/entities', entityRouter);
 app.use('/donors', donorRouter);
 app.use('/donations', donationRouter);

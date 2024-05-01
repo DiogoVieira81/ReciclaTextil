@@ -1,26 +1,22 @@
-const Donor = require("../models/Donor");
+const ctx = document.getElementById("canvas");
 
-const donors = await Donor.find({});
-
-const donorChart = document.getElementById("canvas");
-
-      new Chart(donorChart, {
-        type: "bar",
-        data: {
-          labels: [donors[0].name, "Blue", "Yellow", "Green", "Purple", "Orange"],
-          datasets: [
-            {
-              label: "Top donors",
-              data: [donors[0].kg, 19, 3, 5, 2, 3],
-              borderWidth: 1,
-            },
-          ],
-        },
-        options: {
-          scales: {
-            y: {
-              beginAtZero: true,
-            },
-          },
-        },
-      });
+new Chart(ctx, {
+  type: "bar",
+  data: {
+    labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+    datasets: [
+      {
+        label: "# of Votes",
+        data: [12, 19, 3, 5, 2, 3],
+        borderWidth: 1,
+      },
+    ],
+  },
+  options: {
+    scales: {
+      y: {
+        beginAtZero: true,
+      },
+    },
+  },
+});

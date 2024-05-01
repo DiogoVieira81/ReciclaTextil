@@ -46,8 +46,11 @@ condition:{
         required: true
       },
       state: {
+     
         type: String,
-        default: "Registada"
+    enum: ['Registada', 'Aceite', 'Processada','Finalizada'],
+    default: "Registada",
+    required: true
       },
     createdAt: {
         type: Date,

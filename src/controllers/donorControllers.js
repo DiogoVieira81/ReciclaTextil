@@ -2,7 +2,7 @@ const asyncHandler = require("express-async-handler");
 const donationControllers = require("../controllers/donationControllers");
 const Donor = require("../models/Donor");
 const { calculatePointsForDonation } = require("../utils/donationUtils");
-
+const Donation=require("../models/Donation")
 // Display list of all  Donors
 exports.donor_list = asyncHandler(async (req, res, next) => {
     const donors = await Donor.find({});
@@ -18,19 +18,14 @@ exports.donor_detail = asyncHandler(async (req, res, next) => {
 
 // Display Donor create form on GET.
 exports.donor_create_get = asyncHandler(async (req, res, next) => {
-    try {
-        const donors = await Donor.find({}, 'name');
-        const entities = await Entity.find({}, 'name');
-        res.render('donations/create', { title: 'Criar Doação', donors, entities });
-    } catch (error) {
-        return next(error);
-    }
-})
+    res.render('donors/create', { title: 'Create entity' });
+    next();
+});
 
 // Handle Donor create on POST.
 exports.donor_create_post = asyncHandler(async (req, res, next) => {
     // Extract data from request body
-    const { name, email, phoneNumber,address,city,district,kg,points,donor,entitie} = req.body;
+    const { name, email, phoneNumber,address,city,district,kg,points,donor,entity} = req.body;
 
     // Create a new Donor object
     const newDonor = new Donor({
@@ -43,7 +38,7 @@ exports.donor_create_post = asyncHandler(async (req, res, next) => {
         kg,
         points,
         donor,
-        entitie
+        entity
 
     });
 
@@ -93,8 +88,8 @@ exports.donor_delete_post = asyncHandler(async (req, res, next) => {
             next();
         } else {
             // Delete the donor from the database
-            await Donation.deleteOne({ _id: donation.id });
-            res.render('donations/message')
+            await Donor.deleteOne({ _id: donor.id });
+            res.render('donors/message')
             next();
         }
     } catch (error) {
@@ -115,8 +110,18 @@ exports.donor_update_get = asyncHandler(async (req, res, next) => {
             res.status(404).json({ message: "Donor not found" });
             next();
         } else {
+              // Find all donations made by this donor
+              const donations = await Donation.find({ donor: donor._id });
+
+              // Calculate total kg and points from the donations
+              let totalKg = 0;
+              let totalPoints = 0;
+              for (let donation of donations) {
+                  totalKg += donation.kg;
+                  totalPoints += donation.points;
+              }
             // Render the donor update form with the existing donor details
-            res.render("donors/update", { donor: donor });
+            res.render("donors/update",{ donor: donor, totalKg: totalKg, totalPoints: totalPoints });
             next();
         }
     } catch (error) {

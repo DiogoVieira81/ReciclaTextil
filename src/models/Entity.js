@@ -44,7 +44,16 @@ const entitySchema = new mongoose.Schema({
         type: String,
         maxlength: 200
     },
-   
+    kg: {
+        type: Number,
+        default: 0,
+        validate: {
+            validator: function (value) {
+                return value >= 0;
+            },
+            message: props => `${props.value} is not a valid value for points! Points cannot be negative.`
+        }
+    },
     createdAt: {
         type: Date,
         default: Date.now,

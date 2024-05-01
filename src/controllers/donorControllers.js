@@ -25,7 +25,7 @@ exports.donor_create_get = asyncHandler(async (req, res, next) => {
 // Handle Donor create on POST.
 exports.donor_create_post = asyncHandler(async (req, res, next) => {
     // Extract data from request body
-    const { name, email, phoneNumber,address,city,district,kg,points,donor,entity} = req.body;
+    const { name, email, phoneNumber,address,city,district,kg,points,totalDonations,donor,entity} = req.body;
 
     // Create a new Donor object
     const newDonor = new Donor({
@@ -37,6 +37,7 @@ exports.donor_create_post = asyncHandler(async (req, res, next) => {
         district,
         kg,
         points,
+        totalDonations,
         donor,
         entity
 
@@ -108,26 +109,28 @@ exports.donor_update_get = asyncHandler(async (req, res, next) => {
         if (!donor) {
             // If donor not found, return a 404 error
             res.status(404).json({ message: "Donor not found" });
-            next();
-        } else {
-              // Find all donations made by this donor
-              const donations = await Donation.find({ donor: donor._id });
-
-              // Calculate total kg and points from the donations
-              let totalKg = 0;
-              let totalPoints = 0;
-              for (let donation of donations) {
-                  totalKg += donation.kg;
-                  totalPoints += donation.points;
-              }
-            // Render the donor update form with the existing donor details
-            res.render("donors/update",{ donor: donor, totalKg: totalKg, totalPoints: totalPoints });
-            next();
+            return; // Corrigido para parar a execução aqui
         }
+
+        // Find all donations made by this donor
+        const donations = await Donation.find({ donor: donor._id });
+
+        // Calculate total kg and points from the donations
+        let totalKg = 0;
+        let totalPoints = 0;
+        let totalDonations = donations.length; // Corrigido para definir totalDonations
+
+        for (let donation of donations) {
+            totalKg += donation.kg;
+            totalPoints += donation.points;
+        }
+
+        // Render the donor update form with the existing donor details
+        res.render("donors/update", { donor: donor, totalKg: totalKg, totalPoints: totalPoints, totalDonations: totalDonations });
+        
     } catch (error) {
         // Handle database errors
         res.status(500).json({ message: error.message });
-        next();
     }
 })
 
@@ -135,7 +138,7 @@ exports.donor_update_get = asyncHandler(async (req, res, next) => {
 exports.donor_update_post = asyncHandler(async (req, res, next) => {
     try {
         // Extract updated donor details from the request body
-        const {name, email, phoneNumber,address,city,district,kg,points} = req.body;
+        const {name, email, phoneNumber,address,city,district,kg,points,totalDonations} = req.body;
 
         // Find the donor by ID from the request parameters
         let donor = await Donor.findById(req.params.id);
@@ -154,6 +157,7 @@ exports.donor_update_post = asyncHandler(async (req, res, next) => {
             donor.district=district;
             donor.kg=kg;
             donor.points = points;
+            donor.totalDonations=totalDonations
 
             // Save the updated donor to the database
             donor = await donor.save();

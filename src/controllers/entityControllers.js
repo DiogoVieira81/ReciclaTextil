@@ -25,7 +25,7 @@ exports.entity_create_get = asyncHandler(async (req, res, next) => {
 exports.entity_create_post = asyncHandler(async (req, res, next) => {
     // Extract data from request body
     console.log(req.body)
-    const { name,taxpayerNumber, email, phoneNumber,address,city,district, description,kg} = req.body;
+    const { name,taxpayerNumber, email, phoneNumber,address,city,district, description,kg,totalDonations} = req.body;
     // Create a new Entity object
 
     const newEntity = new Entity({
@@ -37,7 +37,8 @@ exports.entity_create_post = asyncHandler(async (req, res, next) => {
         city,
         district,
         description,
-        kg
+        kg,
+        totalDonations
      
     });
 
@@ -111,13 +112,14 @@ exports.entity_update_get = asyncHandler(async (req, res, next) => {
             next();
         } else {
             const donations = await Donation.find({ entity: entity._id });
-            let totalKg = 0;
+            let totalKg = 0
+            let totalDonations = donations.length;
             for (let donation of donations) {
                 totalKg += donation.kg;
     
             }
             // Render the entity update form with the existing donor details
-            res.render("entities/update", { entity: entity,totalKg:totalKg });
+            res.render("entities/update", { entity: entity,totalKg:totalKg,totalDonations:totalDonations });
             next();
         }
     } catch (error) {
@@ -131,7 +133,7 @@ exports.entity_update_get = asyncHandler(async (req, res, next) => {
 exports.entity_update_post = asyncHandler(async (req, res, next) => {
     try {
         // Extract updated entity details from the request body
-        const { name,taxpayerNumber, email, phoneNumber,address,city,district, description,kg} = req.body;
+        const { name,taxpayerNumber, email, phoneNumber,address,city,district, description,kg, totalDonations} = req.body;
 
         // Find the entity by ID from the request parameters
         let entity = await Entity.findById(req.params.id);
@@ -151,6 +153,7 @@ exports.entity_update_post = asyncHandler(async (req, res, next) => {
             entity.district=district;
             entity.description = description;
             entity.kg=kg;
+            entity.totalDonations= totalDonations;
           
 
             // Save the updated donor to the database

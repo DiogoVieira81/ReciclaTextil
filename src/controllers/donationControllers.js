@@ -62,9 +62,7 @@ exports.donation_create_post = asyncHandler(async (req, res, next) => {
         
         // Save the new donation to the database
         const savedDonation = await newDonation.save();
-        
-        res.status(201).json(savedDonation); // Return the newly created donation
-        next();
+        res.render('donations/message')
     } catch (error) {
         // Handle validation or database errors
         

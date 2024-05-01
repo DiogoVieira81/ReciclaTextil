@@ -27,14 +27,14 @@
             <a class="nav-link " href="/">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" href="/donors/list">Doadores</a>
+            <a class="nav-link " href="/donors/list">Doadores</a>
           </li>
 
           <li class="nav-item">
             <a class="nav-link" href="/entities/list">Entidades beneficiadoras</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/entities/list">Doações</a>
+            <a class="nav-link active" href="/entities/list">Doações</a>
           </li>
         </ul>
         <ul class="navbar-nav">
@@ -67,7 +67,7 @@
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label for="Kg">Quantidade de Kg doados:</label>
-                <input type="number" class="form-control" id="Kg" placeholder="Adicione a quantidade de kg doados" name="kg" required onchange="calcularPontos()">
+                <input type="number" class="form-control" id="Kg" placeholder="Adicione a quantidade de kg doados" min=0 name="kg" required onchange="calcularPontos()">
             </div>
         </div>
         <div class="form-row">

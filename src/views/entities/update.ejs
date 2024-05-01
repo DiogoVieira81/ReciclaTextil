@@ -104,6 +104,18 @@
          name="description" readonly required><%= entity.description %></textarea>
       </div>
     </div>
+    <div class="form-row ">
+    <div class="form-group col-md-6">
+      <label for="inputKg">Quantidade de Kg recebidos:</label>
+      <input type="number" class="form-control" id="inputKg" value="<%= totalKg %>" name="kg" required readonly disabled>
+  </div>
+</div>
+<div class="form-row ">
+<div class="form-group col-md-6">
+  <label for="inputQuantity">Quantidade de doações Recebidas:</label>
+  <input type="number" class="form-control" id="inputQuantity" value="<%= totalDonations %>" name="totalDonations" required readonly disabled>
+</div>
+</div>
       <!--
       <div class="form-group col-md-6" >
       <label for="formFileLg" class="form-label">Imagem da empresa</label>

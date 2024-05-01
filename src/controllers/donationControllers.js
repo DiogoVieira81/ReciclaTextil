@@ -22,8 +22,10 @@ exports.donation_calculate_points = asyncHandler(async (req, res, next) => {
 
 // Display list of all  Donations
 exports.donation_list = asyncHandler(async (req, res, next) => {
-    const donations = await Donation.find({});
-    res.json(donations);
+    const donations = await Donation.find({})
+    .populate('donor')
+    .populate('entity');
+    res.render('donations/show', { donations: donations });
     next();
 })
 
@@ -64,9 +66,7 @@ exports.donation_create_post = asyncHandler(async (req, res, next) => {
         
         // Save the new donation to the database
         const savedDonation = await newDonation.save();
-        
-        res.status(201).json(savedDonation); // Return the newly created donation
-        next();
+        res.render('donations/message')
     } catch (error) {
         // Handle validation or database errors
         
@@ -87,7 +87,7 @@ exports.donation_delete_get = asyncHandler(async (req, res, next) => {
             next();
         } else {
             // Render a delete confirmation form or page
-            res.render("donation_delete", { donation: donation });
+            res.render("donations/delete", { donation: donation });
             next();
         }
     } catch (error) {
@@ -109,8 +109,8 @@ exports.donation_delete_post = asyncHandler(async (req, res, next) => {
             next();
         } else {
             // Delete the donation from the database
-            await donation.remove();
-            res.json({ message: "Donation deleted successfully" });
+            await Donation.deleteOne({ _id: donation._id });
+            res.render('donations/message')
             next();
         }
     } catch (error) {

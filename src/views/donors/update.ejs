@@ -93,13 +93,17 @@
     <div class="form-row">
   <div class="form-group col-md-6">
       <label for="inputKg">Quantidade de Kg doados:</label>
-      <input type="number" class="form-control" id="inputKg" value="<%= donor.kg %>" name="kg" required readonly disabled>
+      <input type="number" class="form-control" id="inputKg" value="<%= totalKg %>" name="kg" required readonly disabled>
   </div>
   <div class="form-group col-md-6">
       <label for="inputPoints">Quantidade de Pontos Acumulados:</label>
-      <input type="number" class="form-control" id="inputPoints" value="<%= donor.points %>" name="points" required readonly disabled>
+      <input type="number" class="form-control" id="inputPoints" value="<%= totalPoints %>" name="points" required readonly disabled>
   </div>
-      
+  <div class="form-group col-md-6">
+    <label for="inputQuantity">Quantidade de doações efetuadas:</label>
+    <input type="number" class="form-control" id="inputQuantity" value="<%= totalDonations %>" name="totalDonations" required readonly disabled>
+  </div>
+</div>
       <!--
       <div class="form-group col-md-6" >
       <label for="formFileLg" class="form-label">Imagem da empresa</label>

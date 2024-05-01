@@ -111,15 +111,8 @@ exports.entity_update_get = asyncHandler(async (req, res, next) => {
             res.status(404).json({ message: "Entity not found" });
             next();
         } else {
-            const donations = await Donation.find({ entity: entity._id });
-            let totalKg = 0
-            let totalDonations = donations.length;
-            for (let donation of donations) {
-                totalKg += donation.kg;
-    
-            }
-            // Render the entity update form with the existing donor details
-            res.render("entities/update", { entity: entity,totalKg:totalKg,totalDonations:totalDonations });
+           // Render the entity update form with the existing donor details
+            res.render("entities/update", { entity: entity});
             next();
         }
     } catch (error) {

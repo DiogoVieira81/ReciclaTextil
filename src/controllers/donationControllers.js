@@ -32,9 +32,13 @@ exports.donation_list = asyncHandler(async (req, res, next) => {
 
 // Display Donation create form on GET.
 exports.donation_create_get = asyncHandler(async (req, res, next) => {
-    try {
-        const donors = await Donor.find({}, 'name');
-        const entities = await Entity.find({}, 'name');
+    try{
+    const donors = await Donor.find({});
+    const entities = await Entity.find({});
+            const donations = await Donation.find({})
+                .populate('donor')
+                .populate('entity')
+                .exec();
         res.render('donations/create', { title: 'Criar Doação', donors, entities });
     } catch (error) {
         return next(error);
@@ -62,6 +66,18 @@ exports.donation_create_post = asyncHandler(async (req, res, next) => {
         
         // Save the new donation to the database
         const savedDonation = await newDonation.save();
+        const theDonor = await Donor.findById(donor);
+        const theEntity=await Entity.findById(entity);
+        
+        theDonor.points += parseInt(points);
+        theDonor.kg += parseInt(kg);
+        theDonor.totalDonations += 1;
+        await theDonor.save();
+
+
+        theEntity.kg += parseInt(kg);
+        theEntity.totalDonations += 1;
+        await theEntity.save();
         res.render('donations/message')
     } catch (error) {
         // Handle validation or database errors

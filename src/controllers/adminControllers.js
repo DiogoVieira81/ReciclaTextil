@@ -4,6 +4,8 @@ const bcrypt = require("bcryptjs");
 const jwt = require('jsonwebtoken')
 const jwtSecret = '424fdce80b01e737a19c9d465aae7b552e1354e181007475a6029fc9307d78ab0ae09f';
 const passport = require('passport');
+const Donor = require("../models/Donor");
+const Entity = require("../models/Entity");
 
 // Display list of all  Admins
 exports.admin_list = asyncHandler(async (req, res, next) => {
@@ -173,6 +175,8 @@ exports.admin_login_post = passport.authenticate('admin-local', {
 
   // Admin Dashboard Route Handler
 exports.admin_dashboard_get = asyncHandler(async (req, res, next) => {
+    const donors = await Donor.find({ kg: { $exists: true, $nin: [0] } }).sort({kg:-1}).limit(5);
+    const entities = await Entity.find({});
     // Render the admin dashboard interface
-    res.render('admins/dashboard', { title: 'Admin Dashboard' });
+    res.render('dashboard', { donors : donors, entities : entities });
 });

@@ -10,6 +10,7 @@
   padding-top: 25px;
   padding-left: 50px;
   padding-bottom: 25px;
+  background: rgb(155, 183, 212, 0.1);
 }
 
 .four-element-grid-container{
@@ -19,6 +20,7 @@
   padding-top: 50px;
   padding-left: 50px;
   padding-bottom: 25px;
+  background: rgb(155, 183, 212, 0.1);
 }
 
 body {
@@ -35,6 +37,10 @@ a {
   background: rgb(155, 183, 212, 0.7);
   padding: 20px;
   text-align: center;
+}
+
+.dashboard-background {
+  background: rgb(155, 183, 212, 0.2);
 }
 
 .footer {

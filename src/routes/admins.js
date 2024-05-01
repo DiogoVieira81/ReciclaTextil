@@ -18,10 +18,4 @@ router.get("/login:id", adminsController.admin_login_get);
 
 router.post("/login:id", adminsController.admin_login_post);
 
-
-
-router.get('/dashboard', function(req, res) {
-    res.render('dashboard');
-  });
-
 module.exports = router;

@@ -179,11 +179,11 @@
     <script>
       const entityChart2 = document.getElementById("canvas3");
       var names = new Array();
-      var kgsReceived = new Array();
+      var donationsReceived = new Array();
 
       <% for (var i = 0; i < entities.length; i++) { %>
         names[<%= i %>] = "<%= entities[i].name %>";
-        kgsReceived[<%= i %>] = "<%= entities[i].kg %>";
+        donationsReceived[<%= i %>] = "<%= entities[i].totalDonations %>";
       <% } %>
 
       new Chart(entityChart2, {
@@ -192,7 +192,7 @@
             labels: names,
             datasets: [{
                label: "Donations received",
-               data: kgsReceived,
+               data: donationsReceived,
                backgroundColor: ['lightyellow', 'darkblue', 'yellowgreen', 'darkgreen', 'lightgreen'],
                hoverOffset: 5
             }],

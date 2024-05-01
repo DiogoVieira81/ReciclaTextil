@@ -66,6 +66,18 @@ exports.donation_create_post = asyncHandler(async (req, res, next) => {
         
         // Save the new donation to the database
         const savedDonation = await newDonation.save();
+        const theDonor = await Donor.findById(donor);
+        const theEntity=await Entity.findById(entity);
+        
+        theDonor.points += parseInt(points);
+        theDonor.kg += parseInt(kg);
+        theDonor.totalDonations += 1;
+        await theDonor.save();
+
+
+        theEntity.kg += parseInt(kg);
+        theEntity.totalDonations += 1;
+        await theEntity.save();
         res.render('donations/message')
     } catch (error) {
         // Handle validation or database errors

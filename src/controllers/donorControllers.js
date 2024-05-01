@@ -116,17 +116,9 @@ exports.donor_update_get = asyncHandler(async (req, res, next) => {
         const donations = await Donation.find({ donor: donor._id });
 
         // Calculate total kg and points from the donations
-        let totalKg = 0;
-        let totalPoints = 0;
-        let totalDonations = donations.length; // Corrigido para definir totalDonations
-
-        for (let donation of donations) {
-            totalKg += donation.kg;
-            totalPoints += donation.points;
-        }
 
         // Render the donor update form with the existing donor details
-        res.render("donors/update", { donor: donor, totalKg: totalKg, totalPoints: totalPoints, totalDonations: totalDonations });
+        res.render("donors/update", { donor:donor});
         
     } catch (error) {
         // Handle database errors

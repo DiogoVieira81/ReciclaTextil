@@ -79,7 +79,7 @@
         <canvas id="canvas"></canvas>
       </div>
       <div>
-        <h1>Graph Test 2</h1>
+        <h1>Top Entities</h1>
         <canvas id="canvas2"></canvas>
       </div>
       <div>
@@ -117,17 +117,16 @@
     ></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-      const ctx = document.getElementById("canvas");
+      const donorChart = document.getElementById("canvas");
       var names = new Array();
       var kgsDonated = new Array();
-      var donorsLength = parseInt("<%= donors.length %>");
 
       <% for (var i = 0; i < donors.length; i++) { %>
         names[<%= i %>] = "<%= donors[i].name %>";
         kgsDonated[<%= i %>] = parseInt("<%= donors[i].kg %>");
       <% } %>
 
-      new Chart(ctx, {
+      new Chart(donorChart, {
         type: "bar",
         data: {
           labels: names,
@@ -154,6 +153,54 @@
             },
           },
         },
+      });
+    </script>
+    <script>
+      const entityChart = document.getElementById("canvas2");
+      var names = new Array();
+
+      <% for (var i = 0; i < entities.length; i++) { %>
+        names[<%= i %>] = "<%= entities[i].name %>";
+      <% } %>
+
+      new Chart(entityChart, {
+         type: 'pie',
+         data: {
+            labels: names,
+            datasets: [{
+               label: "online tutorial subjects",
+               data: [20, 40, 50],
+               backgroundColor: ['yellow', 'red', 'blue', 'green', 'purple'],
+               hoverOffset: 5
+            }],
+         },
+         options: {
+            responsive: false,
+         },
+      });
+    </script>
+    <script>
+      const entityChart2 = document.getElementById("canvas3");
+      var names = new Array();
+
+      <% for (var i = 0; i < entities.length; i++) { %>
+        names[<%= i %>] = "<%= entities[i].name %>";
+      <% } %>
+
+      new Chart(entityChart2, {
+         type: 'pie',
+         data: {
+            labels: names,
+            datasets: [{
+               label: "online tutorial subjects",
+               data: [20, 40, 50],
+               backgroundColor: ['lightyellow', 'darkblue', 'yellowgreen', 'darkgreen', 'lightgreen'],
+               hoverOffset: 5
+            }],
+         },
+         options: {
+            responsive: false,
+         },
       });
     </script>
   </body>

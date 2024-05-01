@@ -26,7 +26,7 @@ exports.donation_list = asyncHandler(async (req, res, next) => {
     .populate('donor')
     .populate('entity');
     res.render('donations/show', { donations: donations });
-    next();
+   
 })
 
 

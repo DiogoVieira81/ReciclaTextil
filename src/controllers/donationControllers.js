@@ -83,7 +83,7 @@ exports.donation_delete_get = asyncHandler(async (req, res, next) => {
             next();
         } else {
             // Render a delete confirmation form or page
-            res.render("donation_delete", { donation: donation });
+            res.render("donations/delete", { donation: donation });
             next();
         }
     } catch (error) {
@@ -105,8 +105,8 @@ exports.donation_delete_post = asyncHandler(async (req, res, next) => {
             next();
         } else {
             // Delete the donation from the database
-            await donation.remove();
-            res.json({ message: "Donation deleted successfully" });
+            await Donation.deleteOne({ _id: donation._id });
+            res.render('donations/message')
             next();
         }
     } catch (error) {

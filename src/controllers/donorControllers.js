@@ -93,8 +93,8 @@ exports.donor_delete_post = asyncHandler(async (req, res, next) => {
             next();
         } else {
             // Delete the donor from the database
-            await Donor.deleteOne({ _id: donor.id });
-            res.render('donors/message')
+            await Donation.deleteOne({ _id: donation.id });
+            res.render('donations/message')
             next();
         }
     } catch (error) {

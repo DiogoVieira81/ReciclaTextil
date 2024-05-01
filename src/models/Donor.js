@@ -56,6 +56,10 @@ const donorSchema = new mongoose.Schema({
             message: props => `${props.value} is not a valid value for points! Points cannot be negative.`
         }
     },
+    totalDonations:{
+    type: Number,
+    default: 0,
+},
     createdAt: {
         type: Date,
         default: Date.now,

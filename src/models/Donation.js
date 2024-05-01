@@ -1,7 +1,14 @@
 const mongoose = require('mongoose');
 
 const donationSchema = new mongoose.Schema({
-  
+    id: {
+        type: String,
+        required: true,
+        unique: true,
+        default: function () {
+            return generateId();
+        }
+    },
     numberOfParts:{
 type:Number,
 required:true,
@@ -51,7 +58,11 @@ condition:{
         ref: 'Entity'
     }
 });
-
+function generateId() {
+    const length = Math.floor(Math.random() * 9) + 1;
+    const id = 'D' + Math.random().toString(36).substr(2, length);
+    return id;
+}
 
 const Donation = mongoose.model('Donation', donationSchema);
 module.exports = Donation;

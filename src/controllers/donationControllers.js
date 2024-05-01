@@ -30,9 +30,13 @@ exports.donation_list = asyncHandler(async (req, res, next) => {
 
 // Display Donation create form on GET.
 exports.donation_create_get = asyncHandler(async (req, res, next) => {
-    try {
-        const donors = await Donor.find({}, 'name');
-        const entities = await Entity.find({}, 'name');
+    try{
+    const donors = await Donor.find({});
+    const entities = await Entity.find({});
+            const donations = await Donation.find({})
+                .populate('donor')
+                .populate('entity')
+                .exec();
         res.render('donations/create', { title: 'Criar Doação', donors, entities });
     } catch (error) {
         return next(error);
@@ -42,10 +46,11 @@ exports.donation_create_get = asyncHandler(async (req, res, next) => {
 // Handle Donation create on POST.
 exports.donation_create_post = asyncHandler(async (req, res, next) => {
     // Extract data from request body
-    const { numberOfParts,condition,kg,points,donor,entity } = req.body;
+    const { id,numberOfParts,condition,kg,points,donor,entity } = req.body;
     
     // Create a new Donation object
     const newDonation = new Donation({
+       id,
         numberOfParts,
         condition,
         kg,
@@ -140,7 +145,7 @@ exports.donation_update_get = asyncHandler(async (req, res, next) => {
 exports.donation_update_post = asyncHandler(async (req, res, next) => {
     try {
         // Extract updated donation details from the request body
-        const { numberOfParts,condition,kg,points,donor,entity } = req.body;
+        const { id,numberOfParts,condition,kg,points,donor,entity } = req.body;
 
         // Find the donor by ID from the request parameters
         let donation = await Donation.findById(req.params.id);
@@ -151,6 +156,7 @@ exports.donation_update_post = asyncHandler(async (req, res, next) => {
             next();
         } else {
             // Update the donation fields
+            donation.id=id,
             donation.numberOfParts=numberOfParts,
             donation.condition=condition,
             donation.kg=kg

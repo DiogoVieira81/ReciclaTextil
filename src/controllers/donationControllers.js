@@ -156,15 +156,16 @@ exports.donation_delete_post = asyncHandler(async (req, res, next) => {
 exports.donation_update_get = asyncHandler(async (req, res, next) => {
     try {
         // Find the donor by ID from the request parameters
-        const donation = await Donation.findById(req.params.id);
-
+        const donation = await Donation.findById(req.params.id)
+        .populate('donor')
+        .populate('entity');
         if (!donation) {
             // If donation not found, return a 404 error
             res.status(404).json({ message: "Donation not found" });
             next();
         } else {
             // Render the donor update form with the existing donor details
-            res.render("donation_update", { donation: donation });
+            res.render("donations/update", { donation: donation });
             next();
         }
     } catch (error) {
@@ -189,18 +190,18 @@ exports.donation_update_post = asyncHandler(async (req, res, next) => {
             next();
         } else {
             // Update the donation fields
-            donation.id=id,
-            donation.numberOfParts=numberOfParts,
-            donation.condition=condition,
-            donation.kg=kg
-            donation.points=points,
-            donation.state=state,
-            donation.donor,donor,
-            donation.entity=entity
+            donation.id=id;
+            donation.numberOfParts=numberOfParts;
+            donation.condition=condition;
+            donation.kg=kg;
+            donation.points=points;
+            donation.state=state;
+            donation.donor,donor;
+            donation.entity=entity;
 
             // Save the updated donation to the database
             donation = await donation.save();
-            res.json(donation);
+            res.render('donations/message');
             next();
         }
     } catch (error) {

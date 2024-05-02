@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <style>
+        .active {
+            color: #ff0000; }
+            form{
+      margin-top: 2rem;
+    }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+      <a class="navbar-brand" href="/">ReciclaTextil</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="/donors/list">Doadores</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="/entities/list">Entidades beneficiadoras</a>
+          </li>
+        </ul>
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="#">Logout</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+    <form action="/donations/update/<%= donation._id %>" method="POST" id="donationsForm">
+        <div class="form-row ">
+            <div class="form-group col-md-6">
+              <label for="id">Id</label>
+              <input type="text" class="form-control" id="id" name="id" value="<%= donation.id %> "readonly disabled>
+            </div>
+          </div>
+      
+          <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="name">Doador</label>
+                <input type="text" class="form-control" id="name" value="<%= donation.donor.name %>" readonly disabled>
+                <input type="hidden" name="donor" value="<%= donation.donor._id %>">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="name">Entidade</label>
+                <input type="text" class="form-control" id="name" value="<%= donation.entity.name %>" readonly disabled>
+                <input type="hidden" name="entity" value="<%= donation.entity._id %>">
+            </div>
+        </div>
+      
+      
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="pecas">Numero peças:</label>
+          <input type="text" class="form-control" id="pecas" name="numberOfParts" value="<%= donation.numberOfParts %>"readonly  disabled>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="condicao">Condiçao:</label>
+          <input type="text" class="form-control" id="condicao" name="condition" value="<%= donation.condition %>"readonly disabled>
+        </div>
+      </div>
+    <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="kg">Quantidade de Kg doados:</label>
+      <input type="number" class="form-control" id="kg" value="<%= donation.kg %>" name="kg"  readonly  disabled>
+  </div>
+
+  <div class="form-group col-md-6">
+      <label for="points">Quantidade de Pontos Acumulados:</label>
+      <input type="number" class="form-control" id="points" value="<%= donation.points %>" name="points"  readonly  disabled>
+  </div>
+</div>
+<div class="form-row">
+    <div class="form-group col-md-12">
+        <label for="state">Estado da doação:</label>
+        <select class="form-control" id="state" name="state" readonly>
+            <option value="<%= donation.state %>"> <%= donation.state %> </option>
+            <option value="Aceite">Aceite</option>
+            <option value="Processada">Processada</option>
+            <option value="Finalizada">Finalizada</option>
+        </select>
+    </div>
+</div>
+      
+      
+            <button type="submit" id="submitButton" class="btn btn-primary" style="display: none;">Concluido</button>
+
+</form>
+<button type="button" class="btn btn-primary edit-button">Editar</button>
+<script>
+    const editButton = document.querySelector('.edit-button');
+         const submitButton = document.querySelector('#submitButton');
+ 
+         const formInputs = document.querySelectorAll('form input:not([type="submit"]), form textarea, form select');
+ 
+         editButton.addEventListener('click', function () {
+             formInputs.forEach(input => {
+                 input.removeAttribute('readonly');
+                 input.removeAttribute('disabled');
+             });
+             submitButton.style.display = 'block';
+         });
+ 
+         document.getElementById('donationsForm').addEventListener('submit', function () {
+             formInputs.forEach(input => {
+                 input.removeAttribute('readonly');
+                 input.removeAttribute('disabled');
+             });
+         });
+     </script>
+   
+   
+  
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+  </body>
+</html>

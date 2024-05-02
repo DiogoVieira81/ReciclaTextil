@@ -1,22 +1,39 @@
-const ctx2 = document.getElementById("canvas2");
+const donorChart = document.getElementById("canvas");
+      var names = new Array();
+      var kgsDonated = new Array();
 
-new Chart(ctx2, {
-  type: "bar",
-  data: {
-    labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
-    datasets: [
-      {
-        label: "# of Votes",
-        data: [12, 19, 3, 5, 2, 3],
-        borderWidth: 1,
-      },
-    ],
-  },
-  options: {
-    scales: {
-      y: {
-        beginAtZero: true,
-      },
-    },
-  },
-});
+      <% for (var i = 0; i < donors.length; i++) { %>
+        names[<%= i %>] = "<%= donors[i].name %>";
+        kgsDonated[<%= i %>] = parseInt("<%= donors[i].kg %>");
+      <% } %>
+
+      new Chart(donorChart, {
+        type: "bar",
+        data: {
+          labels: names,
+          datasets: [
+            {
+              label: "Kilograms donated",
+              data: kgsDonated,
+              borderWidth: 1,
+              backgroundColor: ['lightyellow', 'darkblue', 'yellowgreen', 'darkgreen', 'lightgreen'],
+              hoverOffset: 5
+            },
+          ],
+        },
+        options: {
+          scales: {
+            xAxes: [
+              {
+                beginAtZero: true,
+                ticks: {
+                  autoSkip: false,
+                },
+              },
+            ],
+            y: {
+              beginAtZero: true,
+            },
+          },
+        },
+      });

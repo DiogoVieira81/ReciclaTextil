@@ -112,16 +112,36 @@ exports.donation_delete_get = asyncHandler(async (req, res, next) => {
 // Handle Donation delete on POST.
 exports.donation_delete_post = asyncHandler(async (req, res, next) => {
     try {
+       
         // Find the donation by ID from the request parameters
         const donation = await Donation.findById(req.params.id);
-
+        const donor= await Donor.findById(donation.donor);
+        const entity= await Entity.findById(donation.entity);
+       
+       
         if (!donation) {
             // If donor not found, return a 404 error
             res.status(404).json({ message: "Donation not found" });
             next();
         } else {
-            // Delete the donation from the database
+            // Delete the donation from the databas
+            
+            donor.kg-=parseInt(donation.kg);
+            donor.points-=parseInt(donation.points);
+            donor.totalDonations--;
+        
+            entity.kg-=parseInt(entity.kg);
+            entity.points-=parseInt(entity.points);
+            entity.totalDonations--;
+        
+        
             await Donation.deleteOne({ _id: donation._id });
+            
+            await donor.save();
+            await entity.save();
+           
+
+        
             res.render('donations/message')
             next();
         }

@@ -1,4 +1,7 @@
 const mongoose = require('mongoose');
+const path=require('path')
+const coverImageBasePath = 'uploads/companyLogos';
+
 
 const donorSchema = new mongoose.Schema({
     name: {
@@ -60,11 +63,21 @@ const donorSchema = new mongoose.Schema({
     type: Number,
     default: 0,
 },
+ImageName:{
+    type:String
+},
     createdAt: {
         type: Date,
         default: Date.now,
     }
 });
 
+donorSchema.virtual('coverImagePath').get(function () {
+    if (this.ImageName != null) {
+        return path.join('/', coverImageBasePath, this.ImageName);
+    }
+});
+
 const Donor = mongoose.model('Donor', donorSchema);
 module.exports = Donor;
+module.exports.coverImageBasePath = coverImageBasePath

@@ -1,24 +1,25 @@
 var express = require("express");
 var router = express.Router();
-const multer=require('multer')
-const path=require('path')
+const multer=require('multer');
+const path=require('path');
+const fs=require('fs')
 const donorsController = require("../controllers/donorControllers");
+const  Donor=require('../models/Donor')
+const uploadPath = path.join("./public", Donor.coverImageBasePath);
 
-// Configuração do Multer
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, 'public/images/');
-  },
-  filename: function (req, file, cb) {
-    cb(null, Date.now() + path.extname(file.originalname));
-  },
-});
-
-const upload = multer({ storage });
+  //tipos de imagens que vai aceitar
+  const imageMimeTypes = ["image/jpeg", "image/png", "image/gif"];
+  
+  const upload = multer({
+      dest: uploadPath,
+      fileFilter: (req, file, callback) => {
+        callback(null, imageMimeTypes.includes(file.mimetype));
+      },
+    });
 
 router.get("/create", donorsController.donor_create_get);
 
-router.post("/create",upload.single("file"), donorsController.donor_create_post);
+router.post("/create",upload.single("cover"), donorsController.donor_create_post);
 
 router.get("/update/:id", donorsController.donor_update_get);
 

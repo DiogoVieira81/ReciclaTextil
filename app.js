@@ -54,7 +54,7 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'src/public')));
+app.use(express.static(path.join(__dirname, 'public')));
 
 passport.use('admin-local', new LocalStrategy({
   usernameField: 'email',
@@ -91,15 +91,8 @@ passport.deserializeUser((id, done) => {
     done(err, admin);
   });
 });
-// Multer configuration for upload imagens
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, 'public/images/');
-  },
-  filename: function (req, file, cb) {
-    cb(null, Date.now() + '-' + file.originalname);
-  }
-});
+
+
 
 app.use(passport.initialize());
 app.use(passport.session());

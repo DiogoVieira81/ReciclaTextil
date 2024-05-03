@@ -48,21 +48,21 @@
         <div class="form-row ">
             <div class="form-group col-md-6">
               <label for="id">Id</label>
-              <input type="text" class="form-control" id="id" name="id" value="<%= donation.id %> "readonly disabled>
+              <input type="text" class="form-control" id="id" name="id" value="<%= donation.id %> "readonly >
             </div>
           </div>
       
           <div class="form-row">
             <div class="form-group col-md-6">
                 <label for="name">Doador</label>
-                <input type="text" class="form-control" id="name" value="<%= donation.donor.name %>" readonly disabled>
+                <input type="text" class="form-control" id="name" value="<%= donation.donor.name %>" readonly >
                 <input type="hidden" name="donor" value="<%= donation.donor._id %>">
             </div>
         </div>
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label for="name">Entidade</label>
-                <input type="text" class="form-control" id="name" value="<%= donation.entity.name %>" readonly disabled>
+                <input type="text" class="form-control" id="name" value="<%= donation.entity.name %>" readonly >
                 <input type="hidden" name="entity" value="<%= donation.entity._id %>">
             </div>
         </div>
@@ -71,64 +71,47 @@
       <div class="form-row">
         <div class="form-group col-md-6">
           <label for="pecas">Numero peças:</label>
-          <input type="text" class="form-control" id="pecas" name="numberOfParts" value="<%= donation.numberOfParts %>"readonly  disabled>
+          <input type="text" class="form-control" id="pecas" name="numberOfParts" value="<%= donation.numberOfParts %>"readonly  >
         </div>
       </div>
       <div class="form-row">
         <div class="form-group col-md-6">
           <label for="condicao">Condiçao:</label>
-          <input type="text" class="form-control" id="condicao" name="condition" value="<%= donation.condition %>"readonly disabled>
+          <input type="text" class="form-control" id="condicao" name="condition" value="<%= donation.condition %>"readonly >
         </div>
       </div>
     <div class="form-row">
     <div class="form-group col-md-6">
       <label for="kg">Quantidade de Kg doados:</label>
-      <input type="number" class="form-control" id="kg" value="<%= donation.kg %>" name="kg"  readonly  disabled>
+      <input type="number" class="form-control" id="kg" value="<%= donation.kg %>" name="kg"  readonly  >
   </div>
 
   <div class="form-group col-md-6">
       <label for="points">Quantidade de Pontos Acumulados:</label>
-      <input type="number" class="form-control" id="points" value="<%= donation.points %>" name="points"  readonly  disabled>
+      <input type="number" class="form-control" id="points" value="<%= donation.points %>" name="points"  readonly  >
   </div>
 </div>
 <div class="form-row">
-    <div class="form-group col-md-12">
-        <label for="state">Estado da doação:</label>
-        <select class="form-control" id="state" name="state" readonly>
-            <option value="<%= donation.state %>"> <%= donation.state %> </option>
-            <option value="Aceite">Aceite</option>
+  <div class="form-group col-md-12">
+      <label for="state">Estado da doação:</label>
+      <select class="form-control" id="state" name="state" <% if(donation.state === 'Finalizada') { %> disabled <% } %>>
+          <option value="<%= donation.state %>"> <%= donation.state %> </option>
+          <% if(donation.state === 'Aceite') { %>
             <option value="Processada">Processada</option>
             <option value="Finalizada">Finalizada</option>
-        </select>
-    </div>
+          <% } else if(donation.state === 'Processada') { %>
+            <option value="Finalizada">Finalizada</option>
+          <% } %>
+      </select>
+  </div>
 </div>
+
       
       
-            <button type="submit" id="submitButton" class="btn btn-primary" style="display: none;">Concluido</button>
+            <button type="submit" id="submitButton" class="btn btn-primary" >Concluido</button>
 
 </form>
-<button type="button" class="btn btn-primary edit-button">Editar</button>
-<script>
-    const editButton = document.querySelector('.edit-button');
-         const submitButton = document.querySelector('#submitButton');
- 
-         const formInputs = document.querySelectorAll('form input:not([type="submit"]), form textarea, form select');
- 
-         editButton.addEventListener('click', function () {
-             formInputs.forEach(input => {
-                 input.removeAttribute('readonly');
-                 input.removeAttribute('disabled');
-             });
-             submitButton.style.display = 'block';
-         });
- 
-         document.getElementById('donationsForm').addEventListener('submit', function () {
-             formInputs.forEach(input => {
-                 input.removeAttribute('readonly');
-                 input.removeAttribute('disabled');
-             });
-         });
-     </script>
+
    
    
   

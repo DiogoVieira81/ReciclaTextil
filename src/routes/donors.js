@@ -1,6 +1,7 @@
 var express = require("express");
 var router = express.Router();
 const multer=require('multer')
+const path=require('path')
 const donorsController = require("../controllers/donorControllers");
 
 // Configuração do Multer
@@ -9,19 +10,15 @@ const storage = multer.diskStorage({
     cb(null, 'public/images/');
   },
   filename: function (req, file, cb) {
-    cb(null, Date.now() + '-' + file.originalname);
-  }
+    cb(null, Date.now() + path.extname(file.originalname));
+  },
 });
 
-const upload = multer({ storage: storage });
-
-router.get("/", function (req, res, next) {
-  res.render("donors");
-});
+const upload = multer({ storage });
 
 router.get("/create", donorsController.donor_create_get);
 
-router.post("/create",upload.single("image"), donorsController.donor_create_post);
+router.post("/create",upload.single("file"), donorsController.donor_create_post);
 
 router.get("/update/:id", donorsController.donor_update_get);
 

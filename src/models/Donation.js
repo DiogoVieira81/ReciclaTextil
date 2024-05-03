@@ -48,7 +48,7 @@ condition:{
       state: {
      
         type: String,
-    enum: ['Registada', 'Aceite', 'Processada','Finalizada'],
+    enum: ['Registada', 'Processada','Finalizada'],
     default: "Registada",
     required: true
       },

@@ -95,24 +95,27 @@
       <input type="number" class="form-control" id="points" value="<%= donation.points %>" name="points"  readonly  >
   </div>
 </div>
+
 <div class="form-row">
   <div class="form-group col-md-12">
       <label for="state">Estado da doação:</label>
-      <select class="form-control" id="state" name="state" <% if(donation.state === 'Finalizada') { %> disabled <% } %>>
-          <option value="<%= donation.state %>"> <%= donation.state %> </option>
-          <% if(donation.state === 'Aceite') { %>
-            <option value="Processada">Processada</option>
-            <option value="Finalizada">Finalizada</option>
-          <% } else if(donation.state === 'Processada') { %>
-            <option value="Finalizada">Finalizada</option>
+      <select class="form-control" id="state" name="state">
+          <option value="Registada" <% if(donation.state === 'Registada') { %> selected <% } %> >Registada</option>
+          <% if(donation.state === 'Registada') { %>
+              <option value="Processada">Processada</option>
+          <% } %>
+          <% if(donation.state === 'Processada') { %>
+              <option value="Finalizada">Finalizada</option>
           <% } %>
       </select>
   </div>
 </div>
-
+<button type="submit" id="submitButton" class="btn btn-primary">Concluido</button>
+</form>
+</div>
       
       
-            <button type="submit" id="submitButton" class="btn btn-primary" >Concluido</button>
+            
 
 </form>
 

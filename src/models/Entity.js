@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
-
+const path=require('path')
+const coverPath = 'uploads/entityLogos';
 const entitySchema = new mongoose.Schema({
     name: {
         type: String,
@@ -58,6 +59,9 @@ const entitySchema = new mongoose.Schema({
         type: Number,
         default: 0,
     },
+    ImageName:{
+        type:String
+    },
     createdAt: {
         type: Date,
         default: Date.now,
@@ -67,6 +71,11 @@ const entitySchema = new mongoose.Schema({
         ref: 'Admin'
     }
 });
-
+entitySchema.virtual('coverPath').get(function () {
+    if (this.ImageName != null) {
+        return path.join('/', coverPath, this.ImageName);
+    }
+});
 const Entity = mongoose.model('Entity', entitySchema);
 module.exports = Entity;
+module.exports.coverPath = coverPath

@@ -1,9 +1,6 @@
 const asyncHandler = require("express-async-handler");
 const donationControllers = require("../controllers/donationControllers");
 const Donor = require("../models/Donor");
-const multer=require('multer');
-const path=require('path');
-const fs=require('fs')
 const { calculatePointsForDonation } = require("../utils/donationUtils");
 const Donation=require("../models/Donation")
 // Display list of all  Donors

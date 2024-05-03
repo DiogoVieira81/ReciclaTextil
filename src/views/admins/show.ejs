@@ -1,20 +1,18 @@
+
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/stylesheets/style.css" />
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-      integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-      crossorigin="anonymous"
-    />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <style>
-      .active {
-        color: #ff0000;
-      }
-      h1 {
+        .active {
+            color: #ff0000; }
+    form{
+      margin-top: 2rem;
+    }
+    h1 {
         margin-top: 1rem;
         padding: 1rem;
       }
@@ -23,89 +21,74 @@
         }
         
     </style>
-  </head>
-  <body>
+
+</head>
+<body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-      <a class="navbar-brand" href="/dashboard">ReciclaTextil</a>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
+      <a class="navbar-brand" href="/">ReciclaTextil</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-
+    
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
-            <a class="nav-link" href="/dashboard">Home</a>
+            <a class="nav-link " href="/">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/donors/list">Doadores</a>
+            <a class="nav-link " href="/admins/list">Doadores</a>
           </li>
 
           <li class="nav-item">
-            <a class="nav-link active" href="/entities/list"
-              >Entidades beneficiadoras</a
-            >
+            <a class="nav-link" href="/entities/list">Entidades beneficiadoras</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/donations/list"
-              >Doações</a >
+            <a class="nav-link" href="/donations/list">Doações</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link " href="/admins/list">Admins</a>
+            <a class="nav-link active" href="/admins/list">Admins</a>
           </li>
         </ul>
         <ul class="navbar-nav">
           <li class="nav-item">
             <a class="nav-link" href="/">Logout</a>
           </li>
+          
         </ul>
       </div>
     </nav>
-    
     <div class="row">
       <div class=" col-md-10">
-        <h1>Lista de Entidades</h1>
+        <h1>Lista de Admins</h1>
       </div>
       <div class=" col-md-2 add-button">
         <button type="button" class="btn btn-outline-success rounded-pill">
-          <a href="/entities/create" style="text-decoration: none; color: inherit;">Registar entidade</a>
+          <a href="/admins/create" style="text-decoration: none; color: inherit;">Registar Admin</a>
       </div>
     </div>
- 
+    
     <div class="form-group">
-      <input type="text" id="searchInput" class="form-control" placeholder="Pesquisar por nome da entidade">
+      <input type="text" id="searchInput" class="form-control" placeholder="Pesquisar por nome do admin">
     </div>
-  </div>
-    <% if (entities.length > 0) { %>
+    
+    <% if (admins.length > 0) { %>
     <table class="table table-striped">
       <thead>
         <tr>
-          <th scope="col">Nome</th>
           <th scope="col">Email</th>
-          <th scope="col">Mais-Informações/Editar</th>
-          <th scope="col">Apagar</th>
+          <th scope="col">Data criação</th>
+          <th scope="col">Excluir</th>
+          
         </tr>
       </thead>
       <tbody>
-      <tbody id="entityTableBody">
-        <% entities.forEach(function(entity) { %>
+      <tbody id="adminTableBody">
+        <% admins.forEach(function(admin) { %>
         <tr>
-          <td><%= entity.name %></td>
-          <td><%= entity.email %></td>
-          <td >
-            <a href="/entities/update/<%= entity.id %>" class="btn btn-warning"
-              >Editar</a
-            >
-          </td>
+          <td><%= admin.email %></td>
+          <td><%= admin.createdAt.toLocaleString('pt-PT') %></td>
           <td>
-            <a href="/entities/delete/<%= entity.id %>" class="btn btn-danger"
+            <a href="/admins/delete/<%= admin._id %>" class="btn btn-danger"
               >Exluir</a
             >
           </td>
@@ -114,7 +97,7 @@
       </tbody>
       <% } else { %>
         <div class="alert alert-info" role="alert">
-          Não há entidades cadastradas.
+          Não há admins cadastrados.
         </div>
         <% } %>
     </table>
@@ -137,7 +120,7 @@
     <script>
       document.addEventListener("DOMContentLoaded", function() {
         var searchInput = document.getElementById("searchInput");
-        var rows = document.querySelectorAll("#entityTableBody tr");
+        var rows = document.querySelectorAll("#adminTableBody tr");
   
         searchInput.addEventListener("input", function() {
           var searchTerm = searchInput.value.trim().toLowerCase();

@@ -100,12 +100,14 @@
   <div class="form-group col-md-12">
       <label for="state">Estado da doação:</label>
       <select class="form-control" id="state" name="state">
-          <option value="Registada" <% if(donation.state === 'Registada') { %> selected <% } %> >Registada</option>
           <% if(donation.state === 'Registada') { %>
+              <option value="Registada" selected>Registada</option>
               <option value="Processada">Processada</option>
-          <% } %>
-          <% if(donation.state === 'Processada') { %>
+          <% } else if(donation.state === 'Processada') { %>
+              <option value="Processada" selected>Processada</option>
               <option value="Finalizada">Finalizada</option>
+          <% } else if(donation.state === 'Finalizada') { %>
+              <option value="Finalizada" selected>Finalizada</option>
           <% } %>
       </select>
   </div>

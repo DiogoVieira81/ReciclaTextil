@@ -1,0 +1,66 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <style>
+        .active {
+            color: #ff0000; }
+    form{
+      margin-top: 2rem;
+    }
+    </style>
+
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+      <a class="navbar-brand" href="/">ReciclaTextil</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link " href="/">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="/donors/list">Doadores</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="/entities/list">Entidades beneficiadoras</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/donations/list">Doações</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="/admins/list">Admins</a>
+          </li>
+        </ul>
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="/">Logout</a>
+          </li>
+          
+        </ul>
+      </div>
+    </nav>
+    
+    <div class="alert alert-warning" role="alert">
+      <h2 class="alert-heading">Atenção!</h2>
+      <h3>Tem certeza que deseja excluir o admin <span class="text1"><%= admin.email %>?</span></h3>
+      <hr>
+      <form action="/admins/delete/<%= admin.id %>" method="POST">
+          <button type="submit" class="btn btn-primary">Confirmar Exclusão</button>
+      </form>
+        <button type="submit" class=" btn btn-primary" ><a href="/admins/list" class="text-white"  style="text-decoration: none;">Voltar à lista de admin</a></button>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+  </body>
+</html>

@@ -10,7 +10,7 @@ const Entity = require("../models/Entity");
 // Display list of all  Admins
 exports.admin_list = asyncHandler(async (req, res, next) => {
     const admins = await Admin.find({});
-    res.json(admins);
+    res.render('admins/show',{admins:admins});
     next();
 })
 
@@ -50,10 +50,7 @@ exports.admin_create_post = asyncHandler(async (req, res, next) => {
                     httpOnly: true,
                     maxAge: maxAge * 1000, // 3hrs in ms
                 });
-                res.status(201).json({
-                    message: "Admin successfully created",
-                    admin: admin._id,
-                });
+                res.render('admins/message')
             })
             .catch((error) =>
                 res.status(400).json({
@@ -98,8 +95,8 @@ exports.admin_delete_post = asyncHandler(async (req, res, next) => {
             next();
         } else {
             // Delete the admin from the database
-            await admin.remove();
-            res.json({ message: "Admin deleted successfully" });
+            await Admin.deleteOne({ _id: admin.id });
+            res.render('admins/message')
             next();
         }
     } catch (error) {
@@ -135,7 +132,7 @@ exports.admin_update_get = asyncHandler(async (req, res, next) => {
 exports.admin_update_post = asyncHandler(async (req, res, next) => {
     try {
         // Extract updated password details from the request body
-        const { password } = req.body;
+        const { email, password } = req.body;
 
         // Find the admin by ID from the request parameters
         let admin = await Admin.findById(req.params.id);
@@ -145,20 +142,25 @@ exports.admin_update_post = asyncHandler(async (req, res, next) => {
             res.status(404).json({ message: "Admin not found" });
             next();
         } else {
-            // Update the password fields
-            admin.password = password;
+            // Update the email field
+            admin.email = email;
+            
+            // Update the password if it's present
+            if (password) {
+                const hash = await bcrypt.hash(password, 10);
+                admin.password = hash;
+            }
 
             // Save the updated admin to the database
             admin = await admin.save();
-            res.json(admin);
-            next();
+            res.render('admins/message');
         }
     } catch (error) {
         // Handle validation or database errors
         res.status(400).json({ message: error.message });
         next();
     }
-})
+});
 
 // Display Admin login form on GET.
 exports.admin_login_get = asyncHandler(async (req, res, next) => {

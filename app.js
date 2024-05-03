@@ -23,6 +23,7 @@ var loginRouter = require('./src/routes/login');
 var entityRouter = require('./src/routes/entities');
 var donorRouter = require('./src/routes/donors');
 var donationRouter = require('./src/routes/donations');
+var adminRouter=require('./src/routes/admins')
 
 var app = express();
 
@@ -108,6 +109,7 @@ app.use('/', loginRouter);
 app.use('/entities', entityRouter);
 app.use('/donors', donorRouter);
 app.use('/donations', donationRouter);
+app.use('/admins', adminRouter);
 app.get('/logout', function (req, res) {
   req.logout();
   res.redirect('/login');

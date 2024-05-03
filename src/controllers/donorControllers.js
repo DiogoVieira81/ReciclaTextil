@@ -1,6 +1,9 @@
 const asyncHandler = require("express-async-handler");
 const donationControllers = require("../controllers/donationControllers");
 const Donor = require("../models/Donor");
+const multer=require('multer');
+const path=require('path');
+const fs=require('fs')
 const { calculatePointsForDonation } = require("../utils/donationUtils");
 const Donation=require("../models/Donation")
 // Display list of all  Donors
@@ -26,7 +29,7 @@ exports.donor_create_get = asyncHandler(async (req, res, next) => {
 exports.donor_create_post = asyncHandler(async (req, res, next) => {
     // Extract data from request body
     const { name, email, phoneNumber,address,city,district,kg,points,totalDonations,donor,entity} = req.body;
-
+    const fileName=req.file !=null ? req.file.filename: null
     // Create a new Donor object
     const newDonor = new Donor({
         name,
@@ -38,8 +41,10 @@ exports.donor_create_post = asyncHandler(async (req, res, next) => {
         kg,
         points,
         totalDonations,
+        ImageName:fileName,
         donor,
-        entity
+        entity,
+    
 
     });
 
@@ -49,7 +54,7 @@ exports.donor_create_post = asyncHandler(async (req, res, next) => {
        res.render('donors/message')// Return the newly created customer
         next();
     } catch (error) {
-        // Handle validation or database errors
+       
         res.status(400).json({ message: error.message });
         next();
     }
@@ -88,13 +93,16 @@ exports.donor_delete_post = asyncHandler(async (req, res, next) => {
             res.status(404).json({ message: "Donor not found" });
             next();
         } else {
+            
             // Delete the donor from the database
             await Donor.deleteOne({ _id: donor.id });
+           
             res.render('donors/message')
             next();
         }
     } catch (error) {
         // Handle database errors
+        
         res.status(500).json({ message: error.message });
         next();
     }

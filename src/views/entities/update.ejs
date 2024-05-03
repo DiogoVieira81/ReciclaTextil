@@ -72,16 +72,16 @@
         <label for="adress">Morada:</label>
         <input type="text" class="form-control" id="adress"   name="address" value="<%= entity.address %>" readonly required>
       </div>
-      <div class="form-row">
-        <div class="form-group col-md-6">
-          <label for="city">Cidade</label>
-          <input type="text" class="form-control" id="city" name="city" value="<%= entity.city %>"readonly required>
-        </div>
-      </div>
-      <div class="form-row">
-        <div class="form-group col-md-6">
-          <label for="district">Distrito</label>
-          <select  class="form-control" id="district"name="district" readonly required>
+      
+      <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="city">Cidade</label>
+                <input type="text" class="form-control" id="city" name="city" value="<%= entity.city %>" readonly required>
+            </div>
+            <div class="form-group">
+                <label for="district">Distrito</label>
+                <select class="form-control" id="district" name="district" readonly required>
                     <option value="Aveiro" <%= (entity.district === "Aveiro") ? "selected" : "" %>>Aveiro</option>
                     <option value="Beja" <%= (entity.district === "Beja") ? "selected" : "" %>>Beja</option>
                     <option value="Braga" <%= (entity.district === "Braga") ? "selected" : "" %>>Braga</option>
@@ -98,35 +98,25 @@
                     <option value="Viana do Castelo" <%= (entity.district === "Viana do Castelo") ? "selected" : "" %>>Viana do Castelo</option>
                     <option value="Vila Real" <%= (entity.district === "Vila Real") ? "selected" : "" %>>Vila Real</option>
                     <option value="Viseu" <%= (entity.district === "Viseu") ? "selected" : "" %>>Viseu</option>
-            
-          </select>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="description">Descrição</label>
+                <textarea class="form-control" id="description" rows="3" name="description" readonly required><%= entity.description %></textarea>
+            </div>
+            <div class="form-group">
+                <label for="inputKg">Quantidade de Kg recebidos:</label>
+                <input type="number" class="form-control" id="inputKg" value="<%= entity.kg %>" name="kg" required readonly disabled>
+            </div>
+            <div class="form-group">
+                <label for="inputQuantity">Quantidade de doações Recebidas:</label>
+                <input type="number" class="form-control" id="inputQuantity" value="<%= entity.totalDonations %>" name="totalDonations" required readonly disabled>
+            </div>
         </div>
-      </div>
-      <div class="form-row ">
-        <div class="form-group col-md-6">
-          <label for="description">Descrição</label>
-          <textarea class="form-control" id="description" rows="3" 
-         name="description" readonly required><%= entity.description %></textarea>
-      </div>
+        <div class="col-md-6"style="padding-left: 14rem; padding-top: 5rem;">
+            <img src="<%= entity.coverPath %>" class="img-thumbnail" alt="Doador Image" style="max-width: 300px;">
+        </div>
     </div>
-    <div class="form-row ">
-    <div class="form-group col-md-6">
-      <label for="inputKg">Quantidade de Kg recebidos:</label>
-      <input type="number" class="form-control" id="inputKg" value="<%= entity.kg %>" name="kg" required readonly disabled>
-  </div>
-</div>
-<div class="form-row ">
-<div class="form-group col-md-6">
-  <label for="inputQuantity">Quantidade de doações Recebidas:</label>
-  <input type="number" class="form-control" id="inputQuantity" value="<%= entity.totalDonations %>" name="totalDonations" required readonly disabled>
-</div>
-</div>
-      <!--
-      <div class="form-group col-md-6" >
-      <label for="formFileLg" class="form-label">Imagem da empresa</label>
-      <input class="form-control form-control-lg" id="formFileLg" type="file" name="image" required/>
-    </div>
- -->
       
       
             <button type="submit" id="submitButton" class="btn btn-primary" style="display: none;">Concluido</button>

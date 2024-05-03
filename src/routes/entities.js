@@ -1,27 +1,24 @@
 var express = require("express");
 var router = express.Router();
 const multer=require('multer')
+const path=require('path')
+const Entity=require('../models/Entity')
 const entitiesController = require("../controllers/entityControllers");
 
-// Configuração do Multer
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, 'public/images/');
-  },
-  filename: function (req, file, cb) {
-    cb(null, Date.now() + '-' + file.originalname);
-  }
-});
+const uploadPath = path.join("./public", Entity.coverPath);
 
-const upload = multer({ storage: storage });
-
-router.get("/", function (req, res, next) {
-  res.render("entities");
-});
+ const imageMimeTypes = ["image/jpeg", "image/png", "image/gif"];
+  
+ const upload = multer({
+     dest: uploadPath,
+     fileFilter: (req, file, callback) => {
+       callback(null, imageMimeTypes.includes(file.mimetype));
+     },
+   });
 
 router.get("/create",entitiesController.entity_create_get);
 
-router.post("/create",upload.single("image"),entitiesController.entity_create_post);
+router.post("/create",upload.single("cover"),entitiesController.entity_create_post);
 
 router.get("/update/:id", entitiesController.entity_update_get);
 

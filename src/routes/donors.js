@@ -2,7 +2,6 @@ var express = require("express");
 var router = express.Router();
 const multer=require('multer');
 const path=require('path');
-const fs=require('fs')
 const donorsController = require("../controllers/donorControllers");
 const  Donor=require('../models/Donor')
 const uploadPath = path.join("./public", Donor.coverImageBasePath);

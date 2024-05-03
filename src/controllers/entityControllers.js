@@ -27,7 +27,7 @@ exports.entity_create_post = asyncHandler(async (req, res, next) => {
     console.log(req.body)
     const { name,taxpayerNumber, email, phoneNumber,address,city,district, description,kg,totalDonations} = req.body;
     // Create a new Entity object
-
+    const fileName=req.file !=null ? req.file.filename: null
     const newEntity = new Entity({
         name,
         taxpayerNumber,
@@ -38,7 +38,8 @@ exports.entity_create_post = asyncHandler(async (req, res, next) => {
         district,
         description,
         kg,
-        totalDonations
+        totalDonations,
+        ImageName:fileName,
      
     });
 

@@ -11,8 +11,14 @@
 
           <div class="col-lg my-1">
             <h1>Login ReciclaTextil</h1>
-
-            <form class="form-login" action="/dashboard" method="get">
+         <% if (typeof error !== 'undefined' && error !== null && error !== '') { %>
+  <div class="alert alert-danger" role="alert">
+    <%= error %>
+  </div>
+              <% } %>
+           
+            <form class="form-login" action="/login" method="post">
+              
               <div class="form-group my-6">
                 <label>Email</label>
                 <input type="email" class="form-control" name="email">
@@ -28,4 +34,5 @@
       </div>
     </div>
   </div>
+  
   <%- include('footer') %>

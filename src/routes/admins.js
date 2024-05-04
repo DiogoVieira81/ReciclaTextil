@@ -2,19 +2,27 @@ var express = require("express");
 var router = express.Router();
 const adminsController = require("../controllers/adminControllers");
 
-router.get("/create", adminsController.admin_create_get);
+const checkAuth = (req, res, next) => {
+    if (req.session.user_id) {
+      next(); // O usuário está autenticado, pode prosseguir
+    } else {
+      res.status(401).json({ message: "Não autorizado" });
+    }
+  };
 
-router.post("/create", adminsController.admin_create_post);
+router.get("/create", checkAuth,adminsController.admin_create_get);
 
-router.get("/update/:id", adminsController.admin_update_get);
+router.post("/create",checkAuth, adminsController.admin_create_post);
 
-router.post("/update/:id", adminsController.admin_update_post);
+router.get("/update/:id",checkAuth, adminsController.admin_update_get);
 
-router.get("/delete/:id", adminsController.admin_delete_get);
+router.post("/update/:id", checkAuth,adminsController.admin_update_post);
 
-router.post("/delete/:id", adminsController.admin_delete_post);
+router.get("/delete/:id", checkAuth,adminsController.admin_delete_get);
 
-router.get("/list", adminsController.admin_list);
+router.post("/delete/:id",checkAuth, adminsController.admin_delete_post);
+
+router.get("/list", checkAuth,adminsController.admin_list);
 
 /*router.get("/login:id", adminsController.admin_login_get);
 

@@ -8,12 +8,11 @@ const logger = require('morgan');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const mongoose = require('mongoose');
-const multer = require('multer'); 
+
 const fs = require('fs');
 
 const Admin = require('./src/models/Admin');
-const Entity = require('./src/models/Entity'); 
-const Donation = require('./src/models/Donation'); 
+
 
 var adminControllers = require('./src/controllers/adminControllers');
 //var adminAuth = require('./src/middleware/adminAuth');
@@ -24,8 +23,16 @@ var entityRouter = require('./src/routes/entities');
 var donorRouter = require('./src/routes/donors');
 var donationRouter = require('./src/routes/donations');
 var adminRouter=require('./src/routes/admins')
+var logoutRouter=require('./src/routes/logout')
 
 var app = express();
+
+app.use(session({
+  secret:"sessao",
+  resave:false,
+  saveUninitialized:false,
+}))
+
 
 mongoose.Promise = global.Promise;
 //connection to dataBase
@@ -98,15 +105,14 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use('/dashboard', dashboardRouter);
-app.use('/', loginRouter);
+//app.use('/', loginRouter);
 app.use('/entities', entityRouter);
 app.use('/donors', donorRouter);
 app.use('/donations', donationRouter);
+app.use('/login',loginRouter);
 app.use('/admins', adminRouter);
-app.get('/logout', function (req, res) {
-  req.logout();
-  res.redirect('/login');
-});
+app.use('/logout',logoutRouter);
+
 
 // Admin Dashboard Route
 //app.get('/admin/dashboard', adminAuth, (req, res) => {

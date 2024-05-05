@@ -14,13 +14,13 @@ router.get("/create", checkAuth,adminsController.admin_create_get);
 
 router.post("/create",checkAuth, adminsController.admin_create_post);
 
-router.get("/update/:id",checkAuth, adminsController.admin_update_get);
-
-router.post("/update/:id", checkAuth,adminsController.admin_update_post);
-
 router.get("/delete/:id", checkAuth,adminsController.admin_delete_get);
 
 router.post("/delete/:id",checkAuth, adminsController.admin_delete_post);
+
+router.get("/update",checkAuth,adminsController.admin_update_get);
+
+router.post("/update",checkAuth,adminsController.admin_update_post);
 
 router.get("/list", checkAuth,adminsController.admin_list);
 

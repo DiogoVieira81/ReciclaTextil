@@ -17,7 +17,9 @@ const requireAuth = (req, res, next) => {
       }
     });
   } else {
-    res.redirect('/login');
+    
+    const error = 'Precisa fazer login para aceder a essa página!';
+    res.render('login/logins', { error });
   }
 };
 

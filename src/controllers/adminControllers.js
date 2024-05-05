@@ -108,65 +108,66 @@ exports.admin_delete_post = asyncHandler(async (req, res, next) => {
 
 // Display Admin update form on GET.
 exports.admin_update_get = asyncHandler(async (req, res, next) => {
-    try {
-        // Find the admin by ID from the request parameters
-        const admin = await Admin.findById(req.params.id);
-
-        if (!admin) {
-            // If admin not found, return a 404 error
-            res.status(404).json({ message: "Admin not found" });
-            next();
-        } else {
-            // Render the admin update form with the existing admin details
-            res.render("admins/update", { admin: admin });
-            next();
-        }
-    } catch (error) {
-        // Handle database errors
-        res.status(500).json({ message: error.message });
-        next();
-    }
-})
+   
+    res.render('admins/profile');
+});
 
 // Handle Admin update on POST.
-exports.admin_update_post = asyncHandler(async (req, res, next) => {
-    try {
-        // Extract updated password details from the request body
-        const { email, password } = req.body;
-
-        // Find the admin by ID from the request parameters
-        let admin = await Admin.findById(req.params.id);
-
-        if (!admin) {
-            // If admin not found, return a 404 error
-            res.status(404).json({ message: "Admin not found" });
-            next();
-        } else {
-            // Update the email field
-            admin.email = email;
+    exports.admin_update_post = asyncHandler(async (req, res, next) => {
+        try {
+            // Extract updated password details from the request body
+            const { email, passwordAntiga, passwordNova } = req.body;
             
-            // Update the password if it's present
-            if (password) {
-                const hash = await bcrypt.hash(password, 10);
-                admin.password = hash;
+            // Find the admin by email from the request parameters
+            let admin = await Admin.findOne({ email });
+    
+            if (!admin) {
+                // If admin not found, return a 404 error
+                const error = "Email incorreto";
+                res.render('admins/profile', { error });
+                return;
             }
-
+            if (email !== admin.email) {
+                // If the email is different, render the page with an error message
+                const error = "Email incorreto";
+                res.render('admins/profile', { error });
+                return;
+            }
+            const isPasswordValid = await bcrypt.compare(passwordAntiga, admin.password);
+    
+            if (!isPasswordValid) {
+                const error = "Senha incorreta";
+                res.render('admins/profile', { error });
+                return;
+            }
+    
+            // Update the admin's email
+            admin.email = email;
+    
+            // Update the password if it's present
+            if (passwordNova) {
+                const hash = await bcrypt.hash(passwordNova, 10);
+                admin.password = hash;
+            }   
+    
             // Save the updated admin to the database
             admin = await admin.save();
             res.render('admins/message');
+        } catch (error) {
+            // Handle validation or database errors
+            res.status(400).json({ message: error.message });
+            next();
         }
-    } catch (error) {
-        // Handle validation or database errors
-        res.status(400).json({ message: error.message });
-        next();
-    }
-});
-
+    });
 // Display Admin login form on GET.
 exports.admin_login_get = asyncHandler(async (req, res, next) => {
-    res.render('admins/login', { title: 'Login' });
-    next();
-})
+    try {
+        const admin = await Admin.findById(req.params.id);
+        res.render('admins/profile', { admin });
+    } catch (error) {
+        res.status(404).json({ message: "Admin not found" });
+    }
+});
 
 // Display Admin login form on POST.
 exports.admin_login_post = passport.authenticate('admin-local', {

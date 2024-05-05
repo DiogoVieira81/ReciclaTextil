@@ -27,20 +27,20 @@
             <a class="nav-link " href="/dashboard">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active " href="/donors/list">Doadores</a>
+            <a class="nav-link " href="/donors/list">Doadores</a>
           </li>
 
           <li class="nav-item">
             <a class="nav-link" href="/entities/list">Entidades beneficiadoras</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link " href="/admins/list">Admins</a>
+            <a class="nav-link " href="/donations/list">Doaçoes</a>
           </li>
           <li class="nav-item">
             <a class="nav-link " href="/admins/list">Admins</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link " href="/admins/update">Alterar Dados acesso</a>
+            <a class="nav-link active " href="/admins/update">Alterar Dados acesso</a>
           </li>
         </ul>
         <ul class="navbar-nav">
@@ -50,68 +50,29 @@
         </ul>
       </div>
     </nav>
- 
-    </div>
-    <form action="/donors/create" method="post" enctype="multipart/form-data">
-      <div class="form-row ">
+   
+    <form action="/admins/update" method="post" >
+      <% if (typeof error !== 'undefined' && error !== null && error !== '') { %>
+        <div class="alert alert-danger" role="alert">
+          <%= error %>
+        </div>
+                    <% } %>
+      <div class="form-row">  
         <div class="form-group col-md-6">
-          <label for="inputEmail4">Nome</label>
-          <input type="text" class="form-control" id="inputEmail4" placeholder="Insira o nome do doador" name="name" required>
-        </div>
-      </div>
-        <div class="form-group">
-          <label for="inputEmail4">Email</label>
-          <input type="email" class="form-control" id="inputEmail4" placeholder="Insira um email" name="email" required>
-        </div>
-      <div class="form-group">
-        <label for="inputAddress">Telemovel</label>
-        <input type="Telefone" class="form-control" id="inputTelefone4" pattern="[0-9]{9}" placeholder="Insira um numero de telemovel " name="phoneNumber" required>
+              <label for="inputEmail4">Email:</label>
+              <input type="text" class="form-control" id="inputEmail4" placeholder="Insira o email" name="email" required>
+          </div>
       </div>
       <div class="form-group">
-        <label for="inputAddress2">Morada:</label>
-        <input type="text" class="form-control" id="inputAddress2"  placeholder="Rua, nº porta,andar" name="address" required>
+          <label for="senhaAntiga">Password antiga:</label>
+          <input type="password" class="form-control" id="senhaAntiga" placeholder="Password Antiga" name="passwordAntiga" required>
       </div>
-      <div class="form-row">
-        <div class="form-group col-md-6">
-          <label for="inputCity">Cidade</label>
-          <input type="text" class="form-control" id="inputCity"placeholder="Introduza a cidade onde reside" name="city" required>
-        </div>
+      <div class="form-group">
+          <label for="novaSenha">Nova password:</label>
+          <input type="password" class="form-control" id="novaSenha" placeholder="Nova password" name="passwordNova" required>
       </div>
-      <div class="form-row">
-        <div class="form-group col-md-6">
-          <label for="inputEstado">Distrito</label>
-          <select id="inputEstado" class="form-control" name="district" required>
-            <option selected>Selecione</option>
-            <option> Aveiro</option>
-            <option> Beja</option>
-            <option> Braga</option>
-            <option> Bragança</option>
-            <option> Coimbra</option>
-            <option> Évora</option>
-            <option> Faro</option>
-            <option> Guarda</option>
-            <option> Leiria</option>
-            <option> Lisboa</option>
-            <option> Portalegre</option>
-            <option> Porto</option>
-            <option> Santarém</option>
-            <option> Setubal</option>
-            <option> Viana do Castelo</option>
-            <option> Vila Real</option>
-            <option> Viseu</option>
-            
-          </select>
-        </div>
-      </div>
-      
-      
-      
-         <input type="file" name="cover" required/>
-  
-
-
       <button type="submit" class="btn btn-primary">Registar</button>
-    </form>
+  </form>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>

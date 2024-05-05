@@ -50,7 +50,7 @@ exports.admin_create_post = asyncHandler(async (req, res, next) => {
                     httpOnly: true,
                     maxAge: maxAge * 1000, // 3hrs in ms
                 });
-                res.render('admins/message')
+                res.render('admins/message',{sucessMessage:''})
             })
             .catch((error) =>
                 res.status(400).json({
@@ -96,7 +96,7 @@ exports.admin_delete_post = asyncHandler(async (req, res, next) => {
         } else {
             // Delete the admin from the database
             await Admin.deleteOne({ _id: admin.id });
-            res.render('admins/message')
+            res.render('admins/message',{sucessMessage:''})
             next();
         }
     } catch (error) {
@@ -152,7 +152,7 @@ exports.admin_update_get = asyncHandler(async (req, res, next) => {
     
             // Save the updated admin to the database
             admin = await admin.save();
-            res.render('admins/message');
+            res.render('admins/message', { sucessMessage: 'Password alterada com sucesso' });
         } catch (error) {
             // Handle validation or database errors
             res.status(400).json({ message: error.message });

@@ -6,14 +6,14 @@ const donorsController = require("../controllers/donorControllers");
 const  Donor=require('../models/Donor')
 const uploadPath = path.join("./public", Donor.coverImageBasePath);
 
-const checkAuth = (req, res, next) => {
-  if (req.session.user_id) {
-    next(); // O usuário está autenticado, pode prosseguir
-  } else {
-    res.status(401).json({ message: "Não autorizado" });
-  }
-};
-
+const  checkAuth  = require('../middleware/auth');
+/*const checkAuth = (req, res, next) => {
+    if (req.session.user_id) {
+      next(); // O usuário está autenticado, pode prosseguir
+    } else {
+      res.status(401).json({ message: "Não autorizado" });
+    }
+  };*/
   //tipos de imagens que vai aceitar
   const imageMimeTypes = ["image/jpeg", "image/png", "image/gif"];
   

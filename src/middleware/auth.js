@@ -1,21 +1,24 @@
-// Middleware function for admin authentication
-const adminAuth = (req, res, next) => {
-    const token = req.cookies.jwt;
-    if (token) {
-        jwt.verify(token, jwtSecret, (err, decodedToken) => {
-            if (err) {
-                return res.status(401).json({ message: "Not authorized" });
-            } else {
-                if (decodedToken.role !== "Basic") {
-                    return res.status(401).json({ message: "Not authorized" });
-                } else {
-                    next(); // Proceed to the next middleware or route handler
-                }
-            }
-        });
-    } else {
-        return res.status(401).json({ message: "Not authorized, token not available" });
-    }
+
+
+const jwt = require('jsonwebtoken');
+
+const requireAuth = (req, res, next) => {
+  const token = req.cookies.token;
+
+  // Check if JWT token exists
+  if (token) {
+    jwt.verify(token, 'secretpassword', (err, decodedToken) => {
+      if (err) {
+        console.log(err.message);
+        res.redirect('/login');
+      } else {
+        console.log(decodedToken);
+        next();
+      }
+    });
+  } else {
+    res.redirect('/login');
+  }
 };
 
-module.exports = adminAuth;
+module.exports =  requireAuth ;

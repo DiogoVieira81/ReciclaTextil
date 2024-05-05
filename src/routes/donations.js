@@ -2,14 +2,14 @@ var express = require("express");
 var router = express.Router();
 const donationController = require("../controllers/donationControllers");
 
-const checkAuth = (req, res, next) => {
+const  checkAuth  = require('../middleware/auth');
+/*const checkAuth = (req, res, next) => {
     if (req.session.user_id) {
       next(); // O usuário está autenticado, pode prosseguir
     } else {
       res.status(401).json({ message: "Não autorizado" });
     }
-  };
-
+  };*/
 router.get("/create",checkAuth, donationController.donation_create_get);
 
 router.post("/create", checkAuth,donationController.donation_create_post);

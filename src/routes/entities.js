@@ -5,13 +5,14 @@ const path=require('path')
 const Entity=require('../models/Entity')
 const entitiesController = require("../controllers/entityControllers");
 const uploadPath = path.join("./public", Entity.coverPath);
-const checkAuth = (req, res, next) => {
-  if (req.session.user_id) {
-    next(); // O usuário está autenticado, pode prosseguir
-  } else {
-    res.status(401).json({ message: "Não autorizado" });
-  }
-};
+const  checkAuth  = require('../middleware/auth');
+/*const checkAuth = (req, res, next) => {
+    if (req.session.user_id) {
+      next(); // O usuário está autenticado, pode prosseguir
+    } else {
+      res.status(401).json({ message: "Não autorizado" });
+    }
+  };*/
 
  const imageMimeTypes = ["image/jpeg", "image/png", "image/gif"];
   

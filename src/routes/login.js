@@ -1,7 +1,5 @@
 var express = require('express');
 var router = express.Router();
-const passport = require('passport');
-const app = require('../../app');
 const loginController=require('../controllers/loginController');
 /* GET home page. */
 
@@ -9,7 +7,7 @@ const loginController=require('../controllers/loginController');
 
 
 router.get('/', function (req, res) {
-  res.render('login/logins');
+  res.render('login/logins',{error:''});
 });
 
 router.post('/',loginController.login_session);

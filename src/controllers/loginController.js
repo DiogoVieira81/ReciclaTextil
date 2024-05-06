@@ -7,7 +7,7 @@ exports.login_session = asyncHandler(async (req, res, next) => {
   try {
     const { email, password } = req.body;
 
-    const user = await Admin.findOne({ email });
+    const user = await Admin.findOne({ email:email });
 
     if (user && (await bcrypt.compare(password, user.password))) {
       const token = jwt.sign({ id: user._id }, 'secretpassword', {

@@ -7,7 +7,7 @@ exports.login_session = asyncHandler(async (req, res, next) => {
   try {
     const { email, password } = req.body;
 
-    const user = await Admin.findOne({ email: email });
+    const user = await Admin.findOne({ email });
 
     if (user && (await bcrypt.compare(password, user.password))) {
       const token = jwt.sign({ id: user._id }, 'secretpassword', {
@@ -24,7 +24,7 @@ exports.login_session = asyncHandler(async (req, res, next) => {
       return res.redirect('/dashboard');
     } else {
       const error = 'O usuário não existe ou a senha está incorreta';
-      res.render('login/logins', { error });
+      return res.render('login/logins', { error });
     }
   } catch (error) {
     console.error(error);

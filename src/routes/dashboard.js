@@ -15,7 +15,7 @@ const  checkAuth  = require('../middleware/auth');
  * @swagger
  * /admin/dashboard:
  *   get:
- *     summary: Exibe o painel de controlos do administrador
+ *     summary: Exibe garficos com estatisticas sobre doacoes e doadores
  *     security:
  *       - bearerAuth: []
  *     tags: [Dashboard]

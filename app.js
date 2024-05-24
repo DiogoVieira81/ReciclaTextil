@@ -6,6 +6,10 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require("body-parser")
 const logger = require('morgan');
 const mongoose = require('mongoose');
+const swaggerUi = require('swagger-ui-express');
+const { specs } = require('./swagger');
+
+
 
 var dashboardRouter = require('./src/routes/dashboard');
 var loginRouter = require('./src/routes/login');
@@ -44,7 +48,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
 app.use('/dashboard', dashboardRouter);
 app.use('/', loginRouter);
 app.use('/entities', entityRouter);

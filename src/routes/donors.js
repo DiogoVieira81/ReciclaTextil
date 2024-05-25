@@ -202,17 +202,7 @@ router.get("/delete/:id", checkAuth, donorsController.donor_delete_get);
  */
 router.post("/delete/:id", checkAuth, donorsController.donor_delete_post);
 
-/**
- * @swagger
- * /donors/list:
- *   get:
- *     summary: Lista todos os doadores
- *     security:
- *       - bearerAuth: []
- *     tags: [Donors]
- *     responses:
- */     
-/**
+/*
  * @swagger
  * /donors/list:
  *   get:
@@ -223,6 +213,12 @@ router.post("/delete/:id", checkAuth, donorsController.donor_delete_post);
  *     responses:
  *       200:
  *         description: Lista de todas os doadores recuperada com sucesso
+ *      content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/models/Donor' 
  *       401:
  *         description: Não autorizado
  */

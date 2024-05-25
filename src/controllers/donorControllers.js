@@ -5,13 +5,10 @@ const { calculatePointsForDonation } = require("../utils/donationUtils");
 const Donation=require("../models/Donation")
 // Display list of all  Donors
 exports.donor_list = asyncHandler(async (req, res, next) => {
-    if(req.session.user_id){
+   
     const donors = await Donor.find({});
     res.render('donors/show', { donors: donors });
-    }else{
-        res.json("Necessita de fazer login para aceder a este conteudo")
-    }
-    })
+});
 
 // Display detail page for a specific Donor
 exports.donor_detail = asyncHandler(async (req, res, next) => {

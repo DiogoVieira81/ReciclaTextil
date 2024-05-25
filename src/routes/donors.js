@@ -212,6 +212,20 @@ router.post("/delete/:id", checkAuth, donorsController.donor_delete_post);
  *     tags: [Donors]
  *     responses:
  */     
-
+/**
+ * @swagger
+ * /donors/list:
+ *   get:
+ *     summary: Lista todas os doadores
+ *     security:
+ *       - bearerAuth: []
+ *     tags: [Donors]
+ *     responses:
+ *       200:
+ *         description: Lista de todas os doadores recuperada com sucesso
+ *       401:
+ *         description: Não autorizado
+ */
+router.get("/list", checkAuth, donorsController.donor_list);
 
 module.exports = router;

@@ -4,6 +4,16 @@ const Donor = require("../models/Donor");
 const { calculatePointsForDonation } = require("../utils/donationUtils");
 const Donation=require("../models/Donation")
 // Display list of all  Donors
+exports.donor_list_json = asyncHandler(async (req, res, next) => {
+    try {
+        const donors = await Donor.find({});
+        res.status(200).json({ donors: donors });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
+
 exports.donor_list = asyncHandler(async (req, res, next) => {
    
     const donors = await Donor.find({});
@@ -22,6 +32,38 @@ exports.donor_detail = asyncHandler(async (req, res, next) => {
 exports.donor_create_get = asyncHandler(async (req, res, next) => {
     res.render('donors/create', { title: 'Create entity' });
     next();
+});
+exports.donor_create_post_json = asyncHandler(async (req, res, next) => {
+     
+    const { name, email, phoneNumber, address, city, district, kg, points, totalDonations, donor, entity } = req.body;
+    const fileName = req.file != null ? req.file.filename : null;
+
+    
+    const newDonor = new Donor({
+        name,
+        email,
+        phoneNumber,
+        address,
+        city,
+        district,
+        kg,
+        points,
+        totalDonations,
+        ImageName: fileName,
+        donor,
+        entity,
+    });
+
+    try {
+        
+        const savedDonor = await newDonor.save();
+        
+     
+        res.status(201).json({ message: "Doador criado com sucesso", donor: savedDonor });
+    } catch (error) {
+        
+        res.status(400).json({ message: error.message });
+    }
 });
 
 // Handle Donor create on POST.
@@ -81,6 +123,30 @@ exports.donor_delete_get = asyncHandler(async (req, res, next) => {
     }
 })
 
+exports.donor_delete_post_json = asyncHandler(async (req, res, next) => {
+    try {
+    
+        const donor = await Donor.findById(req.params.id);
+
+        if (!donor) {
+          
+            res.status(404).json({ message: "Doador não encontrado" });
+            next();
+        } else {
+          
+            await Donor.deleteOne({ _id: donor.id });
+           
+          
+            res.status(200).json({ message: "Doador excluído com sucesso" });
+            next();
+        }
+    } catch (error) {
+    
+        res.status(500).json({ message: error.message });
+        next();
+    }
+});
+
 // Handle Donor delete on POST.
 exports.donor_delete_post = asyncHandler(async (req, res, next) => {
     try {
@@ -129,6 +195,44 @@ exports.donor_update_get = asyncHandler(async (req, res, next) => {
         res.status(500).json({ message: error.message });
     }
 })
+
+exports.donor_update_post_json = asyncHandler(async (req, res, next) => {
+    try {
+       
+        const { name, email, phoneNumber, address, city, district, kg, points, totalDonations } = req.body;
+
+        
+        let donor = await Donor.findById(req.params.id);
+
+        if (!donor) {
+            res.status(404).json({ message: "Doador não encontrado" });
+            next();
+        } else {
+            
+            donor.name = name;
+            donor.email = email;
+            donor.phoneNumber = phoneNumber;
+            donor.address = address;
+            donor.city = city;
+            donor.district = district;
+            donor.kg = kg;
+            donor.points = points;
+            donor.totalDonations = totalDonations;
+
+           
+            donor = await donor.save();
+            
+         
+            res.status(200).json({ message: "Doador atualizado com sucesso" });
+            next();
+        }
+    } catch (error) {
+        
+        res.status(400).json({ message: error.message });
+        next();
+    }
+});
+
 
 // Handle Donor update on POST.
 exports.donor_update_post = asyncHandler(async (req, res, next) => {

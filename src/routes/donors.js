@@ -19,31 +19,11 @@ const  checkAuth  = require('../middleware/auth');
     });
 
 
-/**
- * @swagger
- * tags:
- *   name: Donors
- *   description: Rotas relacionadas a doadores
- */
 
-/**
- * @swagger
- * /donors/create:
- *   get:
- *     summary: Exibe o formulário de criação de doador
- *     security:
- *       - bearerAuth: []
- *     tags: [Donors]
- *     responses:
- *       200:
- *         description: Formulário de criação de doador exibido com sucesso
- *       401:
- *         description: Não autorizado
- */
 router.get("/create", checkAuth, donorsController.donor_create_get);
 /**
  * @swagger
- * /donors/create:
+ * /donors/create/api:
  *   post:
  *     summary: Cria um novo doador
  *     security:
@@ -83,34 +63,14 @@ router.get("/create", checkAuth, donorsController.donor_create_get);
  *       401:
  *         description: Não autorizado
  */
+router.post("/create/api", checkAuth, upload.single("cover"), donorsController.donor_create_post_json);
 router.post("/create", checkAuth, upload.single("cover"), donorsController.donor_create_post);
 
-/**
- * @swagger
- * /donors/update/{id}:
- *   get:
- *     summary: Exibe o formulário de atualização de doador
- *     security:
- *       - bearerAuth: []
- *     tags: [Donors]
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         description: ID do doador a ser atualizado
- *         schema:
- *           type: string
- *     responses:
- *       200:
- *         description: Formulário de atualização de doador exibido com sucesso
- *       401:
- *         description: Não autorizado
- */
 router.get("/update/:id", checkAuth, donorsController.donor_update_get);
 
 /**
  * @swagger
- * /donors/update/{id}:
+ * /donors/update/{id}/api:
  *   post:
  *     summary: Atualiza um doador existente
  *     security:
@@ -154,34 +114,15 @@ router.get("/update/:id", checkAuth, donorsController.donor_update_get);
  *       401:
  *         description: Não autorizado
  */
+router.post("/update/:id/api", checkAuth, donorsController.donor_update_post_json);
 router.post("/update/:id", checkAuth, donorsController.donor_update_post);
 
-/**
- * @swagger
- * /donors/delete/{id}:
- *   get:
- *     summary: Exibe o formulário de exclusão de doador
- *     security:
- *       - bearerAuth: []
- *     tags: [Donors]
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         description: ID do doador a ser excluído
- *         schema:
- *           type: string
- *     responses:
- *       200:
- *         description: Formulário de exclusão de doador exibido com sucesso
- *       401:
- *         description: Não autorizado
- */
+
 router.get("/delete/:id", checkAuth, donorsController.donor_delete_get);
 
 /**
  * @swagger
- * /donors/delete/{id}:
+ * /donors/delete/{id}/api:
  *   post:
  *     summary: Exclui um doador existente
  *     security:
@@ -200,11 +141,12 @@ router.get("/delete/:id", checkAuth, donorsController.donor_delete_get);
  *       401:
  *         description: Não autorizado
  */
+router.post("/delete/:id/api", checkAuth, donorsController.donor_delete_post_json);
 router.post("/delete/:id", checkAuth, donorsController.donor_delete_post);
 
-/*
+/**
  * @swagger
- * /donors/list:
+ * /donors/list/api:
  *   get:
  *     summary: Lista todas os doadores
  *     security:
@@ -213,15 +155,38 @@ router.post("/delete/:id", checkAuth, donorsController.donor_delete_post);
  *     responses:
  *       200:
  *         description: Lista de todas os doadores recuperada com sucesso
- *      content:
+ *         content:
  *           application/json:
  *             schema:
  *               type: array
  *               items:
- *                 $ref: '#/models/Donor' 
+ *                 type: object
+ *                 properties:
+ *                   _id:
+ *                     type: string
+ *                   name:
+ *                     type: string
+ *                   email:
+ *                     type: string
+ *                   phoneNumber:
+ *                     type: string
+ *                   address:
+ *                     type: string
+ *                   city:
+ *                     type: string
+ *                   district:
+ *                     type: string
+ *                   kg:
+ *                     type: number
+ *                   points:
+ *                     type: number
+ *                   totalDonations:
+ *                     type: number
  *       401:
  *         description: Não autorizado
  */
+
+router.get("/list/api", checkAuth, donorsController.donor_list_json);
 router.get("/list", checkAuth, donorsController.donor_list);
 
 module.exports = router;

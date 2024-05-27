@@ -24,25 +24,12 @@ const  checkAuth  = require('../middleware/auth');
  *   description: Rotas relacionadas a entidades
  */
 
-/**
- * @swagger
- * /entities/create:
- *   get:
- *     summary: Exibe o formulário de criação de entidade
- *     security:
- *       - bearerAuth: []
- *     tags: [Entities]
- *     responses:
- *       200:
- *         description: Formulário de criação de entidade exibido com sucesso
- *       401:
- *         description: Não autorizado
- */
+
 router.get("/create", checkAuth, entitiesController.entity_create_get);
 
 /**
  * @swagger
- * /entities/create:
+ * /entities/create/api:
  *   post:
  *     summary: Cria uma nova entidade
  *     security:
@@ -84,34 +71,14 @@ router.get("/create", checkAuth, entitiesController.entity_create_get);
  *       401:
  *         description: Não autorizado
  */
+router.post("/create/api", checkAuth, upload.single("cover"), entitiesController.entity_create_post_json);
 router.post("/create", checkAuth, upload.single("cover"), entitiesController.entity_create_post);
 
-/**
- * @swagger
- * /entities/update/{id}:
- *   get:
- *     summary: Exibe o formulário de atualização de entidade
- *     security:
- *       - bearerAuth: []
- *     tags: [Entities]
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         description: ID da entidade a ser atualizada
- *         schema:
- *           type: string
- *     responses:
- *       200:
- *         description: Formulário de atualização de entidade exibido com sucesso
- *       401:
- *         description: Não autorizado
- */
 router.get("/update/:id", checkAuth, entitiesController.entity_update_get);
 
 /**
  * @swagger
- * /entities/update/{id}:
+ * /entities/update/{id}/api:
  *   post:
  *     summary: Atualiza uma entidade existente
  *     security:
@@ -159,34 +126,14 @@ router.get("/update/:id", checkAuth, entitiesController.entity_update_get);
  *       401:
  *         description: Não autorizado
  */
+router.post("/update/:id/api", checkAuth, entitiesController.entity_update_post_json);
 router.post("/update/:id", checkAuth, entitiesController.entity_update_post);
 
-/**
- * @swagger
- * /entities/delete/{id}:
- *   get:
- *     summary: Exibe o formulário de exclusão de entidade
- *     security:
- *       - bearerAuth: []
- *     tags: [Entities]
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         description: ID da entidade a ser excluída
- *         schema:
- *           type: string
- *     responses:
- *       200:
- *         description: Formulário de exclusão de entidade exibido com sucesso
- *       401:
- *         description: Não autorizado
- */
 router.get("/delete/:id", checkAuth, entitiesController.entity_delete_get);
 
 /**
  * @swagger
- * /entities/delete/{id}:
+ * /entities/delete/{id}/api:
  *   post:
  *     summary: Exclui uma entidade existente
  *     security:
@@ -205,11 +152,12 @@ router.get("/delete/:id", checkAuth, entitiesController.entity_delete_get);
  *       401:
  *         description: Não autorizado
  */
+router.post("/delete/:id/api", checkAuth, entitiesController.entity_delete_post_json);
 router.post("/delete/:id", checkAuth, entitiesController.entity_delete_post);
 
 /**
  * @swagger
- * /entities/list:
+ * /entities/list/api:
  *   get:
  *     summary: Lista todas as entidades
  *     security:
@@ -221,6 +169,7 @@ router.post("/delete/:id", checkAuth, entitiesController.entity_delete_post);
  *       401:
  *         description: Não autorizado
  */
+router.get("/list/api",checkAuth, entitiesController.entity_list_json);
 router.get("/list",checkAuth, entitiesController.entity_list);
 
 

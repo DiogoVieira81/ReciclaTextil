@@ -1,22 +1,20 @@
-// swagger.js
 const swaggerJsdoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
 
 const options = {
-  definition: {
+  swaggerDefinition: {
     openapi: '3.0.0',
     info: {
-      title: 'Recicla Textil API',
+      title: 'Admin API',
       version: '1.0.0',
-      description: 'API documentation for Recicla Textil project',
+      description: 'API para administração',
     },
     servers: [
       {
         url: 'http://localhost:3000',
       },
     ],
-  },
-  apis: ['./src/routes/*js'], // Caminho para os arquivos da rota que contêm as anotações Swagger
+  },  apis: ['./src/routes/*js'], // Caminho para o arquivo de rotas
 };
 
 const specs = swaggerJsdoc(options);

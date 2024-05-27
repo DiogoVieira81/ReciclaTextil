@@ -7,12 +7,24 @@ const passport = require('passport');
 const Donor = require("../models/Donor");
 const Entity = require("../models/Entity");
 
+exports.admin_list_json = asyncHandler(async (req, res, next) => {
+    try {
+        const admins = await Admin.find({});
+        res.status(200).json(admins);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
 // Display list of all  Admins
 exports.admin_list = asyncHandler(async (req, res, next) => {
-    const admins = await Admin.find({});
-    res.render('admins/show',{admins:admins});
-    next();
-})
+    try {
+        const admins = await Admin.find({});
+        res.render('admins/show', { admins });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
 
 // Display detail page for a specific Admin
 exports.admin_detail = asyncHandler(async (req, res, next) => {
@@ -26,6 +38,28 @@ exports.admin_create_get = asyncHandler(async (req, res, next) => {
     res.render('admins/create', { title: 'Create admin' });
     next();
 })
+
+exports.admin_create_post_json = asyncHandler(async (req, res, next) => {
+    const { email, password } = req.body;
+    if (!password || typeof password !== 'string') {
+        return res.status(400).json({ message: "Password is required and must be a string" });
+    }
+    bcrypt.hash(password, 10).then(async (hash) => {
+        try {
+            const admin = await Admin.create({ email, password: hash });
+            const maxAge = 3 * 60 * 60;
+            const token = jwt.sign(
+                { id: admin._id, email },
+                jwtSecret,
+                { expiresIn: maxAge }
+            );
+            res.cookie("jwt", token, { httpOnly: true, maxAge: maxAge * 1000 });
+            res.status(201).json({ message: "Admin successfully created", admin });
+        } catch (error) {
+            res.status(400).json({ message: "Admin not successful created", error: error.message });
+        }
+    });
+});
 
 // Handle Admin create on POST.
 exports.admin_create_post = asyncHandler(async (req, res, next) => {
@@ -82,7 +116,18 @@ exports.admin_delete_get = asyncHandler(async (req, res, next) => {
         next();
     }
 })
-
+exports.admin_delete_post_json = asyncHandler(async (req, res, next) => {
+    try {
+        const admin = await Admin.findById(req.params.id);
+        if (!admin) {
+            return res.status(404).json({ message: "Admin not found" });
+        }
+        await Admin.deleteOne({ _id: admin.id });
+        res.status(200).json({ message: "Admin successfully deleted", admin });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
 // Handle Admin delete on POST.
 exports.admin_delete_post = asyncHandler(async (req, res, next) => {
     try {
@@ -110,6 +155,28 @@ exports.admin_delete_post = asyncHandler(async (req, res, next) => {
 exports.admin_update_get = asyncHandler(async (req, res, next) => {
    
     res.render('admins/profile');
+});
+
+exports.admin_update_post_json = asyncHandler(async (req, res, next) => {
+    try {
+        const { email, passwordAntiga, passwordNova } = req.body;
+        let admin = await Admin.findOne({ email });
+        if (!admin) {
+            return res.status(404).json({ message: "Email incorreto" });
+        }
+        const isPasswordValid = await bcrypt.compare(passwordAntiga, admin.password);
+        if (!isPasswordValid) {
+            return res.status(401).json({ message: "Senha incorreta" });
+        }
+        if (passwordNova) {
+            const hash = await bcrypt.hash(passwordNova, 10);
+            admin.password = hash;
+        }
+        admin = await admin.save();
+        res.status(200).json({ message: "Admin password updated", admin });
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
 });
 
 // Handle Admin update on POST.

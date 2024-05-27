@@ -7,7 +7,7 @@ const options = {
     info: {
       title: 'Admin API',
       version: '1.0.0',
-      description: 'API para administração',
+      description: 'API para gerenciamento de doações',
     },
     servers: [
       {

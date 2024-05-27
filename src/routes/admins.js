@@ -39,7 +39,7 @@ router.post("/create/api", checkAuth, adminsController.admin_create_post_json);
 router.post("/create", checkAuth, adminsController.admin_create_post);
 
 
-router.get("/api/delete/:id", checkAuth, adminsController.admin_delete_get);
+router.get("/delete/:id", checkAuth, adminsController.admin_delete_get);
 
 /**
  * @swagger

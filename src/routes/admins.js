@@ -1,37 +1,15 @@
 var express = require("express");
 var router = express.Router();
 const adminsController = require("../controllers/adminControllers");
-const  checkAuth  = require('../middleware/auth');
+const checkAuth = require('../middleware/auth');
 
-
-/**
- * @swagger
- * tags:
- *   name: Admins
- *   description: Rotas relacionadas a administradores
- */
+router.get("/create", checkAuth, adminsController.admin_create_get);
 
 /**
  * @swagger
- * /admins/create:
- *   get:
- *     summary: Exibe o formulário de criação de administrador
- *     security:
- *       - bearerAuth: []
- *     tags: [Admins]
- *     responses:
- *       200:
- *         description: Formulário de criação de administrador exibido com sucesso
- *       401:
- *         description: Não autorizado
- */
-router.get("/create", checkAuth,adminsController.admin_create_get);
-
-/**
- * @swagger
- * /admins/create:
+ * /admins/create/api:
  *   post:
- *     summary: Cria um novo administrador
+ *     summary: Cria um novo administrador (JSON)
  *     security:
  *       - bearerAuth: []
  *     tags: [Admins]
@@ -48,6 +26,7 @@ router.get("/create", checkAuth,adminsController.admin_create_get);
  *                 format: email
  *               password:
  *                 type: string
+ *   
  *     responses:
  *       201:
  *         description: Administrador criado com sucesso
@@ -56,34 +35,17 @@ router.get("/create", checkAuth,adminsController.admin_create_get);
  *       401:
  *         description: Não autorizado
  */
-router.post("/create",checkAuth, adminsController.admin_create_post);
+router.post("/create/api", checkAuth, adminsController.admin_create_post_json);
+router.post("/create", checkAuth, adminsController.admin_create_post);
+
+
+router.get("/api/delete/:id", checkAuth, adminsController.admin_delete_get);
+
 /**
  * @swagger
- * /admins/delete/{id}:
- *   get:
- *     summary: Exibe o formulário de exclusão de administrador
- *     security:
- *       - bearerAuth: []
- *     tags: [Admins]
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         description: ID do administrador a ser excluído
- *         schema:
- *           type: string
- *     responses:
- *       200:
- *         description: Formulário de exclusão de administrador exibido com sucesso
- *       401:
- *         description: Não autorizado
- */
-router.get("/delete/:id", checkAuth,adminsController.admin_delete_get);
-/**
- * @swagger
- * /admins/delete/{id}:
+ * /admins/delete/{id}/api:
  *   post:
- *     summary: Exclui um administrador existente
+ *     summary: Exclui um administrador existente (JSON)
  *     security:
  *       - bearerAuth: []
  *     tags: [Admins]
@@ -100,51 +62,16 @@ router.get("/delete/:id", checkAuth,adminsController.admin_delete_get);
  *       401:
  *         description: Não autorizado
  */
-router.post("/delete/:id",checkAuth, adminsController.admin_delete_post);
-/**
- * @swagger
- * /admins/delete/{id}:
- *   post:
- *     summary: Exclui um administrador existente
- *     security:
- *       - bearerAuth: []
- *     tags: [Admins]
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         description: ID do administrador a ser excluído
- *         schema:
- *           type: string
- *     responses:
- *       200:
- *         description: Administrador excluído com sucesso
- *       401:
- *         description: Não autorizado
- */
+router.post("/delete/:id/api", checkAuth, adminsController.admin_delete_post_json);
 router.post("/delete/:id", checkAuth, adminsController.admin_delete_post);
 
-/**
- * @swagger
- * /admins/update:
- *   get:
- *     summary: Exibe o formulário de atualização de administrador
- *     security:
- *       - bearerAuth: []
- *     tags: [Admins]
- *     responses:
- *       200:
- *         description: Formulário de atualização de administrador exibido com sucesso
- *       401:
- *         description: Não autorizado
- */
 
-router.get("/update",checkAuth,adminsController.admin_update_get);
+router.get("/update", checkAuth, adminsController.admin_update_get);
 /**
  * @swagger
- * /admins/update:
+ * /admins/update/api:
  *   post:
- *     summary: Atualiza um administrador existente
+ *     summary: Atualiza um administrador existente (JSON)
  *     security:
  *       - bearerAuth: []
  *     tags: [Admins]
@@ -159,7 +86,9 @@ router.get("/update",checkAuth,adminsController.admin_update_get);
  *               email:
  *                 type: string
  *                 format: email
- *               password:
+ *               passwordAntiga:
+ *                 type: string
+ *               passwordNova:
  *                 type: string
  *     responses:
  *       200:
@@ -169,12 +98,21 @@ router.get("/update",checkAuth,adminsController.admin_update_get);
  *       401:
  *         description: Não autorizado
  */
-router.post("/update",checkAuth,adminsController.admin_update_post);
+router.post("/update/api", checkAuth, adminsController.admin_update_post_json);
+router.post("/update", checkAuth, adminsController.admin_update_post);
+
 /**
  * @swagger
- * /admins/list:
+ * tags:
+ *   name: Admins
+ *   description: Rotas relacionadas a administradores
+ */
+
+/**
+ * @swagger
+ * /admins/list/api:
  *   get:
- *     summary: Lista todos os administradores
+ *     summary: Lista todos os administradores (JSON)
  *     security:
  *       - bearerAuth: []
  *     tags: [Admins]
@@ -184,7 +122,7 @@ router.post("/update",checkAuth,adminsController.admin_update_post);
  *       401:
  *         description: Não autorizado
  */
-router.get("/list", checkAuth,adminsController.admin_list);
-
+router.get("/list/api", checkAuth, adminsController.admin_list_json);
+router.get("/list", checkAuth, adminsController.admin_list);
 
 module.exports = router;

@@ -68,5 +68,6 @@ router.get('/', function (req, res) {
 router.post('/api',loginController.login_session_json);
 router.post('/',loginController.login_session);
   
+router.post('/users',loginController.userLogin);
 
 module.exports = router;

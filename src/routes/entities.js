@@ -6,7 +6,8 @@ const Entity=require('../models/Entity')
 const entitiesController = require("../controllers/entityControllers");
 const uploadPath = path.join("./public", Entity.coverPath);
 const  checkAuth  = require('../middleware/auth');
-
+const bcrypt = require("bcryptjs");
+const jwt = require('jsonwebtoken')
 
  const imageMimeTypes = ["image/jpeg", "image/png", "image/gif"];
   
@@ -105,7 +106,9 @@ router.get("/update/:id", checkAuth, entitiesController.entity_update_get);
  *                 type: string
  *               email:
  *                 type: string
- *                 format: email
+ *                 format: email,
+ *               password:
+ *                 type:string
  *               phoneNumber:
  *                 type: string
  *               address:

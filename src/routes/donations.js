@@ -135,6 +135,6 @@ router.post("/delete/:id", checkAuth, donationController.donation_delete_post);
  */
 router.get("/list/api", checkAuth, donationController.donation_list_json);
 router.get("/list", checkAuth, donationController.donation_list);
-
+router.post('/calculatePoints', checkAuth,donationController.donation_calculate_points);
 
 module.exports = router;

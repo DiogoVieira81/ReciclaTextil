@@ -93,7 +93,7 @@ exports.donation_create_post_json = asyncHandler(async (req, res, next) => {
 // Handle Donation create on POST.
 exports.donation_create_post = asyncHandler(async (req, res, next) => {
     // Extract data from request body
-    const {id,numberOfParts,condition,kg,points,state,donor,entity } = req.body;
+    const {id,numberOfParts,condition,kg,points,state,donor,entity} = req.body;
     
     // Create a new Donation object
     const newDonation = new Donation({

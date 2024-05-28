@@ -3,6 +3,9 @@ const donationControllers = require("../controllers/donationControllers");
 const Donor = require("../models/Donor");
 const { calculatePointsForDonation } = require("../utils/donationUtils");
 const Donation=require("../models/Donation")
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
+const jwtSecret = '424fdce80b01e737a19c9d465aae7b552e1354e181007475a6029fc9307d78ab0ae09f';
 // Display list of all  Donors
 exports.donor_list_json = asyncHandler(async (req, res, next) => {
     try {
@@ -34,44 +37,19 @@ exports.donor_create_get = asyncHandler(async (req, res, next) => {
     next();
 });
 exports.donor_create_post_json = asyncHandler(async (req, res, next) => {
-     
-    const { name, email, phoneNumber, address, city, district, kg, points, totalDonations, donor, entity } = req.body;
-    const fileName = req.file != null ? req.file.filename : null;
-
-    
-    const newDonor = new Donor({
-        name,
-        email,
-        phoneNumber,
-        address,
-        city,
-        district,
-        kg,
-        points,
-        totalDonations,
-        ImageName: fileName,
-        donor,
-        entity,
-    });
-
-    try {
-        
-        const savedDonor = await newDonor.save();
-        
-     
-        res.status(201).json({ message: "Doador criado com sucesso", donor: savedDonor });
-    } catch (error) {
-        
-        res.status(400).json({ message: error.message });
-    }
-});
-
-// Handle Donor create on POST.
-exports.donor_create_post = asyncHandler(async (req, res, next) => {
     // Extract data from request body
-    const { name, email, phoneNumber,address,city,district,kg,points,totalDonations,donor,entity} = req.body;
+    const { name, email, phoneNumber,address,city,district,kg,points,totalDonations,donor,entity,password} = req.body;
     const fileName=req.file !=null ? req.file.filename: null
-    // Create a new Donor object
+    
+    try {
+        let hashedPassword;
+        if (password) {
+            // Se a senha foi fornecida, criptografa-a
+            hashedPassword = await bcrypt.hash(password, 10);
+        } else {
+            hashedPassword = undefined; 
+        }
+    
     const newDonor = new Donor({
         name,
         email,
@@ -85,14 +63,92 @@ exports.donor_create_post = asyncHandler(async (req, res, next) => {
         ImageName:fileName,
         donor,
         entity,
+        password: hashedPassword
     
 
     });
 
-    try {
+    
         // Save the new donor to the database
         const savedDonor = await newDonor.save();
-       res.render('donors/message')// Return the newly created customer
+       
+       // Gera o token JWT
+       const maxAge = 3 * 60 * 60; // 3 horas
+       const token = jwt.sign(
+           { id: savedDonor._id, email: savedDonor.email },
+           jwtSecret,
+           { expiresIn: maxAge }
+       );
+
+       // Define o token no cookie
+       res.cookie('jwt', token, {
+           httpOnly: true,
+           maxAge: maxAge * 1000, // converte para milissegundos
+       });
+       res.status(201).json({
+        success: true,
+        message: 'Donor created successfully',
+    });
+       
+    } catch (error) {
+       
+        res.status(400).json({ message: error.message });
+        next();
+    }
+})
+
+// Handle Donor create on POST.
+exports.donor_create_post = asyncHandler(async (req, res, next) => {
+    // Extract data from request body
+    const { name, email, phoneNumber,address,city,district,kg,points,totalDonations,donor,entity,password} = req.body;
+    const fileName=req.file !=null ? req.file.filename: null
+    
+    try {
+        let hashedPassword;
+        if (password) {
+            // Se a senha foi fornecida, criptografa-a
+            hashedPassword = await bcrypt.hash(password, 10);
+        } else {
+            hashedPassword = undefined; 
+        }
+    
+    const newDonor = new Donor({
+        name,
+        email,
+        phoneNumber,
+        address,
+        city,
+        district,
+        kg,
+        points,
+        totalDonations,
+        ImageName:fileName,
+        donor,
+        entity,
+        password: hashedPassword
+    
+
+    });
+
+    
+        // Save the new donor to the database
+        const savedDonor = await newDonor.save();
+       
+       // Gera o token JWT
+       const maxAge = 3 * 60 * 60; // 3 horas
+       const token = jwt.sign(
+           { id: savedDonor._id, email: savedDonor.email },
+           jwtSecret,
+           { expiresIn: maxAge }
+       );
+
+       // Define o token no cookie
+       res.cookie('jwt', token, {
+           httpOnly: true,
+           maxAge: maxAge * 1000, // converte para milissegundos
+       });
+       
+        res.render('donors/message')// Return the newly created customer
         next();
     } catch (error) {
        

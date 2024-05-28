@@ -6,8 +6,8 @@ import { Component, OnInit, inject } from '@angular/core';
   selector: 'app-home',
   standalone: true,
   imports: [HttpClientModule, CommonModule],
-  templateUrl: './home.component.html',
-  styleUrl: './home.component.css'
+  templateUrl: './donor-home.component.html',
+  styleUrl: './donor-home.component.css'
 })
 export class DonorHomeComponent implements OnInit{
   httpClient = inject(HttpClient);
@@ -18,7 +18,7 @@ export class DonorHomeComponent implements OnInit{
   }
 
   fetchData(){
-    this.httpClient.get('http://localhost:3000/admins/list/api').subscribe((data) => {
+    this.httpClient.get('https://jsonplaceholder.typicode.com/posts').subscribe((data) => {
       console.log(data);
       this.data = data;
     })

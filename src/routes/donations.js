@@ -4,7 +4,7 @@ const donationController = require("../controllers/donationControllers");
 
 const  checkAuth  = require('../middleware/auth');
 
-router.get("/create", checkAuth, donationController.donation_create_get);
+router.get("/create", donationController.donation_create_get);
 
 /**
  * @swagger
@@ -41,11 +41,11 @@ router.get("/create", checkAuth, donationController.donation_create_get);
  *       401:
  *         description: Não autorizado
  */
-router.post("/create/api", checkAuth, donationController.donation_create_post_json);
-router.post("/create", checkAuth, donationController.donation_create_post);
+router.post("/create/api", donationController.donation_create_post_json);
+router.post("/create", donationController.donation_create_post);
 
 
-router.get("/update/:id", checkAuth, donationController.donation_update_get);
+router.get("/update/:id", donationController.donation_update_get);
 
 /**
  * @swagger
@@ -89,11 +89,11 @@ router.get("/update/:id", checkAuth, donationController.donation_update_get);
  *       401:
  *         description: Não autorizado
  */
-router.post("/update/:id/api", checkAuth, donationController.donation_update_post_json);
-router.post("/update/:id", checkAuth, donationController.donation_update_post);
+router.post("/update/:id/api", donationController.donation_update_post_json);
+router.post("/update/:id", donationController.donation_update_post);
 
 
-router.get("/delete/:id", checkAuth, donationController.donation_delete_get);
+router.get("/delete/:id", donationController.donation_delete_get);
 
 /**
  * @swagger
@@ -116,8 +116,8 @@ router.get("/delete/:id", checkAuth, donationController.donation_delete_get);
  *       401:
  *         description: Não autorizado
  */
-router.post("/delete/:id/api", checkAuth, donationController.donation_delete_post_json);
-router.post("/delete/:id", checkAuth, donationController.donation_delete_post);
+router.post("/delete/:id/api", donationController.donation_delete_post_json);
+router.post("/delete/:id", donationController.donation_delete_post);
 
 /**
  * @swagger
@@ -133,8 +133,8 @@ router.post("/delete/:id", checkAuth, donationController.donation_delete_post);
  *       401:
  *         description: Não autorizado
  */
-router.get("/list/api", checkAuth, donationController.donation_list_json);
-router.get("/list", checkAuth, donationController.donation_list);
-router.post('/calculatePoints', checkAuth,donationController.donation_calculate_points);
+router.get("/list/api", donationController.donation_list_json);
+router.get("/list", donationController.donation_list);
+router.post('/calculatePoints',donationController.donation_calculate_points);
 
 module.exports = router;

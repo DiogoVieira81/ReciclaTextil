@@ -26,7 +26,7 @@ const jwt = require('jsonwebtoken')
  */
 
 
-router.get("/create", checkAuth, entitiesController.entity_create_get);
+router.get("/create", entitiesController.entity_create_get);
 
 /**
  * @swagger
@@ -72,10 +72,10 @@ router.get("/create", checkAuth, entitiesController.entity_create_get);
  *       401:
  *         description: Não autorizado
  */
-router.post("/create/api", checkAuth, upload.single("cover"), entitiesController.entity_create_post_json);
-router.post("/create", checkAuth, upload.single("cover"), entitiesController.entity_create_post);
+router.post("/create/api", uploa.single("cover"), entitiesController.entity_create_post_json)
+router.post("/create", upload.single("cover"), entitiesController.entity_create_post);
 
-router.get("/update/:id", checkAuth, entitiesController.entity_update_get);
+router.get("/update/:id", entitiesController.entity_update_get);
 
 /**
  * @swagger
@@ -129,10 +129,10 @@ router.get("/update/:id", checkAuth, entitiesController.entity_update_get);
  *       401:
  *         description: Não autorizado
  */
-router.post("/update/:id/api", checkAuth, entitiesController.entity_update_post_json);
-router.post("/update/:id", checkAuth, entitiesController.entity_update_post);
+router.post("/update/:id/api", entitesController.entity_update_post_json);
+router.post("/update/:id", entitiesController.entity_update_post);
 
-router.get("/delete/:id", checkAuth, entitiesController.entity_delete_get);
+router.get("/delete/:id", entitiesController.entity_delete_get);
 
 /**
  * @swagger
@@ -155,8 +155,8 @@ router.get("/delete/:id", checkAuth, entitiesController.entity_delete_get);
  *       401:
  *         description: Não autorizado
  */
-router.post("/delete/:id/api", checkAuth, entitiesController.entity_delete_post_json);
-router.post("/delete/:id", checkAuth, entitiesController.entity_delete_post);
+router.post("/delete/:id/api",entitiesController.entity_delete_post_json);
+router.post("/delete/:id", entitiesController.entity_delete_post);
 
 /**
  * @swagger
@@ -172,8 +172,8 @@ router.post("/delete/:id", checkAuth, entitiesController.entity_delete_post);
  *       401:
  *         description: Não autorizado
  */
-router.get("/list/api",checkAuth, entitiesController.entity_list_json);
-router.get("/list",checkAuth, entitiesController.entity_list);
+router.get("/list/api",entitiesController.entity_list_json)
+router.get("/list", entitiesController.entity_list);
 
 
 module.exports = router;

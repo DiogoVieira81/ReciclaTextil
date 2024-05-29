@@ -20,7 +20,7 @@ const  checkAuth  = require('../middleware/auth');
 
 
 
-router.get("/create", checkAuth, donorsController.donor_create_get);
+router.get("/create",  donorsController.donor_create_get);
 /**
  * @swagger
  * /donors/create/api:
@@ -63,10 +63,10 @@ router.get("/create", checkAuth, donorsController.donor_create_get);
  *       401:
  *         description: Não autorizado
  */
-router.post("/create/api", checkAuth, upload.single("cover"), donorsController.donor_create_post_json);
-router.post("/create", checkAuth, upload.single("cover"), donorsController.donor_create_post);
+router.post("/create/api",  upload.single("cover"), donorsController.donor_create_post_json);
+router.post("/create",  upload.single("cover"), donorsController.donor_create_post);
 
-router.get("/update/:id", checkAuth, donorsController.donor_update_get);
+router.get("/update/:id",  donorsController.donor_update_get);
 
 /**
  * @swagger
@@ -114,11 +114,11 @@ router.get("/update/:id", checkAuth, donorsController.donor_update_get);
  *       401:
  *         description: Não autorizado
  */
-router.post("/update/:id/api", checkAuth, donorsController.donor_update_post_json);
-router.post("/update/:id", checkAuth, donorsController.donor_update_post);
+router.post("/update/:id/api",  donorsController.donor_update_post_json);
+router.post("/update/:id",  donorsController.donor_update_post);
 
 
-router.get("/delete/:id", checkAuth, donorsController.donor_delete_get);
+router.get("/delete/:id",  donorsController.donor_delete_get);
 
 /**
  * @swagger
@@ -141,8 +141,8 @@ router.get("/delete/:id", checkAuth, donorsController.donor_delete_get);
  *       401:
  *         description: Não autorizado
  */
-router.post("/delete/:id/api", checkAuth, donorsController.donor_delete_post_json);
-router.post("/delete/:id", checkAuth, donorsController.donor_delete_post);
+router.post("/delete/:id/api",  donorsController.donor_delete_post_json);
+router.post("/delete/:id",  donorsController.donor_delete_post);
 
 /**
  * @swagger
@@ -187,6 +187,6 @@ router.post("/delete/:id", checkAuth, donorsController.donor_delete_post);
  */
 
 router.get("/list/api", donorsController.donor_list_json);
-router.get("/list", checkAuth, donorsController.donor_list);
+router.get("/list",  donorsController.donor_list);
 
 module.exports = router;

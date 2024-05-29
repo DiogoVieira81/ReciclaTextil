@@ -5,6 +5,7 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const bodyParser = require("body-parser")
 const logger = require('morgan');
+const cors = require('cors');
 const mongoose = require('mongoose');
 const checkAuth  = require('./src/middleware/auth');
 const swaggerUi = require('swagger-ui-express');
@@ -42,6 +43,7 @@ mongoose.connect('mongodb+srv://paw24:MzGoBjFDQ9D3BQ7h@cluster0.49yetzm.mongodb.
 app.set('views', path.join(__dirname, 'src/views'));
 app.set('view engine', 'ejs');
 
+app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(logger('dev'));
 app.use(express.json());

@@ -1,34 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { ApiService } from '../../../api-service.service';
-import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
+
 @Component({
-  standalone:true,
-  imports:[CommonModule],
   selector: 'app-dashboard',
+  standalone: true,
+  imports: [],
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  styleUrl: './dashboard.component.css'
 })
-export class DashboardComponent implements OnInit {
-  donors: any[] = [];
+export class DashboardComponent {
 
-  constructor(private apiService: ApiService) { }
-
-  ngOnInit(): void {
-   this.getUsers();
-  }
-
-  private getUsers(): void {
-    this.apiService.getDonors().subscribe(
-      (data: any) => {
-        if (data && data.donors) { 
-          this.donors = data.donors; 
-        } else {
-          console.error('Invalid response format:', data);
-        }
-      },
-      (error) => {
-        console.error('Error fetching users', error);
-      }
-    );
-  }
 }

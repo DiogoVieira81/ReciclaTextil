@@ -72,7 +72,7 @@ router.get("/create", entitiesController.entity_create_get);
  *       401:
  *         description: Não autorizado
  */
-router.post("/create/api", uploa.single("cover"), entitiesController.entity_create_post_json)
+router.post("/create/api", upload.single("cover"), entitiesController.entity_create_post_json)
 router.post("/create", upload.single("cover"), entitiesController.entity_create_post);
 
 router.get("/update/:id", entitiesController.entity_update_get);
@@ -129,7 +129,7 @@ router.get("/update/:id", entitiesController.entity_update_get);
  *       401:
  *         description: Não autorizado
  */
-router.post("/update/:id/api", entitesController.entity_update_post_json);
+router.post("/update/:id/api", entitiesController.entity_update_post_json);
 router.post("/update/:id", entitiesController.entity_update_post);
 
 router.get("/delete/:id", entitiesController.entity_delete_get);

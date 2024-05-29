@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ApiService {
-  private apiUrl = 'http://localhost:3000'; // Replace with your Express server URL
+  private apiUrl = 'http://localhost:3000'; 
 
   constructor(private http: HttpClient) { }
 
@@ -16,19 +16,3 @@ export class ApiService {
   }
 }
 
-/*
-  getUserById(id: string): Observable<any> {
-    return this.http.get(`${this.apiUrl}/users/${id}`);
-  }
-
-  createUser(user: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/users`, user);
-  }
-
-  updateUser(id: string, user: any): Observable<any> {
-    return this.http.put(`${this.apiUrl}/users/${id}`, user);
-  }
-
-  deleteUser(id: string): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/users/${id}`);
-  }*/

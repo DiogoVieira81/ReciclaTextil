@@ -186,7 +186,7 @@ router.post("/delete/:id", checkAuth, donorsController.donor_delete_post);
  *         description: Não autorizado
  */
 
-router.get("/list/api", checkAuth, donorsController.donor_list_json);
+router.get("/list/api", donorsController.donor_list_json);
 router.get("/list", checkAuth, donorsController.donor_list);
 
 module.exports = router;

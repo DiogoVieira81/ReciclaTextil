@@ -114,11 +114,12 @@ h2 {
 
 .register-link a {
     color: white;
+    text-decoration: none;
     font-weight: bolder;
     text-decoration: solid;
     text-emphasis-color: blue;
     text-align: center;
-    margin-left: 5.7rem;
+    margin-left: 2rem;
 }
 .register-link a:hover{
     color: #0ef;

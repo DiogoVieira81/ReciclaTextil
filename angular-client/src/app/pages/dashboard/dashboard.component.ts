@@ -20,8 +20,8 @@ export class DashboardComponent implements OnInit {
   private getUsers(): void {
     this.apiService.getDonors().subscribe(
       (data: any) => {
-        if (data && data.donors) { // Verifica se 'data' e 'data.donors' existem
-          this.donors = data.donors; // Atribui 'data.donors' à variável 'users'
+        if (data && data.donors) { 
+          this.donors = data.donors; 
         } else {
           console.error('Invalid response format:', data);
         }

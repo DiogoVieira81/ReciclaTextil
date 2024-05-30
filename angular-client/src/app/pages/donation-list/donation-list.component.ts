@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { Component, OnInit, inject } from '@angular/core';
 import { Observable, map } from 'rxjs';
+import { RestService } from '../rest.service';
 
 @Component({
   selector: 'app-donation-list',
@@ -13,6 +14,8 @@ import { Observable, map } from 'rxjs';
 export class DonationListComponent implements OnInit{
   httpClient = inject(HttpClient);
   data:any = [];
+
+  constructor(private rest : RestService){}
 
   ngOnInit(): void {
     this.getDonations();
@@ -26,9 +29,7 @@ export class DonationListComponent implements OnInit{
   }
 
   getDonations() {
-    this.httpClient.get<any[]>('http://localhost:3000/donations/list/api').pipe(
-      map((response: any) => response.donations)
-    ).subscribe((data) => {
+    this.rest.getDonations().subscribe((data) => {
       console.log(data);
       this.data = data;
     })

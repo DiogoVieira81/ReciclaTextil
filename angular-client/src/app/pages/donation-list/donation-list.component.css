@@ -16,10 +16,6 @@ table {
   color: #929292;
 }
 
-/* #tableBody {
-  display: block;
-}This attribute is not needed  */ 
-
 th {
   border: 1px solid #cccccc;
 }

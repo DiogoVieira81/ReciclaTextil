@@ -1,14 +1,17 @@
+<form (ngSubmit)="onSubmit()">
   <div class="form-row">
     <div class="form-group col-md-6">
       <label for="inputEmail4">Empresa:</label>
       <input
         type="text"
         class="form-control"
-        id="inputEmail4"
+        id="inputNome4"
         placeholder="Insira o nome da empresa"
+        [(ngModel)]="entity.name"
         name="name"
         required
       />
+    </div>
     <div class="form-group col-md-6">
       <label for="inputContribuinte4">Contribuinte:</label>
       <input
@@ -17,6 +20,7 @@
         id="inputContribuinte4"
         pattern="[0-9]{9}"
         placeholder="Insira o Contribuinte da empresa"
+        [(ngModel)]="entity.taxpayerNumber"
         name="taxpayerNumber"
         required
       />
@@ -29,6 +33,7 @@
       class="form-control"
       id="inputEmail4"
       placeholder="Insira o email"
+      [(ngModel)]="entity.email"
       name="email"
       required
     />
@@ -38,8 +43,9 @@
     <input
       type="Password"
       class="form-control"
-      id="inputEmail4"
+      id="inputPassword4"
       placeholder="Insira a password"
+      [(ngModel)]="entity.password"
       name="password"
       required
     />
@@ -52,6 +58,7 @@
       id="inputTelefone4"
       pattern="[0-9]{9}"
       placeholder="Insira o nº telefone da empresa"
+      [(ngModel)]="entity.phoneNumber"
       name="phoneNumber"
       required
     />
@@ -63,6 +70,7 @@
       class="form-control"
       id="inputAddress2"
       placeholder="Rua, nº porta,andar"
+      [(ngModel)]="entity.address"
       name="address"
       required
     />
@@ -75,6 +83,7 @@
         class="form-control"
         id="inputCity"
         placeholder="Insira a cidade"
+        [(ngModel)]="entity.city"
         name="city"
         required
       />
@@ -83,7 +92,7 @@
   <div class="form-row">
     <div class="form-group col-md-6">
       <label for="inputEstado">Distrito</label>
-      <select id="inputEstado" class="form-control" name="district" required>
+      <select id="inputEstado" class="form-control" [(ngModel)]="entity.district" name="district" required>
         <option selected>Selecione</option>
         <option>Aveiro</option>
         <option>Beja</option>
@@ -113,6 +122,7 @@
         id="exampleFormControlTextarea1"
         rows="3"
         placeholder="Faça uma breve descrição acerca da empresa"
+        [(ngModel)]="entity.description"
         name="description"
         required
       ></textarea>
@@ -120,6 +130,7 @@
   </div>
 
   <label>Foto da empresa:</label>
-  <input type="file" name="cover" required />
+  <input type="file" [(ngModel)]="entity.ImageName" name="cover" required />
 
   <button type="submit" class="btn btn-primary">Registar</button>
+</form>

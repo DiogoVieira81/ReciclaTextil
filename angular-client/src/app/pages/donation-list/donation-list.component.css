@@ -1,50 +1,25 @@
 #list {
-    padding-top: 60px;
+  padding-top: 60px;
 }
-  
-  table {
-    width: 100%;
-    height: 100%;
-    border-collapse: collapse;
-    table-layout: fixed; /* Ensures all columns are of equal width */
-  }
-  
-  thead, tbody {
-    display: table-row-group; /* Ensures thead and tbody take up space correctly */
-  }
-  
-  th, td {
-    border: 1px solid #ddd; /* Add a border to the table cells */
-    text-align: left; /* Align text to the left */
-    padding: 8px; /* Add padding to the cells */
-    vertical-align: top; /* Align text to the top */
-  }
-  
-  th {
-    background-color: #f2f2f2; /* Add a background color to the header */
-  }
-  
-  tbody tr:nth-child(even) {
-    background-color: #f9f9f9; /* Add a background color to alternate rows for better readability */
-  }
-  
-  tbody {
-    height: 100%;
-    display: block;
-    overflow: auto;
-  }
-  
-  thead {
-    display: table-header-group;
-    width: calc(100% - 18px);
-  }
-  
-  tr {
-    display: table-row;
-    width: 100%;
-  }
-  
-  table, th, td {
-    box-sizing: border-box;
-  }
-  
+
+table {
+  overflow: scroll;
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid #cccccc;
+}
+
+#thead {
+  background-color: #f8f4f4;
+  height: 50px;
+  border: 1px solid #cccccc;
+  color: #929292;
+}
+
+/* #tableBody {
+  display: block;
+}This attribute is not needed  */ 
+
+th {
+  border: 1px solid #cccccc;
+}

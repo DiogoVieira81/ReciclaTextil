@@ -1,0 +1,21 @@
+#list {
+  padding-top: 60px;
+}
+
+table {
+  overflow: scroll;
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid #cccccc;
+}
+
+#thead {
+  background-color: #f8f4f4;
+  height: 50px;
+  border: 1px solid #cccccc;
+  color: #929292;
+}
+
+th {
+  border: 1px solid #cccccc;
+}

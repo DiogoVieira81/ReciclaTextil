@@ -15,11 +15,32 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link active" href="/dashboard">Home</a>
+        <a class="nav-link" href="/dashboard">Home</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/dashboard/donation-list">Donations</a>
+        <a class="nav-link active" href="/dashboard/donation-list">Donations</a>
       </li>
     </ul>
   </div>
 </nav>
+<div id="list">
+  <h3>Donations:</h3>
+</div>
+<table>
+  <thead>
+    <tr>
+      <th>Donator's Name</th>
+      <th>Kilograms Donated</th>
+      <th>Condition</th>
+      <th>Points Awarded</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let donation of data">
+      <td>{{ donation.donor.name }}</td>
+      <td>{{ donation.kg }}</td>
+      <td>{{ donation.condition }}</td>
+      <td>{{ donation.points }}</td>
+    </tr>
+  </tbody>
+</table>

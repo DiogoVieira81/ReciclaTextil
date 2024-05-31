@@ -9,7 +9,7 @@ const mongoose = require('mongoose');
 const checkAuth  = require('./src/middleware/auth');
 const swaggerUi = require('swagger-ui-express');
 const { specs } = require('./swagger');
-
+const cors = require('cors');
 
 
 var dashboardRouter = require('./src/routes/dashboard');
@@ -21,6 +21,7 @@ var adminRouter=require('./src/routes/admins')
 var logoutRouter=require('./src/routes/logout')
 
 var app = express();
+app.use(cors());
 
 app.use(session({
   secret:"sessao",

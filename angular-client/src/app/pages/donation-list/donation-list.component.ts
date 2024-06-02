@@ -3,6 +3,7 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { Component, OnInit, inject } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { RestService } from '../rest.service';
+import { Donation } from '../../models/donation';
 
 @Component({
   selector: 'app-donation-list',
@@ -13,19 +14,12 @@ import { RestService } from '../rest.service';
 })
 export class DonationListComponent implements OnInit{
   httpClient = inject(HttpClient);
-  data:any = [];
+  data:Donation[] = [];
 
   constructor(private rest : RestService){}
 
   ngOnInit(): void {
     this.getDonations();
-  }
-
-  fetchData(){
-    this.httpClient.get('http://localhost:3000/donations/list/api').subscribe((data) => {
-      console.log(data);
-      this.data = data;
-    })
   }
 
   getDonations() {

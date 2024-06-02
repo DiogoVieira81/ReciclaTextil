@@ -29,7 +29,7 @@
 <table>
   <thead>
     <tr>
-      <th>Donator's Name</th>
+      <th>Donor's Name</th>
       <th>Kilograms Donated</th>
       <th>Condition</th>
       <th>Points Awarded</th>
@@ -37,10 +37,12 @@
   </thead>
   <tbody>
     <tr *ngFor="let donation of data">
-      <td>{{ donation.donor.name }}</td>
-      <td>{{ donation.kg }}</td>
-      <td>{{ donation.condition }}</td>
-      <td>{{ donation.points }}</td>
+      <ng-container *ngIf="donation.points > 10">
+        <td>{{ donation.donor.name }}</td>
+        <td>{{ donation.kg }}</td>
+        <td>{{ donation.condition }}</td>
+        <td>{{ donation.points }}</td>
+      </ng-container>
     </tr>
   </tbody>
 </table>

@@ -14,7 +14,7 @@ export class RestService {
   public donationListURL = 'http://localhost:3000/donations/list/api';
 
   public entityListURL = 'http://localhost:3000/entities/list/api';
-  public entityCreateURL = 'http://localhost:3000/entities/create';
+  public entityCreateURL = 'http://localhost:3000/entities/create/api';
 
   getDonations(): Observable<any[]> {
     return this.httpClient.get<any[]>(this.donationListURL).pipe(

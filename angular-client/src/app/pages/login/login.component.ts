@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { Router } from '@angular/router';
+import { AuthService } from '../../auth.service';
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -10,8 +11,16 @@ import { Router } from '@angular/router';
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
-  constructor(private router:Router){}
-onclick():void{
-  this.router.navigate(['/dashboard']);
+  email:string='';
+  password:string='';
+  constructor(private authService: AuthService,private router:Router){}
+
+  login(): void {
+    this.authService.login({ email: this.email, password: this.password }).subscribe({
+      next: () => {
+        this.router.navigate(['/dashboard']);
+      },
+    });
+  }
 }
-}
+

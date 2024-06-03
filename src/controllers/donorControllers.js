@@ -41,16 +41,9 @@ exports.donor_create_post_json = asyncHandler(async (req, res, next) => {
     const { name, email, phoneNumber,address,city,district,kg,points,totalDonations,donor,entity,password} = req.body;
     const fileName=req.file !=null ? req.file.filename: null
     
-    try {
-        let hashedPassword;
-        if (password) {
-            // Se a senha foi fornecida, criptografa-a
-            hashedPassword = await bcrypt.hash(password, 10);
-        } else {
-            hashedPassword = undefined; 
-        }
-    
-    const newDonor = new Donor({
+    bcrypt.hash(password, 10).then(async (hash) => {
+        try {
+    const newdonor =await Donor.create({
         name,
         email,
         phoneNumber,
@@ -68,87 +61,54 @@ exports.donor_create_post_json = asyncHandler(async (req, res, next) => {
 
     });
 
-    
-        // Save the new donor to the database
-        const savedDonor = await newDonor.save();
-       
-       // Gera o token JWT
-       const maxAge = 3 * 60 * 60; // 3 horas
-       const token = jwt.sign(
-           { id: savedDonor._id, email: savedDonor.email },
-           jwtSecret,
-           { expiresIn: maxAge }
-       );
-
-       // Define o token no cookie
-       res.cookie('jwt', token, {
-           httpOnly: true,
-           maxAge: maxAge * 1000, // converte para milissegundos
-       });
-       res.status(201).json({
-        success: true,
-        message: 'Donor created successfully',
+    const maxAge = 3 * 60 * 60;
+            const token = jwt.sign(
+                { id: newdonor._id, email },
+                jwtSecret,
+                { expiresIn: maxAge }
+            );
+            res.cookie("jwt", token, { httpOnly: true, maxAge: maxAge * 1000 });
+            res.status(201).json({ message: "Donor successfully created", newdonor });
+        } catch (error) {
+            res.status(400).json({ message: "Donor not successful created", error: error.message });
+        }
     });
-       
-    } catch (error) {
-       
-        res.status(400).json({ message: error.message });
-        next();
-    }
-})
+});
 
 // Handle Donor create on POST.
 exports.donor_create_post = asyncHandler(async (req, res, next) => {
-    // Extract data from request body
-    const { name, email, phoneNumber,address,city,district,kg,points,totalDonations,donor,entity,password} = req.body;
-    const fileName=req.file !=null ? req.file.filename: null
-    
-    try {
-        let hashedPassword;
-        if (password) {
-            // Se a senha foi fornecida, criptografa-a
-            hashedPassword = await bcrypt.hash(password, 10);
-        } else {
-            hashedPassword = undefined; 
-        }
-    
-    const newDonor = new Donor({
-        name,
-        email,
-        phoneNumber,
-        address,
-        city,
-        district,
-        kg,
-        points,
-        totalDonations,
-        ImageName:fileName,
-        donor,
-        entity,
-        password: hashedPassword
-    
-
-    });
-
-    
-        // Save the new donor to the database
-        const savedDonor = await newDonor.save();
-       
-       // Gera o token JWT
-       const maxAge = 3 * 60 * 60; // 3 horas
-       const token = jwt.sign(
-           { id: savedDonor._id, email: savedDonor.email },
-           jwtSecret,
-           { expiresIn: maxAge }
-       );
-
-       // Define o token no cookie
-       res.cookie('jwt', token, {
-           httpOnly: true,
-           maxAge: maxAge * 1000, // converte para milissegundos
-       });
-       
-        res.render('donors/message')// Return the newly created customer
+     // Extract data from request body
+     const { name, email, phoneNumber,address,city,district,kg,points,totalDonations,donor,entity,password} = req.body;
+     const fileName=req.file !=null ? req.file.filename: null
+     
+     bcrypt.hash(password, 10).then(async (hash) => {
+         try {
+     const newdonor =await Donor.create({
+         name,
+         email,
+         phoneNumber,
+         address,
+         city,
+         district,
+         kg,
+         points,
+         totalDonations,
+         ImageName:fileName,
+         donor,
+         entity,
+         password: hash
+     
+ 
+     });
+ 
+     const maxAge = 3 * 60 * 60;
+             const token = jwt.sign(
+                 { id: newdonor._id, email },
+                 jwtSecret,
+                 { expiresIn: maxAge }
+             );
+             res.cookie("jwt", token, { httpOnly: true, maxAge: maxAge * 1000 });
+        res.render('donors/message')
         next();
     } catch (error) {
        
@@ -156,7 +116,7 @@ exports.donor_create_post = asyncHandler(async (req, res, next) => {
         next();
     }
 })
-
+});
 // Display Donor delete form on GET.
 exports.donor_delete_get = asyncHandler(async (req, res, next) => {
     try {

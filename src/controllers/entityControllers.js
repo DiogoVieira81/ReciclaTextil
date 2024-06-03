@@ -34,57 +34,37 @@ exports.entity_create_post_json = asyncHandler(async (req, res, next) => {
     const { name,taxpayerNumber, email, phoneNumber,address,city,district, description,kg,totalDonations,password} = req.body;
     // Create a new Entity object
     const fileName=req.file !=null ? req.file.filename: null
-    try {
-        let hashedPassword;
-        if (password) {
-            // Se a senha foi fornecida, criptografa-a
-            hashedPassword = await bcrypt.hash(password, 10);
-        } else {
-            hashedPassword = undefined; 
+    
+    bcrypt.hash(password, 10).then(async (hash) => {
+        try {
+            const entity = await Entity.create({ 
+                    name,
+                    taxpayerNumber,
+                    email,
+                    phoneNumber,
+                    address,
+                    city,
+                    district,
+                    description,
+                    kg,
+                    totalDonations,
+                    password: hash,
+                    ImageName: fileName,
+         
+             });
+            const maxAge = 3 * 60 * 60;
+            const token = jwt.sign(
+                { id: entity._id, email },
+                jwtSecret,
+                { expiresIn: maxAge }
+            );
+            res.cookie("jwt", token, { httpOnly: true, maxAge: maxAge * 1000 });
+            res.status(201).json({ message: "Entity successfully created", entity });
+        } catch (error) {
+            res.status(400).json({ message: "Entity not successful created", error: error.message });
         }
-
-        const newEntity = new Entity({
-            name,
-            taxpayerNumber,
-            email,
-            phoneNumber,
-            address,
-            city,
-            district,
-            description,
-            kg,
-            totalDonations,
-            password: hashedPassword,
-            ImageName: fileName,
-        });
-
-        // Save the new entity to the database
-        const savedEntity = await newEntity.save();
-
-        // Gera o token JWT
-        const maxAge = 3 * 60 * 60; // 3 horas
-        const token = jwt.sign(
-            { id: savedEntity._id, email: savedEntity.email },
-            jwtSecret,
-            { expiresIn: maxAge }
-        );
-
-        // Define o token no cookie
-        res.cookie('jwt', token, {
-            httpOnly: true,
-            maxAge: maxAge * 1000, // converte para milissegundos
-        });
-
-        res.status(201).json({
-            success: true,
-            message: 'Entity created successfully',
-        });
-    } catch (error) {
-        // Handle validation or database errors
-        res.status(400).json({ message: error.message });
-        next();
-    }
-})
+    });
+});
 
 // Handle Entity create on POST.
 exports.entity_create_post = asyncHandler(async (req, res, next) => {
@@ -93,47 +73,33 @@ exports.entity_create_post = asyncHandler(async (req, res, next) => {
     const { name,taxpayerNumber, email, phoneNumber,address,city,district, description,kg,totalDonations,password} = req.body;
     // Create a new Entity object
     const fileName=req.file !=null ? req.file.filename: null
-    try {
-        let hashedPassword;
-        if (password) {
-            // Se a senha foi fornecida, criptografa-a
-            hashedPassword = await bcrypt.hash(password, 10);
-        } else {
-            hashedPassword = undefined; 
-        }
-
-        const newEntity = new Entity({
-            name,
-            taxpayerNumber,
-            email,
-            phoneNumber,
-            address,
-            city,
-            district,
-            description,
-            kg,
-            totalDonations,
-            password: hashedPassword,
-            ImageName: fileName,
-        });
-
-        // Save the new entity to the database
-        const savedEntity = await newEntity.save();
-
-        // Gera o token JWT
-        const maxAge = 3 * 60 * 60; // 3 horas
-        const token = jwt.sign(
-            { id: savedEntity._id, email: savedEntity.email },
-            jwtSecret,
-            { expiresIn: maxAge }
-        );
-
-        // Define o token no cookie
-        res.cookie('jwt', token, {
-            httpOnly: true,
-            maxAge: maxAge * 1000, // converte para milissegundos
-        });
-
+    bcrypt.hash(password, 10).then(async (hash) => {
+        try {
+            const entity = await Entity.create({ 
+                    name,
+                    taxpayerNumber,
+                    email,
+                    phoneNumber,
+                    address,
+                    city,
+                    district,
+                    description,
+                    kg,
+                    totalDonations,
+                    password: hash,
+                    ImageName: fileName,
+         
+             });
+            const maxAge = 3 * 60 * 60;
+            const token = jwt.sign(
+                { id: entity._id, email },
+                jwtSecret,
+                { expiresIn: maxAge }
+            );
+            res.cookie("jwt", token, {
+                httpOnly: true,
+                maxAge: maxAge * 1000, // 3hrs in ms
+            });
         // Redireciona para a página de mensagem
         res.render('entities/message');
     } catch (error) {
@@ -142,7 +108,7 @@ exports.entity_create_post = asyncHandler(async (req, res, next) => {
         next();
     }
 })
-
+});
 // Display Entity delete form on GET.
 exports.entity_delete_get = asyncHandler(async (req, res, next) => {
     try {

@@ -3,6 +3,7 @@ import { Chart, registerables, scales } from 'chart.js';
 import { RestService } from '../rest.service';
 import { Donation } from '../../models/donation';
 import { Donor } from '../../models/donor';
+import { ActivatedRoute } from '@angular/router';
 Chart.register(...registerables);
 
 @Component({
@@ -13,7 +14,8 @@ Chart.register(...registerables);
   styleUrl: './dashboard.component.css',
 })
 export class DashboardComponent implements OnInit {
-  data: Donation[] = [];
+  data: any;
+  entityID : string | null = " ";
 
   barChartLabelData: string[] = [];
   barChartValueData: number[] = [];
@@ -24,36 +26,41 @@ export class DashboardComponent implements OnInit {
   doughnutChartLabelData: string[] = [];
   doughnutChartValueData: number[] = [];
 
-  constructor(private rest: RestService) {}
+  constructor(private rest: RestService, private route : ActivatedRoute) {}
 
   ngOnInit(): void {
     this.getDonations();
   }
 
   getDonations() {
+    this.route.paramMap.subscribe(params => {
+      this.entityID = params.get('id');
+      console.log(this.entityID);
+    });
+
     this.rest.getDonations().subscribe((data) => {
       console.log(data);
       this.data = data;
 
       if (this.data != null) {
-        this.data.forEach((o) => {
-          let barIndex = this.barChartLabelData.indexOf(o.donor.name);
-          if (barIndex === -1) {
-            this.barChartLabelData.push(o.donor.name);
-            this.barChartValueData.push(o.points);
+        this.data.forEach((data:any) => {
+          let barIndex = this.barChartLabelData.indexOf(data.donor.name);
+          if ((barIndex === -1) && (data.entity.id === this.entityID)) {
+            this.barChartLabelData.push(data.donor.name);
+            this.barChartValueData.push(data.points);
           } else {
-            this.barChartValueData[barIndex] += o.points;
+            this.barChartValueData[barIndex] += data.points;
           }
 
-          this.pieChartLabelData.push(o.condition);
-          this.pieChartValueData.push(o.kg);
+          this.pieChartLabelData.push(data.condition);
+          this.pieChartValueData.push(data.kg);
 
-          let doughnutIndex = this.doughnutChartLabelData.indexOf(o.donor.name);
-          if (doughnutIndex === -1) {
-            this.doughnutChartLabelData.push(o.donor.name);
-            this.doughnutChartValueData.push(o.kg);
+          let doughnutIndex = this.doughnutChartLabelData.indexOf(data.donor.name);
+          if (doughnutIndex === -1 && (data.entity.id === this.entityID)) {
+            this.doughnutChartLabelData.push(data.donor.name);
+            this.doughnutChartValueData.push(data.kg);
           } else {
-            this.doughnutChartValueData[doughnutIndex] += o.kg;
+            this.doughnutChartValueData[doughnutIndex] += data.kg;
           }
         });
       }

@@ -29,7 +29,7 @@ export const routes: Routes = [
     path: 'dashboard',
     children: [
       {
-        path: '',
+        path: ':id',
         component: DashboardComponent,
       },
       {

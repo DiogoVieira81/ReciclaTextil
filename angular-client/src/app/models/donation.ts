@@ -9,5 +9,5 @@ export interface Donation {
   points: number;
   state: string;
   donor: Donor;
-  entity: Entity;
+  entity: any;
 }

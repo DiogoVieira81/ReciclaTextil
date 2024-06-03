@@ -1,1 +1,10 @@
-<p>dashboard-entities works!</p>
+<div class="dashboard">
+    <h1>Entity Dashboard</h1>
+    <div class="kpi">
+      <div>Total Donations: {{ totalDonations }}</div>
+      <div>Total Points: {{ totalPoints }}</div>
+    </div>
+    <div class="chart">
+      <app-points-chart [data]="pointsOverTime"></app-points-chart>
+    </div>
+  </div>

@@ -3,7 +3,7 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-donation-form',
+  selector: 'angular-client',
   standalone: true,
   imports: [HttpClientModule, FormsModule],
   templateUrl: './donation-form.component.html',
@@ -48,7 +48,7 @@ export class DonationFormComponent implements OnInit {
 
   calculatePoints(): void {
     const { kg, condition } = this.donation;
-    this.http.post<any>('/donations/calculatePoints', { kg, condition }).subscribe(response => {
+    this.http.post<any>('/donations/create', { kg, condition }).subscribe(response => {
       this.donation.points = response.points;
     }, error => {
       console.error('Error calculating points', error);

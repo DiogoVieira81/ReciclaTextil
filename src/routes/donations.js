@@ -135,6 +135,50 @@ router.post("/delete/:id", donationController.donation_delete_post);
  */
 router.get("/list/api", donationController.donation_list_json);
 router.get("/list", donationController.donation_list);
+
+/**
+ * @swagger
+ * /donations/calculatePoints/api:
+ *   post:
+ *     summary: Calcula pontos obtidos pela doação
+ *     security:
+ *       - bearerAuth: []
+ *     tags: [Donations]
+ *     requestBody:
+ *       description: Dados da doação para cálculo de pontos
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               kg:
+ *                 type: number
+ *                 description: Peso da doação em quilogramas
+ *                 example: 5
+ *               condition:
+ *                 type: string
+ *                 description: Condição dos itens doados
+ *                 enum: [nova, semi-nova, desgastada]
+ *                 example: nova
+ *     responses:
+ *       200:
+ *         description: Pontos calculados com sucesso
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 points:
+ *                   type: number
+ *                   description: Pontos calculados com base no peso e condição da doação
+ *                   example: 45
+ *       401:
+ *         description: Não autorizado
+ *       400:
+ *         description: Requisição inválida (ex. falta de parâmetros)
+ */
+router.post('/calculatePoints/api',donationController.donation_calculate_points_json);
 router.post('/calculatePoints',donationController.donation_calculate_points);
 
 module.exports = router;

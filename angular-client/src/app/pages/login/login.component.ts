@@ -26,7 +26,7 @@ export class LoginComponent {
     console.log(`login ${this.email}`)
     this.authService.login({ email: this.email, password: this.password })
     .subscribe(()=>{
-      alert("login sucesso");
+      alert("Bem-vindo!");
       this.router.navigate(['/dashboard']);
     },
      (error: HttpErrorResponse) => {

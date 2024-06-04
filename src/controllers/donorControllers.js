@@ -27,7 +27,7 @@ exports.donor_list = asyncHandler(async (req, res, next) => {
 exports.donor_detail = asyncHandler(async (req, res, next) => {
    
     const donor = await Donor.findById(req.params.id);
-    res.json(donor);
+    res.json({donor:donor});
     next();
 })
 

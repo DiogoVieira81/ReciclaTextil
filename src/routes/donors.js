@@ -185,8 +185,59 @@ router.post("/delete/:id",  donorsController.donor_delete_post);
  *       401:
  *         description: Não autorizado
  */
-
 router.get("/list/api", donorsController.donor_list_json);
+
+/**
+ * @swagger
+ * /donors/list/{id}/api:
+ *   get:
+ *     summary: Lista o doador pretendido
+ *     security:
+ *       - bearerAuth: []
+ *     tags: [Donors]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: O ID do doador
+ *     responses:
+ *       200:
+ *         description: Doador recuperado
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 _id:
+ *                   type: string
+ *                 name:
+ *                   type: string
+ *                 email:
+ *                   type: string
+ *                 phoneNumber:
+ *                   type: string
+ *                 address:
+ *                   type: string
+ *                 city:
+ *                   type: string
+ *                 district:
+ *                   type: string
+ *                 kg:
+ *                   type: number
+ *                 points:
+ *                   type: number
+ *                 totalDonations:
+ *                   type: number
+ *       401:
+ *         description: Não autorizado
+ *       404:
+ *         description: Doador não encontrado
+ */
+
+router.get("/list/:id/api", donorsController.donor_detail);
+
 router.get("/list",  donorsController.donor_list);
 
 module.exports = router;

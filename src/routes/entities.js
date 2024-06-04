@@ -175,5 +175,56 @@ router.post("/delete/:id", entitiesController.entity_delete_post);
 router.get("/list/api",entitiesController.entity_list_json)
 router.get("/list", entitiesController.entity_list);
 
+/**
+ * @swagger
+ * /entities/list/{id}/api:
+ *   get:
+ *     summary: Lista a entidade pretendida
+ *     security:
+ *       - bearerAuth: []
+ *     tags: [Entities]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: O ID da entidade
+ *     responses:
+ *       200:
+ *         description: Entidade recuperada
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 name:
+ *                   type: string
+ *                 taxpayerNumber:
+ *                   type: string
+ *                 email:
+ *                   type: string
+ *                   format: email
+ *                 password:
+ *                   type: string
+ *                 phoneNumber:
+ *                   type: string
+ *                 address:
+ *                   type: string
+ *                 city:
+ *                   type: string
+ *                 district:
+ *                   type: string
+ *                 description:
+ *                   type: string
+ *                 kg:
+ *                   type: number
+ *       401:
+ *         description: Não autorizado
+ *       404:
+ *         description: Entidade não encontrada
+ */
+
+router.get("/list/:id/api/",entitiesController.entity_detail);
 
 module.exports = router;

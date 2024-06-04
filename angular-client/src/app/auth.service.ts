@@ -32,7 +32,7 @@ this.isAuthenticateSubject.next(true);
 private storeJwtToken(jwt:string){
   localStorage.setItem(this.JWT_TOKEN,jwt);
 }
-loggout(){
+loggout():void{
   this.loggerUser=undefined;
   localStorage.removeItem(this.JWT_TOKEN);
 this.isAuthenticateSubject.next(false);
@@ -60,7 +60,18 @@ getUserIdFromToken(): string | null {
   const payload = JSON.parse(atob(token.split('.')[1]));
   return payload.id;
 }
+private getTokenExpirationDate(token: string): Date {
+  const payload = JSON.parse(atob(token.split('.')[1]));
+  const expirationTimestamp = payload.exp * 1000; 
+  return new Date(expirationTimestamp);
+}
+private isTokenExpired(token: string): boolean {
+  const expirationDate = this.getTokenExpirationDate(token);
+  return expirationDate < new Date();
+}
+
 isLoggedIn(){
-  return !!localStorage.getItem(this.JWT_TOKEN);
+  const token = this.getJwtToken();
+  return !!token && !this.isTokenExpired(token);
 }
 }

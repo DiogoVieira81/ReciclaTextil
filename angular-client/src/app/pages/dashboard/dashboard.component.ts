@@ -22,6 +22,10 @@ export class DashboardComponent implements OnInit {
     console.log('User ID:', this.userId);
     
   }
+  logoout():void {
+    alert("Sessao terminada");
+    this.authService.loggout();
+  }
   /* exemplo com a requisicao para ir buscar a entidade que queres-> no useriD ao fazer login ja fica armazenado o _id 
   loadUserData(userId: string): void {
     

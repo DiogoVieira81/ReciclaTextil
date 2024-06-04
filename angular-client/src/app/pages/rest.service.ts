@@ -22,8 +22,8 @@ export class RestService {
     );
   }
 
-  getEntities(): Observable<Entity[]> {
-    return this.httpClient.get<Entity[]>(this.entityListURL).pipe(
+  getEntities(): Observable<any[]> {
+    return this.httpClient.get<any[]>(this.entityListURL).pipe(
       map((response: any) => response.entities)
     );
   }

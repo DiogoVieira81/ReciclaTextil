@@ -15,7 +15,7 @@ Chart.register(...registerables);
 })
 export class DashboardComponent implements OnInit {
   data: any;
-  entityID : string | null = " ";
+  entityID: string | null = ' ';
 
   barChartLabelData: string[] = [];
   barChartValueData: number[] = [];
@@ -26,14 +26,14 @@ export class DashboardComponent implements OnInit {
   doughnutChartLabelData: string[] = [];
   doughnutChartValueData: number[] = [];
 
-  constructor(private rest: RestService, private route : ActivatedRoute) {}
+  constructor(private rest: RestService, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
     this.getDonations();
   }
 
   getDonations() {
-    this.route.paramMap.subscribe(params => {
+    this.route.paramMap.subscribe((params) => {
       this.entityID = params.get('id');
       console.log(this.entityID);
     });
@@ -43,20 +43,23 @@ export class DashboardComponent implements OnInit {
       this.data = data;
 
       if (this.data != null) {
-        this.data.forEach((data:any) => {
+        this.data.forEach((data: any) => {
           let barIndex = this.barChartLabelData.indexOf(data.donor.name);
-          if ((barIndex === -1) && (data.entity.id === this.entityID)) {
-            this.barChartLabelData.push(data.donor.name);
-            this.barChartValueData.push(data.points);
-          } else {
-            this.barChartValueData[barIndex] += data.points;
+          if (data.entity.id === this.entityID) {
+            if (barIndex === -1) {
+              this.barChartLabelData.push(data.donor.name);
+              this.barChartValueData.push(data.points);
+            } else {
+              this.barChartValueData[barIndex] += data.points;
+            }
           }
-
           this.pieChartLabelData.push(data.condition);
           this.pieChartValueData.push(data.kg);
 
-          let doughnutIndex = this.doughnutChartLabelData.indexOf(data.donor.name);
-          if (doughnutIndex === -1 && (data.entity.id === this.entityID)) {
+          let doughnutIndex = this.doughnutChartLabelData.indexOf(
+            data.donor.name
+          );
+          if (doughnutIndex === -1 && data.entity.id === this.entityID) {
             this.doughnutChartLabelData.push(data.donor.name);
             this.doughnutChartValueData.push(data.kg);
           } else {

@@ -4,10 +4,16 @@ import { LoginComponent } from './pages/login/login.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { DonationListComponent } from './pages/donation-list/donation-list.component';
 import { EntityRegisterComponent } from './pages/entity-register/entity-register.component';
+import { authGuard } from './auth.guard';
+import { TesteComponent } from './teste/teste.component';
 
 export const routes: Routes = [
 {
     path:'',redirectTo:'login',pathMatch:'full'
+},
+{
+    path:'teste',
+    component:TesteComponent,canActivate:[authGuard]
 },
 {
     path:'login',
@@ -18,7 +24,7 @@ export const routes: Routes = [
     children : [
         {
             path : 'entity',
-            component : EntityRegisterComponent
+            component : EntityRegisterComponent,
         }
     ]
 },
@@ -36,5 +42,6 @@ export const routes: Routes = [
         }
     ]
         
-}
+},
+
 ];

@@ -2,7 +2,7 @@ var express = require("express");
 var router = express.Router();
 const adminsController = require("../controllers/adminControllers");
 const checkAuth = require('../middleware/auth');
-
+const authenticate = require('../middleware/authenticate');
 router.get("/create", checkAuth, adminsController.admin_create_get);
 
 /**
@@ -122,7 +122,7 @@ router.post("/update", checkAuth, adminsController.admin_update_post);
  *       401:
  *         description: Não autorizado
  */
-router.get("/list/api", checkAuth, adminsController.admin_list_json);
-router.get("/list", checkAuth, adminsController.admin_list);
+router.get("/list/api",authenticate, adminsController.admin_list_json);
+router.get("/list", adminsController.admin_list);
 
 module.exports = router;

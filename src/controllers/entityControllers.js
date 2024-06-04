@@ -18,7 +18,7 @@ exports.entity_list = asyncHandler(async (req, res, next) => {
 // Display detail page for a specific Entity
 exports.entity_detail = asyncHandler(async (req, res, next) => {
     const entity = await Entity.findById(req.params.id);
-    res.json(entity);
+    res.json({entity:entity});
     next();
 })
 

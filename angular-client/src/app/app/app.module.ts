@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from '../app.component';
-import { DashboardEntitiesComponent } from '../pages/dashboard-entities/dashboard-entities.component';
+import { DonorDashboardComponent } from '../pages/donor-dashboard/donor-dashboard.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { PointsChartComponent } from '../pages/points-chart/points-chart.component'
@@ -19,7 +19,7 @@ import { NgApexchartsModule } from "ng-apexcharts"
     HttpClientModule,
     PointsChartModule,
     NgApexchartsModule,
-    DashboardEntitiesComponent,
+    DonorDashboardComponent,
     PointsChartComponent,
   ],
   providers: [],

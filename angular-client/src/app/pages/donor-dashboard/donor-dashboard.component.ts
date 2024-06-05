@@ -3,13 +3,13 @@ import {  DashboardServiceService } from '../services/dashboard-service.service'
 import { PointsChartComponent } from "../points-chart/points-chart.component";
 
 @Component({
-  selector: 'app-dashboard-entities',
+  selector: 'app-donor-dashboard',
   imports: [PointsChartComponent,],
   standalone: true,
-  templateUrl: './dashboard-entities.component.html',
-  styleUrls: ['./dashboard-entities.component.css']
+  templateUrl: './donor-dashboard.component.html',
+  styleUrls: ['./donor-dashboard.component.css']
 })
-export class DashboardEntitiesComponent implements OnInit {
+export class DonorDashboardComponent implements OnInit {
   totalDonations!: number;
   totalPoints!: number;
   pointsOverTime!: any[];

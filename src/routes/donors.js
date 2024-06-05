@@ -20,7 +20,8 @@ const  checkAuth  = require('../middleware/auth');
 
 
 
-router.get("/create",  donorsController.donor_create_get);
+router.get("/create", checkAuth, donorsController.donor_create_get);
+router.get("/create/api", donorsController.donor_create_get);
 /**
  * @swagger
  * /donors/create/api:
@@ -64,9 +65,10 @@ router.get("/create",  donorsController.donor_create_get);
  *         description: Não autorizado
  */
 router.post("/create/api",  upload.single("cover"), donorsController.donor_create_post_json);
-router.post("/create",  upload.single("cover"), donorsController.donor_create_post);
+router.post("/create",checkAuth,  upload.single("cover"), donorsController.donor_create_post);
 
-router.get("/update/:id",  donorsController.donor_update_get);
+router.get("/update/:id", checkAuth, donorsController.donor_update_get);
+router.get("/update/:id/api", donorsController.donor_update_get);
 
 /**
  * @swagger
@@ -115,10 +117,11 @@ router.get("/update/:id",  donorsController.donor_update_get);
  *         description: Não autorizado
  */
 router.post("/update/:id/api",  donorsController.donor_update_post_json);
-router.post("/update/:id",  donorsController.donor_update_post);
+router.post("/update/:id",checkAuth,  donorsController.donor_update_post);
 
 
-router.get("/delete/:id",  donorsController.donor_delete_get);
+router.get("/delete/:id", checkAuth, donorsController.donor_delete_get);
+router.get("/delete/:id/api",donorsController.donor_delete_get);
 
 /**
  * @swagger
@@ -142,7 +145,7 @@ router.get("/delete/:id",  donorsController.donor_delete_get);
  *         description: Não autorizado
  */
 router.post("/delete/:id/api",  donorsController.donor_delete_post_json);
-router.post("/delete/:id",  donorsController.donor_delete_post);
+router.post("/delete/:id", checkAuth, donorsController.donor_delete_post);
 
 /**
  * @swagger
@@ -185,8 +188,58 @@ router.post("/delete/:id",  donorsController.donor_delete_post);
  *       401:
  *         description: Não autorizado
  */
-
 router.get("/list/api", donorsController.donor_list_json);
-router.get("/list",  donorsController.donor_list);
+
+/**
+ * @swagger
+ * /donors/list/{id}/api:
+ *   get:
+ *     summary: Lista o doador pretendido
+ *     security:
+ *       - bearerAuth: []
+ *     tags: [Donors]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: O ID do doador
+ *     responses:
+ *       200:
+ *         description: Doador recuperado
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 _id:
+ *                   type: string
+ *                 name:
+ *                   type: string
+ *                 email:
+ *                   type: string
+ *                 phoneNumber:
+ *                   type: string
+ *                 address:
+ *                   type: string
+ *                 city:
+ *                   type: string
+ *                 district:
+ *                   type: string
+ *                 kg:
+ *                   type: number
+ *                 points:
+ *                   type: number
+ *                 totalDonations:
+ *                   type: number
+ *       401:
+ *         description: Não autorizado
+ *       404:
+ *         description: Doador não encontrado
+ */
+router.get("/list/:id/api", donorsController.donor_detail);
+
+router.get("/list",checkAuth,  donorsController.donor_list);
 
 module.exports = router;

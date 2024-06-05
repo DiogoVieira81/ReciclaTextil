@@ -26,7 +26,8 @@ const jwt = require('jsonwebtoken')
  */
 
 
-router.get("/create", entitiesController.entity_create_get);
+router.get("/create",checkAuth, entitiesController.entity_create_get);
+router.get("/create/api", entitiesController.entity_create_get);
 
 /**
  * @swagger
@@ -73,9 +74,10 @@ router.get("/create", entitiesController.entity_create_get);
  *         description: Não autorizado
  */
 router.post("/create/api", upload.single("cover"), entitiesController.entity_create_post_json)
-router.post("/create", upload.single("cover"), entitiesController.entity_create_post);
+router.post("/create",checkAuth, upload.single("cover"), entitiesController.entity_create_post);
 
-router.get("/update/:id", entitiesController.entity_update_get);
+router.get("/update/:id",checkAuth, entitiesController.entity_update_get);
+router.get("/update/:id/api", entitiesController.entity_update_get);
 
 /**
  * @swagger
@@ -132,7 +134,8 @@ router.get("/update/:id", entitiesController.entity_update_get);
 router.post("/update/:id/api", entitiesController.entity_update_post_json);
 router.post("/update/:id", entitiesController.entity_update_post);
 
-router.get("/delete/:id", entitiesController.entity_delete_get);
+router.get("/delete/:id",checkAuth, entitiesController.entity_delete_get);
+router.get("/delete/:id/api", entitiesController.entity_delete_get);
 
 /**
  * @swagger
@@ -156,7 +159,7 @@ router.get("/delete/:id", entitiesController.entity_delete_get);
  *         description: Não autorizado
  */
 router.post("/delete/:id/api",entitiesController.entity_delete_post_json);
-router.post("/delete/:id", entitiesController.entity_delete_post);
+router.post("/delete/:id",checkAuth, entitiesController.entity_delete_post);
 
 /**
  * @swagger
@@ -173,7 +176,57 @@ router.post("/delete/:id", entitiesController.entity_delete_post);
  *         description: Não autorizado
  */
 router.get("/list/api",entitiesController.entity_list_json)
-router.get("/list", entitiesController.entity_list);
+router.get("/list",checkAuth, entitiesController.entity_list);
 
+/**
+ * @swagger
+ * /entities/list/{id}/api:
+ *   get:
+ *     summary: Lista a entidade pretendida
+ *     security:
+ *       - bearerAuth: []
+ *     tags: [Entities]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: O ID da entidade
+ *     responses:
+ *       200:
+ *         description: Entidade recuperada
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 name:
+ *                   type: string
+ *                 taxpayerNumber:
+ *                   type: string
+ *                 email:
+ *                   type: string
+ *                   format: email
+ *                 password:
+ *                   type: string
+ *                 phoneNumber:
+ *                   type: string
+ *                 address:
+ *                   type: string
+ *                 city:
+ *                   type: string
+ *                 district:
+ *                   type: string
+ *                 description:
+ *                   type: string
+ *                 kg:
+ *                   type: number
+ *       401:
+ *         description: Não autorizado
+ *       404:
+ *         description: Entidade não encontrada
+ */
+router.get("/list/:id/api/",entitiesController.entity_detail);
 
 module.exports = router;

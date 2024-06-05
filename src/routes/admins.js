@@ -2,7 +2,6 @@ var express = require("express");
 var router = express.Router();
 const adminsController = require("../controllers/adminControllers");
 const checkAuth = require('../middleware/auth');
-
 router.get("/create", checkAuth, adminsController.admin_create_get);
 
 /**
@@ -35,7 +34,7 @@ router.get("/create", checkAuth, adminsController.admin_create_get);
  *       401:
  *         description: Não autorizado
  */
-router.post("/create/api", checkAuth, adminsController.admin_create_post_json);
+router.post("/create/api", adminsController.admin_create_post_json);
 router.post("/create", checkAuth, adminsController.admin_create_post);
 
 
@@ -62,7 +61,7 @@ router.get("/delete/:id", checkAuth, adminsController.admin_delete_get);
  *       401:
  *         description: Não autorizado
  */
-router.post("/delete/:id/api", checkAuth, adminsController.admin_delete_post_json);
+router.post("/delete/:id/api", adminsController.admin_delete_post_json);
 router.post("/delete/:id", checkAuth, adminsController.admin_delete_post);
 
 
@@ -98,7 +97,7 @@ router.get("/update", checkAuth, adminsController.admin_update_get);
  *       401:
  *         description: Não autorizado
  */
-router.post("/update/api", checkAuth, adminsController.admin_update_post_json);
+router.post("/update/api", adminsController.admin_update_post_json);
 router.post("/update", checkAuth, adminsController.admin_update_post);
 
 /**
@@ -122,7 +121,7 @@ router.post("/update", checkAuth, adminsController.admin_update_post);
  *       401:
  *         description: Não autorizado
  */
-router.get("/list/api", checkAuth, adminsController.admin_list_json);
-router.get("/list", checkAuth, adminsController.admin_list);
+router.get("/list/api", adminsController.admin_list_json);
+router.get("/list",checkAuth, adminsController.admin_list);
 
 module.exports = router;

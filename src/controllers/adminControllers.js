@@ -10,7 +10,7 @@ const Entity = require("../models/Entity");
 exports.admin_list_json = asyncHandler(async (req, res, next) => {
     try {
         const admins = await Admin.find({});
-        res.status(200).json(admins);
+        res.status(200).json({admins:admins});
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
@@ -20,7 +20,7 @@ exports.admin_list_json = asyncHandler(async (req, res, next) => {
 exports.admin_list = asyncHandler(async (req, res, next) => {
     try {
         const admins = await Admin.find({});
-        res.render('admins/show', { admins });
+        res.render('admins/show', { admins:admins });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }

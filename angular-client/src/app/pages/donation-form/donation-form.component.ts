@@ -8,7 +8,7 @@ import { FormsModule } from '@angular/forms';
   imports: [HttpClientModule, FormsModule],
   templateUrl: './donation-form.component.html',
   styleUrls: ['./donation-form.component.css'],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class DonationFormComponent implements OnInit {
   donation = {
@@ -31,7 +31,7 @@ export class DonationFormComponent implements OnInit {
 
   loadDonors(): void {
     // Fetch donors from the backend API
-    this.http.get<any[]>('/api/donors').subscribe(data => {
+    this.http.get<any[]>('/donors/api').subscribe(data => {
       this.donors = data;
     }, error => {
       console.error('Error fetching donors', error);
@@ -40,7 +40,7 @@ export class DonationFormComponent implements OnInit {
 
   loadEntities(): void {
     // Fetch entities from the backend API
-    this.http.get<any[]>('/api/entities').subscribe(data => {
+    this.http.get<any[]>('/entities/api').subscribe(data => {
       this.entities = data;
     }, error => {
       console.error('Error fetching entities', error);

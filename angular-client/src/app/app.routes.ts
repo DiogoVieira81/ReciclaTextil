@@ -20,7 +20,7 @@ export const routes: Routes = [
     children : [
         {
             path : 'entity',
-            component : EntityRegisterComponent,canActivate:[authGuard]
+            component : EntityRegisterComponent//,canActivate:[authGuard]
         }
     ]
 },

@@ -10,10 +10,10 @@ export class DashboardServiceService {
   constructor(private http: HttpClient) {}
 
   getEntityKPIs(): Observable<any> {
-    return this.http.get('/api/entity/kpis');
+    return this.http.get('/entity/api/kpis');
   }
 
   getPointsOverTime(): Observable<any> {
-    return this.http.get('/api/entity/points-over-time');
+    return this.http.get('/entity/api/points-over-time');
   }
 }

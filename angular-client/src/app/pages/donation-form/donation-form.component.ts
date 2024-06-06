@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, Component, OnInit } from '@angular/core';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
@@ -7,7 +7,8 @@ import { FormsModule } from '@angular/forms';
   standalone: true,
   imports: [HttpClientModule, FormsModule],
   templateUrl: './donation-form.component.html',
-  styleUrls: ['./donation-form.component.css']
+  styleUrls: ['./donation-form.component.css'],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class DonationFormComponent implements OnInit {
   donation = {

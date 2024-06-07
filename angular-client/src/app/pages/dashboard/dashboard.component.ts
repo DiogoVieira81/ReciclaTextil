@@ -4,7 +4,11 @@ import { RestService } from '../rest.service';
 import { Donation } from '../../models/donation';
 import { Donor } from '../../models/donor';
 import { ActivatedRoute } from '@angular/router';
+import { AuthService } from '../../auth.service';
+import { NgModel } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
 Chart.register(...registerables);
+NgModel
 
 @Component({
   selector: 'app-dashboard',
@@ -26,7 +30,7 @@ export class DashboardComponent implements OnInit {
   doughnutChartLabelData: string[] = [];
   doughnutChartValueData: number[] = [];
 
-  constructor(private rest: RestService, private route: ActivatedRoute) {}
+  constructor(private authService: AuthService, private rest: RestService, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
     this.getDonations();

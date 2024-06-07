@@ -19,6 +19,22 @@ exports.donation_calculate_points = asyncHandler(async (req, res, next) => {
     
     res.json({ points: pontos });
 });
+exports.donation_calculate_points_json = asyncHandler(async (req, res, next) => {
+    const { kg, condition } = req.body;
+    let pontos = 0;
+    
+    if (kg && condition) {
+        if (condition === 'nova') {
+            pontos = kg * 9;
+        } else if (condition === 'semi-nova') {
+            pontos = kg * 5;
+        } else if (condition === 'desgastada') {
+            pontos = kg * 2;
+        }
+    }
+    
+    res.json({ points: pontos });
+});
 exports.donation_list_json = asyncHandler(async (req, res, next) => {
     const donations = await Donation.find({})
     .populate('donor')

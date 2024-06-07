@@ -4,7 +4,8 @@ const donationController = require("../controllers/donationControllers");
 
 const  checkAuth  = require('../middleware/auth');
 
-router.get("/create", donationController.donation_create_get);
+router.get("/create", checkAuth,donationController.donation_create_get);
+router.get("/create/api", donationController.donation_create_get);
 
 /**
  * @swagger
@@ -42,10 +43,11 @@ router.get("/create", donationController.donation_create_get);
  *         description: Não autorizado
  */
 router.post("/create/api", donationController.donation_create_post_json);
-router.post("/create", donationController.donation_create_post);
+router.post("/create",checkAuth,  donationController.donation_create_post);
 
 
-router.get("/update/:id", donationController.donation_update_get);
+router.get("/update/:id",checkAuth, donationController.donation_update_get);
+router.get("/update/:id/api",donationController.donation_update_get);
 
 /**
  * @swagger
@@ -90,10 +92,11 @@ router.get("/update/:id", donationController.donation_update_get);
  *         description: Não autorizado
  */
 router.post("/update/:id/api", donationController.donation_update_post_json);
-router.post("/update/:id", donationController.donation_update_post);
+router.post("/update/:id",checkAuth, donationController.donation_update_post);
 
 
-router.get("/delete/:id", donationController.donation_delete_get);
+router.get("/delete/:id", checkAuth,donationController.donation_delete_get);
+router.get("/delete/:id/api",donationController.donation_delete_get);
 
 /**
  * @swagger
@@ -117,7 +120,7 @@ router.get("/delete/:id", donationController.donation_delete_get);
  *         description: Não autorizado
  */
 router.post("/delete/:id/api", donationController.donation_delete_post_json);
-router.post("/delete/:id", donationController.donation_delete_post);
+router.post("/delete/:id",checkAuth, donationController.donation_delete_post);
 
 /**
  * @swagger
@@ -134,7 +137,51 @@ router.post("/delete/:id", donationController.donation_delete_post);
  *         description: Não autorizado
  */
 router.get("/list/api", donationController.donation_list_json);
-router.get("/list", donationController.donation_list);
-router.post('/calculatePoints',donationController.donation_calculate_points);
+router.get("/list", checkAuth,donationController.donation_list);
+
+/**
+ * @swagger
+ * /donations/calculatePoints/api:
+ *   post:
+ *     summary: Calcula pontos obtidos pela doação
+ *     security:
+ *       - bearerAuth: []
+ *     tags: [Donations]
+ *     requestBody:
+ *       description: Dados da doação para cálculo de pontos
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               kg:
+ *                 type: number
+ *                 description: Peso da doação em quilogramas
+ *                 example: 5
+ *               condition:
+ *                 type: string
+ *                 description: Condição dos itens doados
+ *                 enum: [nova, semi-nova, desgastada]
+ *                 example: nova
+ *     responses:
+ *       200:
+ *         description: Pontos calculados com sucesso
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 points:
+ *                   type: number
+ *                   description: Pontos calculados com base no peso e condição da doação
+ *                   example: 45
+ *       401:
+ *         description: Não autorizado
+ *       400:
+ *         description: Requisição inválida (ex. falta de parâmetros)
+ */
+router.post('/calculatePoints/api',donationController.donation_calculate_points_json);
+router.post('/calculatePoints',checkAuth,donationController.donation_calculate_points);
 
 module.exports = router;

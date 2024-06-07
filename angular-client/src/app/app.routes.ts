@@ -7,42 +7,57 @@ import { EntityRegisterComponent } from './pages/entity-register/entity-register
 
 import { authGuard } from './auth.guard';
 import { EntityDetailedViewComponent } from './pages/entity-detailed-view/entity-detailed-view.component';
+import { DonorDashboardComponent } from './pages/donor-dashboard/donor-dashboard.component';
+import { DonationFormComponent } from './pages/donation-form/donation-form.component';
 
 export const routes: Routes = [
-{
-    path:'',redirectTo:'login',pathMatch:'full'
-},
+    {
+        path: '', redirectTo: 'login', pathMatch: 'full'
+    },
 
-{
-    path:'login',
-    component:LoginComponent
-},
-{
-    path : 'register',
-    children : [
-        {
-            path : 'entity',
-            component : EntityRegisterComponent//,canActivate:[authGuard]
-        }
-    ]
-},
-{
-   
-    path:'dashboard',
-    children : [
-        {
-            path : "",
-            component:DashboardComponent,canActivate:[authGuard],
-        },
-        {
-            path : "donation-list",
-            component : DonationListComponent,canActivate:[authGuard],
-        },
-        {
-            path : "detailed-view",
-            component : EntityDetailedViewComponent
-        }
-    ]
-        
-},
+    {
+        path: 'login',
+        component: LoginComponent
+    },
+    {
+        path: 'register',
+        children: [
+            {
+                path: 'entity',
+                component: EntityRegisterComponent//,canActivate:[authGuard]
+            }
+        ]
+    },
+    {
+
+        path: 'dashboard',
+        children: [
+            {
+                path: "",
+                component: DashboardComponent, canActivate: [authGuard],
+            },
+            {
+                path: "donation-list",
+                component: DonationListComponent, canActivate: [authGuard],
+            },
+            {
+                path: "detailed-view",
+                component: EntityDetailedViewComponent
+            }
+        ]
+
+    },
+    {
+        path: 'dashboard/donors',
+        children: [
+            {
+                path: "",
+                component: DonorDashboardComponent, canActivate: [authGuard],
+            },
+            {
+                path: "donation-form",
+                component: DonationFormComponent, canActivate: [authGuard],
+            },
+        ]
+    }
 ];

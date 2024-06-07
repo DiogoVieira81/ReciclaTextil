@@ -6,6 +6,7 @@ import { DonationListComponent } from './pages/donation-list/donation-list.compo
 import { EntityRegisterComponent } from './pages/entity-register/entity-register.component';
 
 import { authGuard } from './auth.guard';
+import { EntityDetailedViewComponent } from './pages/entity-detailed-view/entity-detailed-view.component';
 
 export const routes: Routes = [
 {
@@ -36,6 +37,10 @@ export const routes: Routes = [
         {
             path : "donation-list",
             component : DonationListComponent,canActivate:[authGuard],
+        },
+        {
+            path : "detailed-view",
+            component : EntityDetailedViewComponent
         }
     ]
         

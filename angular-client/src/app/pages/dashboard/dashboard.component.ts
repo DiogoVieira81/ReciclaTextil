@@ -8,7 +8,7 @@ import { AuthService } from '../../auth.service';
 import { NgModel } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 Chart.register(...registerables);
-NgModel
+NgModel;
 
 @Component({
   selector: 'app-dashboard',
@@ -19,6 +19,7 @@ NgModel
 })
 export class DashboardComponent implements OnInit {
   data: any;
+  entityData: any;
   entityID: string | null = ' ';
 
   barChartLabelData: string[] = [];
@@ -30,18 +31,33 @@ export class DashboardComponent implements OnInit {
   doughnutChartLabelData: string[] = [];
   doughnutChartValueData: number[] = [];
 
-  constructor(private authService: AuthService, private rest: RestService, private route: ActivatedRoute) {}
+  constructor(
+    private authService: AuthService,
+    private rest: RestService,
+    private route: ActivatedRoute,
+    private http: HttpClient
+  ) {}
 
   ngOnInit(): void {
+    this.entityID = this.authService.getUserIdFromToken();
+    console.log('Entity ID:', this.entityID);
     this.getDonations();
   }
 
-  getDonations() {
-    this.route.paramMap.subscribe((params) => {
-      this.entityID = params.get('id');
-      console.log(this.entityID);
-    });
+  logout(): void {
+    alert('Sessão terminada');
+    this.authService.loggout();
+  }
 
+  loadEntityData(entityID: string): void {
+    this.http
+      .get(`http://localhost:3000/donors/list/${entityID}/api`)
+      .subscribe((entity) => {
+        this.entityData = entity;
+      });
+  }
+
+  getDonations() {
     this.rest.getDonations().subscribe((data) => {
       console.log(data);
       this.data = data;
@@ -63,11 +79,14 @@ export class DashboardComponent implements OnInit {
           let doughnutIndex = this.doughnutChartLabelData.indexOf(
             data.donor.name
           );
-          if (doughnutIndex === -1 && data.entity.id === this.entityID) {
-            this.doughnutChartLabelData.push(data.donor.name);
-            this.doughnutChartValueData.push(data.kg);
-          } else {
-            this.doughnutChartValueData[doughnutIndex] += data.kg;
+
+          if (data.entity.id === this.entityID) {
+            if (doughnutIndex === -1) {
+              this.doughnutChartLabelData.push(data.donor.name);
+              this.doughnutChartValueData.push(data.kg);
+            } else {
+              this.doughnutChartValueData[doughnutIndex] += data.kg;
+            }
           }
         });
       }

@@ -4,6 +4,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { RestService } from '../rest.service';
 import { Donation } from '../../models/donation';
+import { AuthService } from '../../auth.service';
 
 @Component({
   selector: 'app-donation-list',
@@ -16,10 +17,15 @@ export class DonationListComponent implements OnInit{
   httpClient = inject(HttpClient);
   data:Donation[] = [];
 
-  constructor(private rest : RestService){}
+  constructor(private rest : RestService, private authService : AuthService){}
 
   ngOnInit(): void {
     this.getDonations();
+  }
+
+  logout(): void {
+    alert('Sessão terminada');
+    this.authService.loggout();
   }
 
   getDonations() {

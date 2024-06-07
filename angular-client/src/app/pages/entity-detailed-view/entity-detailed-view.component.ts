@@ -3,11 +3,13 @@ import { Donation } from '../../models/donation';
 import { RestService } from '../rest.service';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../../auth.service';
+import { Entity } from '../../models/entity';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-entity-detailed-view',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './entity-detailed-view.component.html',
   styleUrl: './entity-detailed-view.component.css',
 })
@@ -22,15 +24,28 @@ export class EntityDetailedViewComponent implements OnInit {
   constructor(
     private rest: RestService,
     private http: HttpClient,
-    private authService: AuthService
+    private authService: AuthService,
   ) {}
   entityID: string | null = ' ';
-  entityData: any;
+  entityData: any = {
+    name: "",
+    taxpayerNumber: "",
+    email: "",
+    password: "",
+    phoneNumber: "",
+    address : "",
+    city : "",
+    district : "",
+    description : "",
+    kg : 0,
+    totalDonations : 0,
+    ImageName : "",
+  };
 
   ngOnInit(): void {
     this.entityID = this.authService.getUserIdFromToken();
     console.log('Entity ID:', this.entityID);
-    this.getDonations();
+    this.loadEntityData(this.entityID!);
   }
 
   logout(): void {
@@ -46,6 +61,7 @@ export class EntityDetailedViewComponent implements OnInit {
       });
   }
 
+  /*
   getDonations() {
     this.rest.getDonations().subscribe((data) => {
       console.log(data);
@@ -53,7 +69,7 @@ export class EntityDetailedViewComponent implements OnInit {
 
       if (this.data != null) {
         this.data.forEach((data) => {
-          if ((this.entityID = data.entity)) {
+          if ((this.entityID == data.entity)) {
             let i = this.donorNames.indexOf(data.donor);
             if (i === -1) {
               this.donorNames.push(data.donor);
@@ -80,4 +96,5 @@ export class EntityDetailedViewComponent implements OnInit {
       }
     });
   }
+  */
 }

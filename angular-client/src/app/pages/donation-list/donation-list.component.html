@@ -47,7 +47,7 @@
   <tbody>
     <tr *ngFor="let donation of data">
       <ng-container *ngIf="donation.points > 10">
-        <td>{{ donation.donor.name }}</td>
+        <td>{{ donation.donor }}</td>
         <td>{{ donation.kg }}</td>
         <td>{{ donation.condition }}</td>
         <td>{{ donation.points }}</td>

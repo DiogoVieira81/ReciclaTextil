@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { RestService } from '../rest.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Entity } from '../../models/entity';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-entity-register',
@@ -29,7 +30,7 @@ export class EntityRegisterComponent {
     ImageName: '',
   };
 
-  constructor(private httpClient: HttpClient, private rest: RestService) {}
+  constructor(private httpClient: HttpClient, private rest: RestService, private router : Router) {}
 
   getEntities(): void {
     this.rest.getEntities().subscribe((data: any[]) => {
@@ -55,6 +56,7 @@ export class EntityRegisterComponent {
         totalDonations: 0,
         ImageName: '',
       };
+      this.router.navigate([`/dashboard/${entity.email}`]);
     });
   }
 }

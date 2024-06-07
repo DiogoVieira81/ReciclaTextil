@@ -1,0 +1,71 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+  <a class="navbar-brand" href="/dashboard">ReciclaTextil</a>
+  <button
+    class="navbar-toggler"
+    type="button"
+    data-toggle="collapse"
+    data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+  >
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="/dashboard">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/dashboard/donation-list">Donations</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link active" href="/dashboard/detailed-view"
+          >Detailed View</a
+        >
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<div class="summary-container">
+  <h2>Detailed View</h2>
+  <div class="summary-item">
+    <strong>Number of Donations: </strong> {{ data.length || "0" }}
+  </div>
+  <div class="summary-item">
+    <strong>Number of Donors: </strong> {{ donorNames?.length || "0" }}
+  </div>
+  <div class="summary-item">
+    <strong>Total Kilograms Donated: </strong> {{  conditionCounter[0] + conditionCounter[1] + conditionCounter[2] || "0" }}
+    <div class="summary-item">
+      <ul>
+        <li>
+          <strong>In 'Nova' condition:</strong>{{ conditionCounter[0] || "0" }}
+        </li>
+        <li>
+          <strong>In 'Semi-nova' condition:</strong>{{ conditionCounter[1] || "0" }}
+        </li>
+        <li>
+          <strong>In 'Desgastada' condition:</strong>{{ conditionCounter[2] || "0" }}
+        </li>
+      </ul>
+    </div>
+    <div class="summary-item">
+      <strong>Average: </strong>
+      <div class="summary-item">
+        <ul>
+          <li>
+            <strong>Number of items donated per donation: </strong> {{ avgItems || "0" }}
+          </li>
+          <li>
+            <strong>Number of kilograms donated per donation: </strong> {{ avgKg || "0" }}
+          </li>
+          <li>
+            <strong>Number of points earned per donation: </strong> {{ avgPoints || "0" }}
+          </li>
+        </ul>
+      </div>
+  </div>
+</div>

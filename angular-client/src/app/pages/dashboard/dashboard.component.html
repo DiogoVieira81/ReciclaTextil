@@ -15,10 +15,13 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link active" href="/dashboard">Home</a>
+        <a class="nav-link active" href="/dashboard/${entityID}">Home</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="/dashboard/donation-list">Donations</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/dashboard/detailed-view">Detailed View</a>
       </li>
     </ul>
     <ul class="navbar-nav">
@@ -28,3 +31,22 @@
     </ul>
   </div>
 </nav>
+
+<div class="dashboard">
+  <div class="chart">
+    <h2>Points earned by donor</h2>
+    <canvas id="barChart">
+    </canvas>
+  </div>
+  <div class="chart">
+    <h2>Kgs donated per donor</h2>
+    <canvas id="pieChart2">
+    </canvas>
+  </div>
+  <div class="chart">
+    <h2>Kgs donated per condition</h2>
+    <canvas id="pieChart">
+    </canvas>
+  </div>
+</div>
+

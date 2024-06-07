@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Chart, registerables } from 'chart.js';
 import { HttpClient } from '@angular/common/http';
 import { NgModel } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../auth.service';
 import { RestService } from '../rest.service';
 Chart.register(...registerables);
@@ -33,6 +32,7 @@ export class DonorDashboardComponent implements OnInit {
 
   constructor(private authService: AuthService,
     private rest: RestService,
+
     private http: HttpClient) {}
 
   ngOnInit(): void {
@@ -49,8 +49,8 @@ export class DonorDashboardComponent implements OnInit {
   loadDonorData(donorID: string): void {
     this.http
       .get(`http://localhost:3000/donors/list/${donorID}/api`)
-      .subscribe((entity) => {
-        this.donorData = entity;
+      .subscribe((donor) => {
+        this.donorData = donor;
       });
   }
 

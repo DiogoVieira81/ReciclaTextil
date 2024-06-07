@@ -8,6 +8,6 @@ export interface Donation {
   kg: number;
   points: number;
   state: string;
-  donor: Donor;
-  entity: any;
+  donor: string;
+  entity: string;
 }

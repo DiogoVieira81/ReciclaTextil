@@ -40,7 +40,7 @@ export class EntityDetailedViewComponent implements OnInit {
 
   loadEntityData(entityID: string): void {
     this.http
-      .get(`http://localhost:3000/donors/list/${entityID}/api`)
+      .get(`http://localhost:3000/entities/list/${entityID}/api`)
       .subscribe((entity) => {
         this.entityData = entity;
       });
@@ -54,9 +54,9 @@ export class EntityDetailedViewComponent implements OnInit {
       if (this.data != null) {
         this.data.forEach((data) => {
           if ((this.entityID = data.entity)) {
-            let i = this.donorNames.indexOf(data.donor.name);
+            let i = this.donorNames.indexOf(data.donor);
             if (i === -1) {
-              this.donorNames.push(data.donor.name);
+              this.donorNames.push(data.donor);
             } else {
               this.donorNames[i]++;
             }

@@ -51,7 +51,7 @@ export class DashboardComponent implements OnInit {
 
   loadEntityData(entityID: string): void {
     this.http
-      .get(`http://localhost:3000/donors/list/${entityID}/api`)
+      .get(`http://localhost:3000/entities/list/${entityID}/api`)
       .subscribe((entity) => {
         this.entityData = entity;
       });

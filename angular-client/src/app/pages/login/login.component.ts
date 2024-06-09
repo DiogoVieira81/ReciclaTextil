@@ -25,9 +25,15 @@ export class LoginComponent {
     this.errorMessage = null; 
     console.log(`login ${this.email}`)
     this.authService.login({ email: this.email, password: this.password })
-    .subscribe(()=>{
-      alert("Bem-vindo!");
+    .subscribe((data: any)=>{
+      if(data.userType==='entity'){
+        alert('Seja bem vindo!');
       this.router.navigate(['/dashboard']);
+      }
+      if(data.userType==='donor'){
+        alert('Seja bem vindo!');
+        this.router.navigate(['dashboard/donors']);
+      }
     },
      (error: HttpErrorResponse) => {
         if (error.status === 400) {

@@ -66,6 +66,7 @@ exports.userLogin = asyncHandler(async (req, res, next) => {
   
     const { email, password } = req.body;
     let user;
+    let userType='';
     console.log('Procurando usuário com email:', email);
     try{
    user = await Donor.findOne({ email });
@@ -77,7 +78,9 @@ exports.userLogin = asyncHandler(async (req, res, next) => {
       console.log('Usuário não encontrado');
       return res.status(400).json({error:"user not found"});
     }
+    userType = user instanceof Donor ? 'donor' : 'entity';
     console.log('Usuário encontrado:', user);
+    console.log('Tipo usuario:' ,userType);
 const passwordMatch=await bcrypt.compare(password, user.password);
 console.log('Comparação de senha:', passwordMatch);
 if(!passwordMatch){
@@ -93,6 +96,7 @@ if(!passwordMatch){
     status:true,
     message:'User loggedin',
     data:{_id:user._id,email:user.email,name:user.name},
+    userType:userType,
     token,
   });
 } catch (error) {

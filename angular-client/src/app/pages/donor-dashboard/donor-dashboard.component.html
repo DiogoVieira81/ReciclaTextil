@@ -15,13 +15,10 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link active" href="/dashboard/${donorID}">Home</a>
+        <a class="nav-link active" href="/dashboard/{{ donorID }}">Home</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/dashboard/donation-list">Donations</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/dashboard/detailed-view">Detailed View</a>
+        <a class="nav-link" href="/dashboard/donors/donation-list">Donations</a>
       </li>
     </ul>
     <ul class="navbar-nav">
@@ -32,21 +29,26 @@
   </div>
 </nav>
 
-<div class="dornor-dashboard">
+<div class="donor-dashboard">
+  <div>
+    <h2>Entities Benefiting from Donations</h2>
+    <ul>
+      <li *ngFor="let entity of entities">
+        {{ entity.name }} - {{ entity.description }}
+      </li>
+    </ul>
+  </div>
+
   <div class="chart">
     <h2>Points earned by donor</h2>
-    <canvas id="barChart">
-    </canvas>
+    <canvas id="barChart"></canvas>
   </div>
   <div class="chart">
-    <h2>Kgs donated per donor</h2>
-    <canvas id="pieChart2">
-    </canvas>
+    <h2>Kgs donated per entity</h2>
+    <canvas id="pieChart2"></canvas>
   </div>
   <div class="chart">
     <h2>Kgs donated per condition</h2>
-    <canvas id="pieChart">
-    </canvas>
+    <canvas id="pieChart"></canvas>
   </div>
 </div>
-

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { Chart, registerables } from 'chart.js';
 import { HttpClient } from '@angular/common/http';
 import { NgModel } from '@angular/forms';
@@ -9,7 +10,7 @@ NgModel;
 
 @Component({
   selector: 'app-donor-dashboard',
-  imports: [],
+  imports: [CommonModule],
   standalone: true,
   templateUrl: './donor-dashboard.component.html',
   styleUrls: ['./donor-dashboard.component.css']
@@ -29,16 +30,29 @@ export class DonorDashboardComponent implements OnInit {
   doughnutChartValueData: number[] = [];
   donorID: string | null = ' ';
   donorData!: any;
+  entities: any;
+  router: any;
 
   constructor(private authService: AuthService,
     private rest: RestService,
 
-    private http: HttpClient) {}
+    private http: HttpClient) { }
 
   ngOnInit(): void {
     this.donorID = this.authService.getUserIdFromToken();
-    console.log('Donor ID:', this.donorID);
-    this.getDonations();
+    if (this.donorID) {
+      this.authService.getUserDetails(this.donorID).subscribe(user => {
+        this.authService.setUser(user);
+        if (user.points !== undefined) {
+          this.getDonations();
+        } else {
+          this.router.navigate(['/dashboard']);
+        }
+      });
+    } else {
+      this.router.navigate(['/login']);
+    }
+    this.listEntities();
   }
 
   logout(): void {
@@ -54,6 +68,18 @@ export class DonorDashboardComponent implements OnInit {
       });
   }
 
+  /**
+   * list all entities
+   */
+  listEntities() {
+    this.rest.getEntities().subscribe((data) => {
+      this.entities = data;
+    });
+  }
+
+  /**
+   * getter for the donations
+   */
   getDonations() {
     this.rest.getDonations().subscribe((data) => {
       console.log(data);
@@ -62,7 +88,7 @@ export class DonorDashboardComponent implements OnInit {
       if (this.data != null) {
         this.data.forEach((data: any) => {
           let barIndex = this.barChartLabelData.indexOf(data.donor.name);
-          if (data.entity.id === this.entityID) {
+          if (data.donor.id === this.donorID) {
             if (barIndex === -1) {
               this.barChartLabelData.push(data.donor.name);
               this.barChartValueData.push(data.points);
@@ -109,6 +135,13 @@ export class DonorDashboardComponent implements OnInit {
     });
   }
 
+  /**
+   * renders a bar chart
+   * @param labelData the label data
+   * @param valueData the value of the data
+   * @param chartID the id of the chart
+   * @param label the label name
+   */
   renderBarChart(labelData: any, valueData: any, chartID: any, label: any) {
     const chart = new Chart(chartID, {
       type: 'bar',
@@ -131,6 +164,13 @@ export class DonorDashboardComponent implements OnInit {
     });
   }
 
+  /**
+   * renders a pie chart
+   * @param labelData the label data
+   * @param valueData the value of the data
+   * @param chartID the id of the chart
+   * @param label the label name
+   */
   renderPieChart(labelData: any, valueData: any, chartID: any, label: any) {
     const chart = new Chart(chartID, {
       type: 'pie',
@@ -150,6 +190,13 @@ export class DonorDashboardComponent implements OnInit {
     });
   }
 
+  /**
+   * renders the donut chart
+   * @param labelData the data label
+   * @param valueData the values of the data
+   * @param chartID the id of the chart
+   * @param label the label name
+   */
   renderDoughnutChart(
     labelData: any,
     valueData: any,
@@ -173,5 +220,5 @@ export class DonorDashboardComponent implements OnInit {
       },
     });
   }
-  
+
 }

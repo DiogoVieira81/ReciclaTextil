@@ -5,6 +5,7 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { DonationListComponent } from './pages/donation-list/donation-list.component';
 import { EntityRegisterComponent } from './pages/entity-register/entity-register.component';
 import { authGuard } from './auth.guard';
+import { ChangePointsDonorComponent } from './change-points-donor/change-points-donor.component';
 
 export const routes: Routes = [
 {
@@ -38,6 +39,10 @@ export const routes: Routes = [
         }
     ]
         
+},
+{
+path:"donors/tickets",
+component:ChangePointsDonorComponent,canActivate:[authGuard],
 },
 
 ];

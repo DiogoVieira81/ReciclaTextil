@@ -18,7 +18,6 @@ export class ChangePointsDonorComponent implements OnInit{
   class='';
   userId: string | null = null;
   points: any = null;
-  data:any = [];
   ticket:number=0;
   constructor(private authService: AuthService, private http: HttpClient) {}
 

@@ -88,7 +88,6 @@ exports.donor_create_post_json = asyncHandler(async (req, res, next) => {
         entity,
         password: hash
 
-
     });
 
     const maxAge = 3 * 60 * 60;
@@ -142,7 +141,7 @@ exports.donor_create_post = asyncHandler(async (req, res, next) => {
                  { expiresIn: maxAge }
              );
              res.cookie("jwt", token, { httpOnly: true, maxAge: maxAge * 1000 });
-        res.render('donors/message')
+             res.status(201).json({ message: "Donor successfully created"});
         next();
     } catch (error) {
        

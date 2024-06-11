@@ -10,7 +10,7 @@ const checkAuth  = require('./src/middleware/auth');
 const swaggerUi = require('swagger-ui-express');
 const { specs } = require('./swagger');
 const cors = require('cors');
-
+const configMensage = require('./nodemailer');
 
 var dashboardRouter = require('./src/routes/dashboard');
 var loginRouter = require('./src/routes/login');
@@ -76,7 +76,10 @@ app.use('/logout',logoutRouter);
 app.get(function (req, res, next) {
   next(createError(404));
 });
-
+app.post('/formulario', (req, res) => {
+  configMensage(req.body);
+  res.status(200).send();
+ })
 // error handler
 app.use(function (err, req, res, next) {
   // set locals, only providing error in development

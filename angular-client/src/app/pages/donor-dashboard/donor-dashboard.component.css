@@ -1,220 +1,218 @@
 .container {
-    background: rgb(155, 183, 212, 0.2);
-    height: auto;
-  }
-  
-  .grid-container{
-    display: grid;
-    grid-template-columns: 25.8% 25.8% 25.8%;
-    grid-column-gap: 7.5%;
-    padding-top: 125px;
-    padding-left: 100px;
-    padding-bottom: 25px;
-    background: rgb(155, 183, 212, 0.1);
-  }
-  
-  .four-element-grid-container{
-    display: grid;
-    grid-template-columns: 20% 20% 20% 20%;
-    grid-column-gap: 5%;
-    padding-top: 50px;
-    padding-left: 50px;
-    padding-bottom: 25px;
-    background: rgb(155, 183, 212, 0.1);
-  }
-  
-  body {
-    padding: 50px;
-    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-    margin: 0px;
-  }
-  
-  a {
-    color: black;
-  }
-  
-  .header {
-    background: rgb(155, 183, 212, 0.7);
-    padding: 20px;
-    text-align: center;
-  }
-  
-  .dashboard-background {
-    background: rgb(155, 183, 212, 0.2);
-  }
-  
-  .footer {
-    background: rgb(155, 183, 212, 0.3);
-    text-align: center;
-    padding: 10px;
-    width: 100%;
-    position: absolute; 
-    bottom: 0; 
-    left: 0; 
-    z-index: 10;
-  }
-  
-  .topnav {
-    border-left: rgb(155, 183, 212, 0.7);
-    background-color: rgb(155, 183, 212, 0.7);
-    overflow: hidden;
-  }
-  
-  .topnav a {
-    float: left;
-    background: rgb(155, 183, 212, 0.9);
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-    font-size: 17px;
-  }
-  
-  .topnav a:hover {
-    background-color: #ddd;
-    color: black;
-  }
-  
-  .topnav a.active {
-    background-color: grey;
-    color: black;
-  }
-  
-  .div {
-    margin: auto;
-  }
-  
-  .main {
-    background: rgb(155, 183, 212, 0.5);
-    width: 98%;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-    font-size: 17px;
-  }
-  
-  button[type=submit] {
-    width: 100%;
-    background: rgb(155, 183, 212, 0.5);
-    color: white;
-    padding: 14px 20px;
-    margin: 8px 0;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  input[type=reset] {
-    width: 100%;
-    background: rgb(155, 183, 212, 0.5);
-    color: white;
-    padding: 14px 20px;
-    margin: 8px 0;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  button[type=submit]:hover {
-    background: rgb(155, 183, 212, 0.9);
-  }
-  
-  input[type=reset]:hover {
-    background: rgb(155, 183, 212, 0.9);
-  }
-  
-  input[type=text] {
-    width: 100%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    display: inline-block;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-    background-color: #f8f8f8;
-  }
-  
-  input[type=email] {
-    width: 100%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    display: inline-block;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-    background-color: #f8f8f8;
-  }
-  
-  input[type=password] {
-    width: 100%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    display: inline-block;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-    background-color: #f8f8f8;
-  }
-  
-  input[type=number] {
-    width: 100%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    display: inline-block;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-    background-color: #f8f8f8;
-  }
-  
-  input[type=text]:focus {
-    border: 3px solid #555;
-  }
-  
-  input[type=email]:focus {
-    border: 3px solid #555;
-  }
-  
-  input[type=password]:focus {
-    border: 3px solid #555;
-  }
-  
-  input[type=number]:focus {
-    border: 3px solid #555;
-  }
-  
-  textarea {
-    width: 100%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    display: inline-block;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    resize: none;
-    background-color: #f8f8f8;
-    width: 97%;
-  }
+  background: rgba(155, 183, 212, 0.2);
+  height: auto;
+}
 
-  html, body {
-    height: 100%;
-    margin: 0;
-  }
-  
-  .dashboard {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-    padding: 20px;
-    height: 100vh;
-    box-sizing: border-box;
-    padding-top: 70px;
-  }
-  
-  .chart {
-    background-color: lightblue;
-    border: 1px solid cyan;
-    border-radius: 8px;
-    padding: 20px;
-    text-align: center;
-  }
-  
-  
+.grid-container {
+  display: grid;
+  grid-template-columns: 25.8% 25.8% 25.8%;
+  grid-column-gap: 7.5%;
+  padding-top: 125px;
+  padding-left: 100px;
+  padding-bottom: 25px;
+  background: rgba(155, 183, 212, 0.1);
+}
+
+.four-element-grid-container {
+  display: grid;
+  grid-template-columns: 20% 20% 20% 20%;
+  grid-column-gap: 5%;
+  padding-top: 50px;
+  padding-left: 50px;
+  padding-bottom: 25px;
+  background: rgba(155, 183, 212, 0.1);
+}
+
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  margin: 0px;
+}
+
+a {
+  color: black;
+}
+
+.header {
+  background: rgba(155, 183, 212, 0.7);
+  padding: 20px;
+  text-align: center;
+}
+
+.dashboard-background {
+  background: rgba(155, 183, 212, 0.2);
+}
+
+.footer {
+  background: rgba(155, 183, 212, 0.3);
+  text-align: center;
+  padding: 10px;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 10;
+}
+
+.topnav {
+  border-left: rgba(155, 183, 212, 0.7);
+  background-color: rgba(155, 183, 212, 0.7);
+  overflow: hidden;
+}
+
+.topnav a {
+  float: left;
+  background: rgba(155, 183, 212, 0.9);
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.topnav a.active {
+  background-color: grey;
+  color: black;
+}
+
+.div {
+  margin: auto;
+}
+
+.main {
+  background: rgba(155, 183, 212, 0.5);
+  width: 98%;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+button[type=submit] {
+  width: 100%;
+  background: rgba(155, 183, 212, 0.5);
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+input[type=reset] {
+  width: 100%;
+  background: rgba(155, 183, 212, 0.5);
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button[type=submit]:hover {
+  background: rgba(155, 183, 212, 0.9);
+}
+
+input[type=reset]:hover {
+  background: rgba(155, 183, 212, 0.9);
+}
+
+input[type=text] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  background-color: #f8f8f8;
+}
+
+input[type=email] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  background-color: #f8f8f8;
+}
+
+input[type=password] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  background-color: #f8f8f8;
+}
+
+input[type=number] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  background-color: #f8f8f8;
+}
+
+input[type=text]:focus {
+  border: 3px solid #555;
+}
+
+input[type=email]:focus {
+  border: 3px solid #555;
+}
+
+input[type=password]:focus {
+  border: 3px solid #555;
+}
+
+input[type=number]:focus {
+  border: 3px solid #555;
+}
+
+textarea {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: none;
+  background-color: #f8f8f8;
+  width: 97%;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+.dashboard {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  padding: 20px;
+  height: 100vh;
+  box-sizing: border-box;
+  padding-top: 70px;
+}
+
+.chart {
+  background-color: lightblue;
+  border: 1px solid cyan;
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+}

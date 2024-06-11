@@ -15,38 +15,56 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link active" href="/dashboard/${donorID}">Home</a>
+        <a class="nav-link active" [routerLink]="['/dashboard/donors']">Home</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/dashboard/donation-list">Donations</a>
+        <a class="nav-link" [routerLink]="['/dashboard/donors/donation-list']">Donations</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/dashboard/detailed-view">Detailed View</a>
+        <a class="nav-link" [routerLink]="['/tickets']">Tickets</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/dashboard/donors/make-donation-form']">Donation form</a>
       </li>
     </ul>
     <ul class="navbar-nav">
       <li class="nav-item">
-        <a class="nav-link" (click)="logout()" href="/login">Logout</a>
+        <a class="nav-link" (click)="logout()" [routerLink]="['/login']">Logout</a>
       </li>
     </ul>
   </div>
 </nav>
 
-<div class="dornor-dashboard">
-  <div class="chart">
-    <h2>Points earned by donor</h2>
-    <canvas id="barChart">
-    </canvas>
+<div class="container donor-dashboard">
+  <div class="header">
+    <h1>Donor Dashboard</h1>
   </div>
-  <div class="chart">
-    <h2>Kgs donated per donor</h2>
-    <canvas id="pieChart2">
-    </canvas>
+  
+  <div class="main">
+    <h2>Entities Benefiting from Donations</h2>
+    <ul>
+      <li *ngFor="let entity of data">
+        {{ entity.data }} - {{ entity.description }}
+      </li>
+    </ul>
   </div>
-  <div class="chart">
-    <h2>Kgs donated per condition</h2>
-    <canvas id="pieChart">
-    </canvas>
+  
+  <div class="dashboard">
+    <div class="chart">
+      <h2>Points earned by donor</h2>
+      <canvas id="barChart"></canvas>
+    </div>
+    <div class="chart">
+      <h2>Kgs donated per donor</h2>
+      <canvas id="pieChart2"></canvas>
+    </div>
+    <div class="chart">
+      <h2>Kgs donated per condition</h2>
+      <canvas id="pieChart"></canvas>
+    </div>
   </div>
 </div>
 
+<div class="footer">
+  <p>Footer content here</p>
+</div>

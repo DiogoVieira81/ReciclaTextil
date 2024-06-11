@@ -30,26 +30,26 @@ export const routes: Routes = [
         ]
     },
 
-{
-   
-    path:'dashboard',
-    children : [
-        {
-            path : "",
-            component:DashboardComponent,canActivate:[authGuard],
-        },
-        {
-            path : "donation-list",
-            component : DonationListComponent,canActivate:[authGuard],
-        },
-        {
-            path: "detailed-view",
-            component: EntityDetailedViewComponent
-        }
-    ]
-        
-},
-{
+    {
+
+        path: 'dashboard',
+        children: [
+            {
+                path: "",
+                component: DashboardComponent, canActivate: [authGuard],
+            },
+            {
+                path: "donation-list",
+                component: DonationListComponent, canActivate: [authGuard],
+            },
+            {
+                path: "detailed-view",
+                component: EntityDetailedViewComponent
+            }
+        ]
+
+    },
+    {
         path: 'dashboard/donors',
         children: [
             {
@@ -57,13 +57,18 @@ export const routes: Routes = [
                 component: DonorDashboardComponent, canActivate: [authGuard],
             },
             {
-                path: "donation-form",
+                path: "make-donation-form",
                 component: DonationFormComponent, canActivate: [authGuard],
             },
+            {
+                path: "donation-list",
+                component: DonationFormComponent, canActivate: [authGuard],
+            },
+
         ]
     },
     {
-        path:'tickets',
-        component:ChangePointsDonorComponent
+        path: 'tickets',
+        component: ChangePointsDonorComponent
     },
 ];

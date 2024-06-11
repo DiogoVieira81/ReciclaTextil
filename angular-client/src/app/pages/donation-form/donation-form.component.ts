@@ -1,14 +1,17 @@
-import { CUSTOM_ELEMENTS_SCHEMA, Component, OnInit } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, Component, OnInit, NO_ERRORS_SCHEMA} from '@angular/core';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { NgForOf } from '@angular/common';
+import { RestService } from '../rest.service';
+import { ChangePointsDonorComponent } from '../change-points-donor/change-points-donor.component';
 
 @Component({
   selector: 'angular-client',
   standalone: true,
-  imports: [HttpClientModule, FormsModule],
+  imports: [HttpClientModule, FormsModule, NgForOf],
   templateUrl: './donation-form.component.html',
   styleUrls: ['./donation-form.component.css'],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
 })
 export class DonationFormComponent implements OnInit {
   donation = {
@@ -19,41 +22,33 @@ export class DonationFormComponent implements OnInit {
     entity: '',
     points: 0
   };
-  donors : any[] = []; // Array to hold donor data
-  entities : any[] = []; // Array to hold entity data
+  donors : any; // Array to hold donor data
+  entities: any[] = []; // Array to hold entity data
+  entityData: any;
+  donorData: any;
+  entityID: string | null = ' ';
+  donorID: string | null = ' ';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private rest: RestService, private points: ChangePointsDonorComponent) {}
 
   ngOnInit(): void {
-    this.loadDonors();
     this.loadEntities();
-  }
-
-  loadDonors(): void {
-    // Fetch donors from the backend API
-    this.http.get<any[]>('/donors/api').subscribe(data => {
-      this.donors = data;
-    }, error => {
-      console.error('Error fetching donors', error);
-    });
   }
 
   loadEntities(): void {
     // Fetch entities from the backend API
-    this.http.get<any[]>('/entities/api').subscribe(data => {
-      this.entities = data;
-    }, error => {
-      console.error('Error fetching entities', error);
-    });
+    this.rest.getEntities().subscribe(
+      (data: any[]) => {
+        this.entities = data;
+      },
+      (error: any) => {
+        console.error('Error fetching entities', error);
+      }
+    );
   }
 
   calculatePoints(): void {
-    const { kg, condition } = this.donation;
-    this.http.post<any>('/donations/create', { kg, condition }).subscribe(response => {
-      this.donation.points = response.points;
-    }, error => {
-      console.error('Error calculating points', error);
-    });
+    this.points.getDonorPoints();
   }
 
   onSubmit(): void {

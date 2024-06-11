@@ -4,17 +4,21 @@ import { HttpClient } from '@angular/common/http';
 import { NgModel } from '@angular/forms';
 import { AuthService } from '../../auth.service';
 import { RestService } from '../rest.service';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+
 Chart.register(...registerables);
 NgModel;
 
 @Component({
   selector: 'app-donor-dashboard',
-  imports: [],
+  imports: [CommonModule, RouterModule],
   standalone: true,
   templateUrl: './donor-dashboard.component.html',
   styleUrls: ['./donor-dashboard.component.css']
 })
 export class DonorDashboardComponent implements OnInit {
+  [x: string]: any;
   data: any;
   entityData: any;
   entityID: string | null = ' ';
@@ -27,18 +31,18 @@ export class DonorDashboardComponent implements OnInit {
 
   doughnutChartLabelData: string[] = [];
   doughnutChartValueData: number[] = [];
-  donorID: string | null = ' ';
+  donorID: any;
   donorData!: any;
 
   constructor(private authService: AuthService,
     private rest: RestService,
 
-    private http: HttpClient) {}
+    private http: HttpClient) { }
 
   ngOnInit(): void {
     this.donorID = this.authService.getUserIdFromToken();
     console.log('Donor ID:', this.donorID);
-    this.getDonations();
+    this.loadDonorData(this.donorID);
   }
 
   logout(): void {
@@ -62,7 +66,7 @@ export class DonorDashboardComponent implements OnInit {
       if (this.data != null) {
         this.data.forEach((data: any) => {
           let barIndex = this.barChartLabelData.indexOf(data.donor.name);
-          if (data.entity.id === this.entityID) {
+          if (data.donor._id === this.donorID) {
             if (barIndex === -1) {
               this.barChartLabelData.push(data.donor.name);
               this.barChartValueData.push(data.points);
@@ -77,7 +81,7 @@ export class DonorDashboardComponent implements OnInit {
             data.donor.name
           );
 
-          if (data.entity.id === this.entityID) {
+          if (data.donor._id === this.donorID) {
             if (doughnutIndex === -1) {
               this.doughnutChartLabelData.push(data.donor.name);
               this.doughnutChartValueData.push(data.kg);
@@ -173,5 +177,5 @@ export class DonorDashboardComponent implements OnInit {
       },
     });
   }
-  
+
 }

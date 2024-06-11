@@ -37,13 +37,13 @@
 <div class="summary-container">
   <h2>Detailed View</h2>
   <div class="summary-item">
-    <strong>Number of Donations: </strong> {{ data.length || "0" }}
+    <strong>Number of Donations: </strong> {{ "0" }}
   </div>
   <div class="summary-item">
     <strong>Number of Donors: </strong> {{ donorNames?.length || "0" }}
   </div>
   <div class="summary-item">
-    <strong>Total Kilograms Donated: </strong> {{  conditionCounter[0] + conditionCounter[1] + conditionCounter[2] || "0" }}
+    <strong>Total Kilograms Donated: </strong> {{  totalKg || "0" }}
     <div class="summary-item">
       <ul>
         <li>

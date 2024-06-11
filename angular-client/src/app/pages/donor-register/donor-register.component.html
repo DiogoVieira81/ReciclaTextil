@@ -7,6 +7,7 @@
         class="form-control"
         id="inputNome4"
         placeholder="Insira o nome do doador"
+        [(ngModel)]="donor.name"
         name="name"
         required
       />
@@ -19,6 +20,7 @@
       class="form-control"
       id="inputEmail4"
       placeholder="Insira um email"
+      [(ngModel)]="donor.email"
       name="email"
       required
     />
@@ -30,6 +32,7 @@
       class="form-control"
       id="inputPassword4"
       placeholder="Insira a password"
+      [(ngModel)]="donor.password"
       name="password"
       required
     />
@@ -42,6 +45,7 @@
       id="inputTelefone4"
       pattern="[0-9]{9}"
       placeholder="Insira um numero de telemovel "
+      [(ngModel)]="donor.phoneNumber"
       name="phoneNumber"
       required
     />
@@ -53,6 +57,7 @@
       class="form-control"
       id="inputAddress2"
       placeholder="Rua, nº porta,andar"
+      [(ngModel)]="donor.address"
       name="address"
       required
     />
@@ -65,6 +70,7 @@
         class="form-control"
         id="inputCity"
         placeholder="Introduza a cidade onde reside"
+        [(ngModel)]="donor.city"
         name="city"
         required
       />
@@ -73,7 +79,7 @@
   <div class="form-row">
     <div class="form-group col-md-6">
       <label for="inputEstado">Distrito</label>
-      <select id="inputEstado" class="form-control" name="district" required>
+      <select id="inputEstado" class="form-control" [(ngModel)]="donor.district" name="district" required>
         <option selected>Selecione</option>
         <option>Aveiro</option>
         <option>Beja</option>

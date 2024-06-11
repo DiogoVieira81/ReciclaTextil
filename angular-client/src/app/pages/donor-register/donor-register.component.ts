@@ -3,11 +3,12 @@ import { Component } from '@angular/core';
 import { RestService } from '../rest.service';
 import { Router } from '@angular/router';
 import { Donor } from '../../models/donor';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-donor-register',
   standalone: true,
-  imports: [],
+  imports: [ReactiveFormsModule, FormsModule],
   templateUrl: './donor-register.component.html',
   styleUrl: './donor-register.component.css',
 })

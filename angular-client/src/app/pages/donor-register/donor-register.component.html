@@ -1,0 +1,100 @@
+<form (ngSubmit)="onSubmit()" class="form">
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="inputEmail4">Nome</label>
+      <input
+        type="text"
+        class="form-control"
+        id="inputNome4"
+        placeholder="Insira o nome do doador"
+        name="name"
+        required
+      />
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputEmail4">Email</label>
+    <input
+      type="email"
+      class="form-control"
+      id="inputEmail4"
+      placeholder="Insira um email"
+      name="email"
+      required
+    />
+  </div>
+  <div class="form-group">
+    <label for="ipass">Password</label>
+    <input
+      type="Password"
+      class="form-control"
+      id="inputPassword4"
+      placeholder="Insira a password"
+      name="password"
+      required
+    />
+  </div>
+  <div class="form-group">
+    <label for="inputAddress">Telemovel</label>
+    <input
+      type="Telefone"
+      class="form-control"
+      id="inputTelefone4"
+      pattern="[0-9]{9}"
+      placeholder="Insira um numero de telemovel "
+      name="phoneNumber"
+      required
+    />
+  </div>
+  <div class="form-group">
+    <label for="inputAddress2">Morada:</label>
+    <input
+      type="text"
+      class="form-control"
+      id="inputAddress2"
+      placeholder="Rua, nº porta,andar"
+      name="address"
+      required
+    />
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="inputCity">Cidade</label>
+      <input
+        type="text"
+        class="form-control"
+        id="inputCity"
+        placeholder="Introduza a cidade onde reside"
+        name="city"
+        required
+      />
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="inputEstado">Distrito</label>
+      <select id="inputEstado" class="form-control" name="district" required>
+        <option selected>Selecione</option>
+        <option>Aveiro</option>
+        <option>Beja</option>
+        <option>Braga</option>
+        <option>Bragança</option>
+        <option>Coimbra</option>
+        <option>Évora</option>
+        <option>Faro</option>
+        <option>Guarda</option>
+        <option>Leiria</option>
+        <option>Lisboa</option>
+        <option>Portalegre</option>
+        <option>Porto</option>
+        <option>Santarém</option>
+        <option>Setubal</option>
+        <option>Viana do Castelo</option>
+        <option>Vila Real</option>
+        <option>Viseu</option>
+      </select>
+    </div>
+  </div>
+
+  <button type="submit" class="btn btn-primary">Registar</button>
+</form>

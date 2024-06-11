@@ -3,7 +3,7 @@ import { Chart, registerables, scales } from 'chart.js';
 import { RestService } from '../rest.service';
 import { Donation } from '../../models/donation';
 import { Donor } from '../../models/donor';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { AuthService } from '../../auth.service';
 import { NgModel } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
@@ -13,7 +13,7 @@ NgModel;
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [],
+  imports: [RouterModule],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css',
 })

@@ -6,6 +6,35 @@ const Donation=require("../models/Donation")
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const jwtSecret = '424fdce80b01e737a19c9d465aae7b552e1354e181007475a6029fc9307d78ab0ae09f';
+
+//update ticket from donor
+exports.donor_update_ticket_json = asyncHandler(async (req, res, next) => {
+    try {
+        const { ticket } = req.body;
+        console.log(`Ticket recebido: ${ticket}`);  // Log para depuração
+
+        let donor = await Donor.findById(req.params.id);
+        if (!donor) {
+            res.status(404).json({ message: "Doador não encontrado" });
+            return next();
+        }
+
+        const pointsToSubtract = ticket * 5;
+
+        // Atualizar os pontos e os tickets
+        donor.ticket = ticket;
+        donor.points = Math.max(donor.points - pointsToSubtract, 0); 
+
+        await donor.save();
+
+        res.status(200).json({ message: "Ticket e pontos atualizados com sucesso", ticket: donor.ticket, points: donor.points });
+    } catch (error) {
+        console.error(`Erro ao atualizar o ticket: ${error.message}`);  // Log para depuração
+        res.status(400).json({ message: error.message });
+        next();
+    }
+});
+
 // Display list of all  Donors
 exports.donor_list_json = asyncHandler(async (req, res, next) => {
     try {
@@ -38,7 +67,7 @@ exports.donor_create_get = asyncHandler(async (req, res, next) => {
 });
 exports.donor_create_post_json = asyncHandler(async (req, res, next) => {
     // Extract data from request body
-    const { name, email, phoneNumber,address,city,district,kg,points,totalDonations,donor,entity,password} = req.body;
+    const { name, email, phoneNumber,address,city,district,kg,points,ticket,totalDonations,donor,entity,password} = req.body;
     const fileName=req.file !=null ? req.file.filename: null
     
     bcrypt.hash(password, 10).then(async (hash) => {
@@ -52,6 +81,7 @@ exports.donor_create_post_json = asyncHandler(async (req, res, next) => {
         district,
         kg,
         points,
+        ticket,
         totalDonations,
         ImageName:fileName,
         donor,
@@ -78,7 +108,7 @@ exports.donor_create_post_json = asyncHandler(async (req, res, next) => {
 // Handle Donor create on POST.
 exports.donor_create_post = asyncHandler(async (req, res, next) => {
      // Extract data from request body
-     const { name, email, phoneNumber,address,city,district,kg,points,totalDonations,donor,entity,password} = req.body;
+     const { name, email, phoneNumber,address,city,district,kg,points,ticket,totalDonations,donor,entity,password} = req.body;
      const fileName=req.file !=null ? req.file.filename: null
      
      bcrypt.hash(password, 10).then(async (hash) => {
@@ -92,6 +122,7 @@ exports.donor_create_post = asyncHandler(async (req, res, next) => {
          district,
          kg,
          points,
+         ticket,
          totalDonations,
          ImageName:fileName,
          donor,
@@ -215,7 +246,7 @@ exports.donor_update_get = asyncHandler(async (req, res, next) => {
 exports.donor_update_post_json = asyncHandler(async (req, res, next) => {
     try {
        
-        const { name, email, phoneNumber, address, city, district, kg, points, totalDonations } = req.body;
+        const { name, email, phoneNumber, address, city, district, kg, points,ticket, totalDonations } = req.body;
 
         
         let donor = await Donor.findById(req.params.id);
@@ -232,7 +263,8 @@ exports.donor_update_post_json = asyncHandler(async (req, res, next) => {
             donor.city = city;
             donor.district = district;
             donor.kg = kg;
-            donor.points = points;
+            donor.points = Math.max(points, 0);
+            donor.ticket=ticket;
             donor.totalDonations = totalDonations;
 
            
@@ -254,7 +286,7 @@ exports.donor_update_post_json = asyncHandler(async (req, res, next) => {
 exports.donor_update_post = asyncHandler(async (req, res, next) => {
     try {
         // Extract updated donor details from the request body
-        const {name, email, phoneNumber,address,city,district,kg,points,totalDonations} = req.body;
+        const {name, email, phoneNumber,address,city,district,kg,points,ticket,totalDonations} = req.body;
 
         // Find the donor by ID from the request parameters
         let donor = await Donor.findById(req.params.id);
@@ -272,7 +304,8 @@ exports.donor_update_post = asyncHandler(async (req, res, next) => {
             donor.city=city;
             donor.district=district;
             donor.kg=kg;
-            donor.points = points;
+            donor.points =Math.max(points, 0);
+            this.ticket=ticket;
             donor.totalDonations=totalDonations
 
             // Save the updated donor to the database

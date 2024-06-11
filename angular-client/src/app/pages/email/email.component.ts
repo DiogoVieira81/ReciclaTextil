@@ -3,11 +3,12 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms'
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../auth.service';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-email',
   standalone: true,
-  imports: [FormsModule,HttpClientModule,CommonModule],
+  imports: [FormsModule,HttpClientModule,CommonModule,RouterModule],
   templateUrl: './email.component.html',
   styleUrl: './email.component.css'
 })

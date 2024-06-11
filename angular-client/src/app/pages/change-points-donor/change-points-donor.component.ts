@@ -4,10 +4,12 @@ import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { response } from 'express';
+import { RouterModule } from '@angular/router';
+
 @Component({
   selector: 'app-change-points-donor',
   standalone: true,
-  imports: [CommonModule,FormsModule],
+  imports: [CommonModule,FormsModule,RouterModule],
   templateUrl: './change-points-donor.component.html',
   styleUrl: './change-points-donor.component.css'
 })

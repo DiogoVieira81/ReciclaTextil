@@ -4,12 +4,13 @@ import { HttpClient } from '@angular/common/http';
 import { NgModel } from '@angular/forms';
 import { AuthService } from '../../auth.service';
 import { RestService } from '../rest.service';
+import { RouterModule } from '@angular/router';
 Chart.register(...registerables);
 NgModel;
 
 @Component({
   selector: 'app-donor-dashboard',
-  imports: [],
+  imports: [RouterModule],
   standalone: true,
   templateUrl: './donor-dashboard.component.html',
   styleUrls: ['./donor-dashboard.component.css']

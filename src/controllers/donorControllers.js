@@ -86,7 +86,7 @@ exports.donor_create_post_json = asyncHandler(async (req, res, next) => {
         ImageName:fileName,
         donor,
         entity,
-        password: hashedPassword
+        password: hash
     
 
     });
@@ -98,11 +98,14 @@ exports.donor_create_post_json = asyncHandler(async (req, res, next) => {
                 { expiresIn: maxAge }
             );
             res.cookie("jwt", token, { httpOnly: true, maxAge: maxAge * 1000 });
-            res.status(201).json({ message: "Donor successfully created", newdonor });
-        } catch (error) {
-            res.status(400).json({ message: "Donor not successful created", error: error.message });
-        }
-    });
+            res.status(201).json({ message: "Donor successfully created"});
+       next();
+   } catch (error) {
+      
+       res.status(400).json({ message: error.message });
+       next();
+   }
+})
 });
 
 // Handle Donor create on POST.
@@ -139,7 +142,7 @@ exports.donor_create_post = asyncHandler(async (req, res, next) => {
                  { expiresIn: maxAge }
              );
              res.cookie("jwt", token, { httpOnly: true, maxAge: maxAge * 1000 });
-        res.render('donors/message')
+             res.status(201).json({ message: "Donor successfully created"});
         next();
     } catch (error) {
        

@@ -46,12 +46,22 @@
   </thead>
   <tbody>
     <tr *ngFor="let donation of data">
-      <ng-container *ngIf="donation.points > 10">
+      <ng-container>
         <td>{{ donation.donor }}</td>
         <td>{{ donation.kg }}</td>
         <td>{{ donation.condition }}</td>
         <td>{{ donation.points }}</td>
       </ng-container>
     </tr>
+  </tbody>
+  <tbody>
+    @for(donation of data; track donation.id; let idx = $index){
+    <ng-container>
+      <td>{{idx}} : {{ donation.donor }}</td>
+      <td>{{ donation.kg }}</td>
+      <td>{{ donation.condition }}</td>
+      <td>{{ donation.points }}</td>
+    </ng-container>
+    }
   </tbody>
 </table>

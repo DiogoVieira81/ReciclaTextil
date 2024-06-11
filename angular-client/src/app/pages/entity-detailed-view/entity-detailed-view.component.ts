@@ -14,7 +14,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './entity-detailed-view.component.css',
 })
 export class EntityDetailedViewComponent implements OnInit {
-  data: Donation[] = [];
+  data: any;
   donorNames: any = [];
   conditionCounter: number[] = [0, 0, 0];
   avgKg: number = 0;
@@ -26,21 +26,8 @@ export class EntityDetailedViewComponent implements OnInit {
     private http: HttpClient,
     private authService: AuthService,
   ) {}
-  entityID: string | null = ' ';
-  entityData: any = {
-    name: "",
-    taxpayerNumber: "",
-    email: "",
-    password: "",
-    phoneNumber: "",
-    address : "",
-    city : "",
-    district : "",
-    description : "",
-    kg : 0,
-    totalDonations : 0,
-    ImageName : "",
-  };
+  entityID: any;
+  entityData: any;
 
   ngOnInit(): void {
     this.entityID = this.authService.getUserIdFromToken();
@@ -61,15 +48,13 @@ export class EntityDetailedViewComponent implements OnInit {
       });
   }
 
-  /*
   getDonations() {
     this.rest.getDonations().subscribe((data) => {
       console.log(data);
       this.data = data;
 
       if (this.data != null) {
-        this.data.forEach((data) => {
-          if ((this.entityID == data.entity)) {
+        this.data.forEach((data:any) => {
             let i = this.donorNames.indexOf(data.donor);
             if (i === -1) {
               this.donorNames.push(data.donor);
@@ -88,7 +73,6 @@ export class EntityDetailedViewComponent implements OnInit {
             this.avgKg += data.kg;
             this.avgItems += data.numberOfParts;
             this.avgPoints += data.points;
-          }
         });
         this.avgKg = this.avgKg / data.length;
         this.avgItems = this.avgItems / data.length;
@@ -96,5 +80,4 @@ export class EntityDetailedViewComponent implements OnInit {
       }
     });
   }
-  */
 }

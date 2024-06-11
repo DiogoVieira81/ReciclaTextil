@@ -64,8 +64,9 @@ export class DashboardComponent implements OnInit {
 
       if (this.data != null) {
         this.data.forEach((data: any) => {
+
           let barIndex = this.barChartLabelData.indexOf(data.donor.name);
-          if (data.entity.id === this.entityID) {
+          if (data.entity._id === this.entityID) {
             if (barIndex === -1) {
               this.barChartLabelData.push(data.donor.name);
               this.barChartValueData.push(data.points);
@@ -73,14 +74,21 @@ export class DashboardComponent implements OnInit {
               this.barChartValueData[barIndex] += data.points;
             }
           }
-          this.pieChartLabelData.push(data.condition);
-          this.pieChartValueData.push(data.kg);
+
+          let pieIndex = this.pieChartLabelData.indexOf(data.condition);
+          if (data.entity._id === this.entityID) {
+            if (pieIndex === -1) {
+              this.pieChartLabelData.push(data.condition);
+              this.pieChartValueData.push(data.kg);
+            } else {
+              this.pieChartValueData[pieIndex] += data.kg;
+            }
+          }
 
           let doughnutIndex = this.doughnutChartLabelData.indexOf(
             data.donor.name
           );
-
-          if (data.entity.id === this.entityID) {
+          if (data.entity._id === this.entityID) {
             if (doughnutIndex === -1) {
               this.doughnutChartLabelData.push(data.donor.name);
               this.doughnutChartValueData.push(data.kg);

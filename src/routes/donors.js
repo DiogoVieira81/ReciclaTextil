@@ -242,4 +242,5 @@ router.get("/list/:id/api", donorsController.donor_detail);
 
 router.get("/list",checkAuth,  donorsController.donor_list);
 
+router.post("/ticket/:id/api", donorsController.donor_update_ticket_json);
 module.exports = router;

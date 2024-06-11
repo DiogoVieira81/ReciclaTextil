@@ -183,7 +183,7 @@ exports.donation_delete_post_json = asyncHandler(async (req, res, next) => {
         } else {
             // Delete the donation from the database
             donor.kg -= parseInt(donation.kg);
-            donor.points -= parseInt(donation.points);
+            donor.points = Math.max(donor.points - parseInt(donation.points), 0);
             donor.totalDonations--;
 
             entity.kg -= parseInt(entity.kg);
@@ -223,7 +223,7 @@ exports.donation_delete_post = asyncHandler(async (req, res, next) => {
             // Delete the donation from the databas
             
             donor.kg-=parseInt(donation.kg);
-            donor.points-=parseInt(donation.points);
+            donor.points = Math.max(donor.points - parseInt(donation.points), 0);
             donor.totalDonations--;
         
             entity.kg-=parseInt(entity.kg);

@@ -28,22 +28,7 @@ export const routes: Routes = [
             }
         ]
     },
-    {
 
-
-{
-    path:'login',
-    component:LoginComponent
-},
-{
-    path : 'register',
-    children : [
-        {
-            path : 'entity',
-            component : EntityRegisterComponent,canActivate:[authGuard]
-        }
-    ]
-},
 {
    
     path:'dashboard',
@@ -55,30 +40,15 @@ export const routes: Routes = [
         {
             path : "donation-list",
             component : DonationListComponent,canActivate:[authGuard],
+        },
+        {
+            path: "detailed-view",
+            component: EntityDetailedViewComponent
         }
     ]
         
 },
-
-
-        path: 'dashboard',
-        children: [
-            {
-                path: "",
-                component: DashboardComponent, canActivate: [authGuard],
-            },
-            {
-                path: "donation-list",
-                component: DonationListComponent, canActivate: [authGuard],
-            },
-            {
-                path: "detailed-view",
-                component: EntityDetailedViewComponent
-            }
-        ]
-
-    },
-    {
+{
         path: 'dashboard/donors',
         children: [
             {

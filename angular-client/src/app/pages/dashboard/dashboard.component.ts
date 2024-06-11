@@ -3,7 +3,7 @@ import { Chart, registerables, scales } from 'chart.js';
 import { RestService } from '../rest.service';
 import { Donation } from '../../models/donation';
 import { Donor } from '../../models/donor';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { AuthService } from '../../auth.service';
 import { NgModel } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
@@ -13,7 +13,7 @@ NgModel;
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [],
+  imports: [RouterModule],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css',
 })
@@ -64,8 +64,9 @@ export class DashboardComponent implements OnInit {
 
       if (this.data != null) {
         this.data.forEach((data: any) => {
+
           let barIndex = this.barChartLabelData.indexOf(data.donor.name);
-          if (data.entity.id === this.entityID) {
+          if (data.entity._id === this.entityID) {
             if (barIndex === -1) {
               this.barChartLabelData.push(data.donor.name);
               this.barChartValueData.push(data.points);
@@ -73,14 +74,21 @@ export class DashboardComponent implements OnInit {
               this.barChartValueData[barIndex] += data.points;
             }
           }
-          this.pieChartLabelData.push(data.condition);
-          this.pieChartValueData.push(data.kg);
+
+          let pieIndex = this.pieChartLabelData.indexOf(data.condition);
+          if (data.entity._id === this.entityID) {
+            if (pieIndex === -1) {
+              this.pieChartLabelData.push(data.condition);
+              this.pieChartValueData.push(data.kg);
+            } else {
+              this.pieChartValueData[pieIndex] += data.kg;
+            }
+          }
 
           let doughnutIndex = this.doughnutChartLabelData.indexOf(
             data.donor.name
           );
-
-          if (data.entity.id === this.entityID) {
+          if (data.entity._id === this.entityID) {
             if (doughnutIndex === -1) {
               this.doughnutChartLabelData.push(data.donor.name);
               this.doughnutChartValueData.push(data.kg);

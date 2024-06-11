@@ -65,7 +65,7 @@ router.get("/create/api", donorsController.donor_create_get);
  *         description: Não autorizado
  */
 router.post("/create/api",  upload.single("cover"), donorsController.donor_create_post_json);
-router.post("/create",checkAuth,  upload.single("cover"), donorsController.donor_create_post);
+router.post("/create", upload.single("cover"), donorsController.donor_create_post);
 
 router.get("/update/:id", checkAuth, donorsController.donor_update_get);
 router.get("/update/:id/api", donorsController.donor_update_get);

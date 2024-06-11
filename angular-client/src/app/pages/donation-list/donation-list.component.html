@@ -15,13 +15,13 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link" href="/dashboard">Home</a>
+        <a class="nav-link" [routerLink]="['/dashboard']">Home</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link active" href="/dashboard/donation-list">Donations</a>
+        <a class="nav-link active" [routerLink]="['/dashboard/donation-list']">Donations</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/dashboard/detailed-view">Detailed View</a>
+        <a class="nav-link" [routerLink]="['/dashboard/detailed-view']">Detailed View</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="/tickets">Tickets</a>
@@ -49,12 +49,22 @@
   </thead>
   <tbody>
     <tr *ngFor="let donation of data">
-      <ng-container *ngIf="donation.points > 10">
+      <ng-container>
         <td>{{ donation.donor }}</td>
         <td>{{ donation.kg }}</td>
         <td>{{ donation.condition }}</td>
         <td>{{ donation.points }}</td>
       </ng-container>
     </tr>
+  </tbody>
+  <tbody>
+    @for(donation of data; track donation.id; let idx = $index){
+    <ng-container>
+      <td>{{idx}} : {{ donation.donor }}</td>
+      <td>{{ donation.kg }}</td>
+      <td>{{ donation.condition }}</td>
+      <td>{{ donation.points }}</td>
+    </ng-container>
+    }
   </tbody>
 </table>

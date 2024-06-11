@@ -15,13 +15,13 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link active" href="/dashboard/${entityID}">Home</a>
+        <a class="nav-link active" [routerLink]="['/dashboard']">Home</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/dashboard/donation-list">Donations</a>
+        <a class="nav-link" [routerLink]="['/dashboard/donation-list']">Donations</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/dashboard/detailed-view">Detailed View</a>
+        <a class="nav-link" [routerLink]="['/dashboard/detailed-view']">Detailed View</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="/tickets">Tickets</a>

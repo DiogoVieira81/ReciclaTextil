@@ -69,7 +69,7 @@ exports.donor_create_post_json = asyncHandler(async (req, res, next) => {
     // Extract data from request body
     const { name, email, phoneNumber,address,city,district,kg,points,ticket,totalDonations,donor,entity,password} = req.body;
     const fileName=req.file !=null ? req.file.filename: null
-    
+
     bcrypt.hash(password, 10).then(async (hash) => {
         try {
     const newdonor =await Donor.create({
@@ -87,7 +87,6 @@ exports.donor_create_post_json = asyncHandler(async (req, res, next) => {
         donor,
         entity,
         password: hash
-    
 
     });
 
@@ -101,7 +100,7 @@ exports.donor_create_post_json = asyncHandler(async (req, res, next) => {
             res.status(201).json({ message: "Donor successfully created"});
        next();
    } catch (error) {
-      
+
        res.status(400).json({ message: error.message });
        next();
    }

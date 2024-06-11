@@ -5,21 +5,26 @@ import { Observable, map } from 'rxjs';
 import { RestService } from '../rest.service';
 import { Donation } from '../../models/donation';
 import { AuthService } from '../../auth.service';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-donation-list',
   standalone: true,
-  imports: [HttpClientModule, CommonModule],
+  imports: [HttpClientModule, CommonModule, RouterModule],
   templateUrl: './donation-list.component.html',
-  styleUrl: './donation-list.component.css'
+  styleUrl: './donation-list.component.css',
 })
-export class DonationListComponent implements OnInit{
+export class DonationListComponent implements OnInit {
   httpClient = inject(HttpClient);
-  data:Donation[] = [];
+  data: Donation[] = [];
+  counter : number = 0;
+  entityID : String | null = "";
 
-  constructor(private rest : RestService, private authService : AuthService){}
+  constructor(private rest: RestService, private authService: AuthService) {}
 
   ngOnInit(): void {
+    this.entityID = this.authService.getUserIdFromToken();
+    console.log('Entity ID:', this.entityID);
     this.getDonations();
   }
 
@@ -31,7 +36,14 @@ export class DonationListComponent implements OnInit{
   getDonations() {
     this.rest.getDonations().subscribe((data) => {
       console.log(data);
-      this.data = data;
-    })
+      if (this.data != null) {
+        this.data.forEach((data: any) => {
+          if (data.entity._id === this.entityID) {
+            this.data[this.counter] = data;
+          }
+          this.counter++;
+        });
+      }
+    });
   }
 }

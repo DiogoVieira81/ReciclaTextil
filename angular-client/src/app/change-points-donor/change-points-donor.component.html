@@ -44,11 +44,24 @@
                   <div *ngIf="ticketUpdateMessage"[ngClass]="class" role="alert">
                     {{ ticketUpdateMessage }}
                   </div>
+                 
                   <form  class="mx-1 mx-md-4">
+                    
                     <div class="d-flex flex-row align-items-center mb-4">
                       <i class="fas fa-user fa-lg me-3 fa-fw"></i>
                       <div data-mdb-input-init class="form-outline flex-fill mb-0">
-                          <label class="form-label" for="form3Example1c">Total Pontos:</label>
+                          <label class="form-label" for="form3Example1c">Total vales acumulados :</label>
+                        <input type="text" id="form3Example1c"[value]="donorsTickets" class="form-control" readOnly />
+                        
+                      </div>
+                    </div>
+                   
+                    
+                    
+                    <div class="d-flex flex-row align-items-center mb-4">
+                      <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                      <div data-mdb-input-init class="form-outline flex-fill mb-0">
+                          <label class="form-label" for="form3Example1c">Total Pontos :</label>
                         <input type="text" id="form3Example1c"[value]="points" class="form-control" readOnly />
                         
                       </div>
@@ -57,7 +70,7 @@
                     <div class="d-flex flex-row align-items-center mb-4">
                       <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
                       <div data-mdb-input-init class="form-outline flex-fill mb-0">
-                          <label class="form-label" for="form3Example3c">Total vales:</label>
+                          <label class="form-label" for="form3Example3c">Total vales a acumular:</label>
                           <input type="text" id="form3Example3c" [value]="ticket" class="form-control" readonly />
                           <span *ngIf="trocarClicado && points < 5" class="text-danger">São necessários no mínimo 5 pontos para obter um vale!</span>
                       </div>

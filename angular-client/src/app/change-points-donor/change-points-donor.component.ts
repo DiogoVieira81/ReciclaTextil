@@ -12,6 +12,7 @@ import { response } from 'express';
   styleUrl: './change-points-donor.component.css'
 })
 export class ChangePointsDonorComponent implements OnInit{
+  donorsTickets:any=null;
   trocarClicado: boolean = false;
   ticketUpdateMessage: string = '';
   class='';
@@ -57,6 +58,7 @@ export class ChangePointsDonorComponent implements OnInit{
       this.http.get(`http://localhost:3000/donors/list/${this.userId}/api`).subscribe((response:any) => {
         console.log(response);
         this.points=response.donor.points
+        this.donorsTickets=response.donor.ticket
         this.getTicketsDonor();
       })
     }

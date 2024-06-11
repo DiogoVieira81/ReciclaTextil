@@ -193,28 +193,23 @@
     background-color: #f8f8f8;
     width: 97%;
   }
-
-  html, body {
-    height: 100%;
-    margin: 0;
-  }
   
-  .dashboard {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
+  .summary-container {
     padding: 20px;
-    height: 100vh;
-    box-sizing: border-box;
-    padding-top: 70px;
-  }
-  
-  .chart {
-    background-color: lightblue;
-    border: 1px solid cyan;
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
     border-radius: 8px;
-    padding: 20px;
-    text-align: center;
+    padding-top: 60px;
   }
   
+  .summary-item {
+    padding-top: 10px;
+    margin-bottom: 5px;
+    line-height: 1.5;
+  }
+  
+  .summary-item strong {
+    font-size: 1.15em;
+    padding-right: 2px;
+  }
   

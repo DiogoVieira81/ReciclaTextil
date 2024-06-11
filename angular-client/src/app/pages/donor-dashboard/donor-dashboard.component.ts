@@ -1,23 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-import { Chart, registerables, scales } from 'chart.js';
-import { RestService } from '../rest.service';
-import { Donation } from '../../models/donation';
-import { Donor } from '../../models/donor';
-import { ActivatedRoute } from '@angular/router';
-import { AuthService } from '../../auth.service';
-import { NgModel } from '@angular/forms';
+import { Chart, registerables } from 'chart.js';
 import { HttpClient } from '@angular/common/http';
+import { NgModel } from '@angular/forms';
+import { AuthService } from '../../auth.service';
+import { RestService } from '../rest.service';
 Chart.register(...registerables);
 NgModel;
 
 @Component({
-  selector: 'app-dashboard',
-  standalone: true,
+  selector: 'app-donor-dashboard',
   imports: [],
-  templateUrl: './dashboard.component.html',
-  styleUrl: './dashboard.component.css',
+  standalone: true,
+  templateUrl: './donor-dashboard.component.html',
+  styleUrls: ['./donor-dashboard.component.css']
 })
-export class DashboardComponent implements OnInit {
+export class DonorDashboardComponent implements OnInit {
   data: any;
   entityData: any;
   entityID: string | null = ' ';
@@ -30,17 +27,17 @@ export class DashboardComponent implements OnInit {
 
   doughnutChartLabelData: string[] = [];
   doughnutChartValueData: number[] = [];
+  donorID: string | null = ' ';
+  donorData!: any;
 
-  constructor(
-    private authService: AuthService,
+  constructor(private authService: AuthService,
     private rest: RestService,
-    private route: ActivatedRoute,
-    private http: HttpClient
-  ) {}
+
+    private http: HttpClient) {}
 
   ngOnInit(): void {
-    this.entityID = this.authService.getUserIdFromToken();
-    console.log('Entity ID:', this.entityID);
+    this.donorID = this.authService.getUserIdFromToken();
+    console.log('Donor ID:', this.donorID);
     this.getDonations();
   }
 
@@ -49,11 +46,11 @@ export class DashboardComponent implements OnInit {
     this.authService.loggout();
   }
 
-  loadEntityData(entityID: string): void {
+  loadDonorData(donorID: string): void {
     this.http
-      .get(`http://localhost:3000/entities/list/${entityID}/api`)
-      .subscribe((entity) => {
-        this.entityData = entity;
+      .get(`http://localhost:3000/donors/list/${donorID}/api`)
+      .subscribe((donor) => {
+        this.donorData = donor;
       });
   }
 
@@ -176,4 +173,5 @@ export class DashboardComponent implements OnInit {
       },
     });
   }
+  
 }

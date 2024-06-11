@@ -20,16 +20,25 @@
       <li class="nav-item">
         <a class="nav-link active" href="/dashboard/donation-list">Donations</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/dashboard/detailed-view">Detailed View</a>
+      </li>
+    </ul>
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" (click)="logout()" href="/login">Logout</a>
+      </li>
     </ul>
   </div>
 </nav>
+
 <div id="list">
   <h3>Donations:</h3>
 </div>
 <table>
   <thead>
     <tr>
-      <th>Donator's Name</th>
+      <th>Donor's Name</th>
       <th>Kilograms Donated</th>
       <th>Condition</th>
       <th>Points Awarded</th>
@@ -37,10 +46,12 @@
   </thead>
   <tbody>
     <tr *ngFor="let donation of data">
-      <td>{{ donation.donor.name }}</td>
-      <td>{{ donation.kg }}</td>
-      <td>{{ donation.condition }}</td>
-      <td>{{ donation.points }}</td>
+      <ng-container *ngIf="donation.points > 10">
+        <td>{{ donation.donor }}</td>
+        <td>{{ donation.kg }}</td>
+        <td>{{ donation.condition }}</td>
+        <td>{{ donation.points }}</td>
+      </ng-container>
     </tr>
   </tbody>
 </table>

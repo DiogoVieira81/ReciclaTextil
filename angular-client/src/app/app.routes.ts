@@ -8,6 +8,7 @@ import { authGuard } from './auth.guard';
 import { EntityDetailedViewComponent } from './pages/entity-detailed-view/entity-detailed-view.component';
 import { DonorDashboardComponent } from './pages/donor-dashboard/donor-dashboard.component';
 import { DonationFormComponent } from './pages/donation-form/donation-form.component';
+import { ChangePointsDonorComponent } from './pages/change-points-donor/change-points-donor.component';
 
 
 export const routes: Routes = [
@@ -60,5 +61,9 @@ export const routes: Routes = [
                 component: DonationFormComponent, canActivate: [authGuard],
             },
         ]
-    }
+    },
+    {
+        path:'tickets',
+        component:ChangePointsDonorComponent
+    },
 ];

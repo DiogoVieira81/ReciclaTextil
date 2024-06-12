@@ -6,7 +6,6 @@ import { AuthService } from '../../auth.service';
 import { RestService } from '../rest.service';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-
 Chart.register(...registerables);
 NgModel;
 

@@ -42,21 +42,8 @@ export class EntityRegisterComponent {
     this.rest.createEntity(this.entity).subscribe((entity: any) => {
       this.entities.push(this.entity);
       console.log('Entity saved successfully:', entity);
-      this.entity = {
-        name: '',
-        taxpayerNumber: '',
-        email: '',
-        password: '',
-        phoneNumber: '',
-        address: '',
-        city: '',
-        district: '',
-        description: '',
-        kg: 0,
-        totalDonations: 0,
-        ImageName: '',
-      };
-      this.router.navigate([`/dashboard/${entity.email}`]);
+
+      this.router.navigate(['/login']);
     });
   }
 }

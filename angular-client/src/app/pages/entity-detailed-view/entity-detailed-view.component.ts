@@ -5,11 +5,12 @@ import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../../auth.service';
 import { Entity } from '../../models/entity';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-entity-detailed-view',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './entity-detailed-view.component.html',
   styleUrl: './entity-detailed-view.component.css',
 })

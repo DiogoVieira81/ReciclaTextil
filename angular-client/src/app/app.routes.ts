@@ -9,6 +9,9 @@ import { EntityDetailedViewComponent } from './pages/entity-detailed-view/entity
 import { DonorDashboardComponent } from './pages/donor-dashboard/donor-dashboard.component';
 import { DonationFormComponent } from './pages/donation-form/donation-form.component';
 import { ChangePointsDonorComponent } from './pages/change-points-donor/change-points-donor.component';
+import { EmailComponent } from './pages/email/email.component';
+import { DonorRegisterComponent } from './pages/donor-register/donor-register.component';
+
 
 
 export const routes: Routes = [
@@ -26,6 +29,10 @@ export const routes: Routes = [
             {
                 path: 'entity',
                 component: EntityRegisterComponent//,canActivate:[authGuard]
+            },
+            {
+                path : 'donor',
+                component : DonorRegisterComponent
             }
         ]
     },
@@ -67,7 +74,11 @@ export const routes: Routes = [
         ]
     },
     {
-        path: 'tickets',
-        component: ChangePointsDonorComponent
+        path:'tickets',
+        component:ChangePointsDonorComponent,canActivate:[authGuard],
     },
+    {
+        path:'suporte',
+        component:EmailComponent,
+    }
 ];

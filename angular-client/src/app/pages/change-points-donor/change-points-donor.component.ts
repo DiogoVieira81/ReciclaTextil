@@ -5,10 +5,12 @@ import { FormsModule } from '@angular/forms';
 import { response } from 'express';
 import { Observable } from 'rxjs';
 import { AuthService } from '../../auth.service';
+import { RouterModule } from '@angular/router';
+
 @Component({
   selector: 'app-change-points-donor',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule,FormsModule,RouterModule],
   templateUrl: './change-points-donor.component.html',
   styleUrl: './change-points-donor.component.css'
 })

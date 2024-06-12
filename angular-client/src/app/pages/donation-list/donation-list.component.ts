@@ -5,11 +5,12 @@ import { Observable, map } from 'rxjs';
 import { RestService } from '../rest.service';
 import { Donation } from '../../models/donation';
 import { AuthService } from '../../auth.service';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-donation-list',
   standalone: true,
-  imports: [HttpClientModule, CommonModule],
+  imports: [HttpClientModule, CommonModule, RouterModule],
   templateUrl: './donation-list.component.html',
   styleUrl: './donation-list.component.css',
 })

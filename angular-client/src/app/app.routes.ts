@@ -64,7 +64,6 @@ export const routes: Routes = [
                 path: "donation-list",
                 component: DonationFormComponent, canActivate: [authGuard],
             },
-
         ]
     },
     {

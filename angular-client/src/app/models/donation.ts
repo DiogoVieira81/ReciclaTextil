@@ -1,13 +1,12 @@
-import { Donor } from "./donor";
-import { Entity } from "./entity";
+import { Donor } from './donor';
+import { Entity } from './entity';
 
 export interface Donation {
-  id: string;
   numberOfParts: number;
   condition: string;
   kg: number;
   points: number;
   state: string;
-  donor: string;
+  donor: string | null;
   entity: string;
 }

@@ -1,10 +1,21 @@
-import { CUSTOM_ELEMENTS_SCHEMA, Component, OnInit, NO_ERRORS_SCHEMA } from '@angular/core';
-import { HttpClientModule, HttpClient, HttpHeaders } from '@angular/common/http';
+import {
+  CUSTOM_ELEMENTS_SCHEMA,
+  Component,
+  OnInit,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  HttpClientModule,
+  HttpClient,
+  HttpHeaders,
+} from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { NgForOf } from '@angular/common';
 import { RestService } from '../rest.service';
 import { ChangePointsDonorComponent } from '../change-points-donor/change-points-donor.component';
 import { AuthService } from '../../../../../angular-client/src/app/auth.service';
+import { Router } from '@angular/router';
+import { Donation } from '../../models/donation';
 
 @Component({
   selector: 'angular-client',
@@ -15,13 +26,14 @@ import { AuthService } from '../../../../../angular-client/src/app/auth.service'
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
 })
 export class DonationFormComponent implements OnInit {
-  donation = {
-    numberOfParts: '',
-    condition: '',
+  donation: Donation = {
+    numberOfParts: 0,
+    condition: ' ',
     kg: 0,
-    donor: '',
-    entity: '',
-    points: 0
+    points: 0,
+    state: ' ',
+    donor: ' ',
+    entity: ' ',
   };
   donors: any; // Array to hold donor data
   entities: any[] = []; // Array to hold entity data
@@ -29,30 +41,63 @@ export class DonationFormComponent implements OnInit {
   donorData: any;
   entityID: string | null = ' ';
   donorID: string | null = ' ';
+  donations: any[] = [];
 
-  constructor(private http: HttpClient, private rest: RestService, private points: ChangePointsDonorComponent, private authService: AuthService) { }
+  constructor(
+    private router: Router,
+    private http: HttpClient,
+    private rest: RestService,
+    private points: ChangePointsDonorComponent,
+    private authService: AuthService
+  ) {}
 
   ngOnInit(): void {
-    this.loadEntities();
+    this.getDonations();
+    this.entities;
+    this.donorID = this.authService.getUserIdFromToken();
   }
 
-  loadEntities(): void {
-    // Fetch entities from the backend API
-    this.rest.getEntities().subscribe(
-      (data: any[]) => {
-        this.entities = data;
-      },
-      (error: any) => {
-        console.error('Error fetching entities', error);
-      }
-    );
+  logout(): void {
+    alert('Sessão terminada');
+    this.authService.loggout();
   }
 
   calculatePoints(): any {
-    return this.points.getDonorPoints();
+      if (this.donation.kg && this.donation.condition) {
+          if (this.donation.condition === 'nova') {
+              this.donation.points = this.donation.kg * 9;
+          } else if (this.donation.condition === 'semi-nova') {
+            this.donation.points = this.donation.kg * 5;
+          } else if (this.donation.condition === 'desgastada') {
+            this.donation.points = this.donation.kg * 2;
+          }
+      }
+  }
+
+  getDonations() {
+    this.rest.getDonations().subscribe((data) => {
+      console.log(data);
+      this.donations = data;
+    });
+  }
+
+  getEntities(){
+    this.rest.getEntities().subscribe((data) => {
+      console.log(data);
+      this.entities = data;
+    });
   }
 
   onSubmit(): void {
+    this.rest.createDonation(this.donation).subscribe((donation: any) => {
+      this.donation.donor = this.donorID;
+      this.donations.push(this.donation);
+      console.log('Donation sent successfully:', donation);
+      this.router.navigate(['/dashboard/donors']);
+    });
+  }
+
+  /*onSubmit(): void {
     // Handle form submission
     const token = this.authService.getToken(); // Assuming getToken method returns the JWT token
 
@@ -75,5 +120,5 @@ export class DonationFormComponent implements OnInit {
         console.error('Error submitting donation', error);
       }
     });
-  }
+  }*/
 }

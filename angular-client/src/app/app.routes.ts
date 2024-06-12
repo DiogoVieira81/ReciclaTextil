@@ -64,14 +64,14 @@ export const routes: Routes = [
                 component: DonorDashboardComponent, canActivate: [authGuard],
             },
             {
-                path: "make-donation-form",
-                component: DonationFormComponent, canActivate: [authGuard],
-            },
-            {
                 path: "donation-list",
                 component: DonationListComponent, canActivate: [authGuard],
             },
         ]
+    },
+    {
+        path: "make-donation-form",
+        component: DonationFormComponent, canActivate: [authGuard],
     },
     {
         path:'tickets',

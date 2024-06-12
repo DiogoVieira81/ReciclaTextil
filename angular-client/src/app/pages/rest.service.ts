@@ -4,6 +4,7 @@ import { EMPTY, Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { Entity } from '../models/entity';
 import { Donor } from '../models/donor';
+import { Donation } from '../models/donation';
 
 @Injectable({
   providedIn: 'root'
@@ -14,8 +15,9 @@ export class RestService {
 
   public donationListURL = 'http://localhost:3000/donations/list/api';
   public donorListURL = 'http://localhost:3000/donors/list/api';
-
   public entityListURL = 'http://localhost:3000/entities/list/api';
+
+  public donationCreateURL = 'http://localhost:3000/donations/create'
   public entityCreateURL = 'http://localhost:3000/entities/create/api';
   public donorCreateURL = 'http://localhost:3000/donors/create/api';
 
@@ -61,6 +63,21 @@ export class RestService {
         } else {
           console.error('Error saving donor:', error);
           alert('Failed to save donor.');
+          return throwError(() => error);
+        }
+      })
+    );
+  }
+
+  createDonation(donation: Donation): Observable<Donation> {
+    return this.httpClient.post<Donation>(this.donationCreateURL, donation)
+    .pipe(
+      catchError((error: HttpResponse<any>) => {
+        if (error.status >= 200 && error.status < 300) {
+          return EMPTY;
+        } else {
+          console.error('Error saving donation:', donation);
+          alert('Failed to save donation.');
           return throwError(() => error);
         }
       })

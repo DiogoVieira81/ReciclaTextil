@@ -15,7 +15,7 @@ import { RouterModule } from '@angular/router';
 
 export class EmailComponent implements OnInit{
   userId: string | null = null;
-  name:string | null='';
+  name:string | null = null;
   email:string | null='';
   messageSent: boolean = false;
   constructor(private _http: HttpClient, private service:AuthService){}
@@ -27,13 +27,24 @@ sendMessage(body:any) {
   return this._http.post('http://localhost:3000/formulario', body);
   }
   getDonorData(): void {
-  
-    this._http.get(`http://localhost:3000/donors/list/${this.userId}/api`).subscribe((response:any) => {
-      console.log(response);
-     this.name=response.donor.name;
-     this.email=response.donor.email;
-    })
+    
+    this._http.get(`http://localhost:3000/donors/list/${this.userId}/api`).subscribe((donorResponse: any) => {
+      console.log(donorResponse);
+   
+      if (donorResponse != null && donorResponse.donor != null && donorResponse.donor.name) {
+        this.name = donorResponse.donor.name;
+        this.email = donorResponse.donor.email;
+      } else {
+        this._http.get(`http://localhost:3000/entities/list/${this.userId}/api`).subscribe((entityResponse: any) => {
+          console.log(entityResponse);
+            this.name = entityResponse.entity.name;
+            this.email = entityResponse.entity.email;
+          
+        });
+      }
+    });
   }
+  
   contactForm(form: any) {
     console.log(this.email);
     const formData = {

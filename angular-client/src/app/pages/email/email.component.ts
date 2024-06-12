@@ -35,13 +35,13 @@ sendMessage(body:any) {
       if (donorResponse != null && donorResponse.donor != null && donorResponse.donor.name) {
         this.name = donorResponse.donor.name;
         this.email = donorResponse.donor.email;
-        this.userType="donor";
+        this.userType = 'donor'
       } else {
         this._http.get(`http://localhost:3000/entities/list/${this.userId}/api`).subscribe((entityResponse: any) => {
           console.log(entityResponse);
             this.name = entityResponse.entity.name;
             this.email = entityResponse.entity.email;
-            this.userType="entity"
+            this.userType = 'entity';
           
         });
       }

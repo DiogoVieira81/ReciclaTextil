@@ -16,8 +16,7 @@ import { RouterModule } from '@angular/router';
 })
 export class DonationListComponent implements OnInit {
   httpClient = inject(HttpClient);
-  data: Donation[] = [];
-  counter : number = 0;
+  data: any[] = [ ];
   entityID : String | null = "";
 
   constructor(private rest: RestService, private authService: AuthService) {}
@@ -37,12 +36,7 @@ export class DonationListComponent implements OnInit {
     this.rest.getDonations().subscribe((data) => {
       console.log(data);
       if (this.data != null) {
-        this.data.forEach((data: any) => {
-          if (data.entity._id === this.entityID) {
-            this.data[this.counter] = data;
-          }
-          this.counter++;
-        });
+        this.data = data;
       }
     });
   }

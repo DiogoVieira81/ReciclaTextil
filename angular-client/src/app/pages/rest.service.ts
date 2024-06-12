@@ -46,7 +46,7 @@ export class RestService {
         } else {
           console.error('Error saving entity:', error);
           alert('Failed to save entity.');
-          return throwError(error);
+          return throwError(() => error);
         }
       })
     );
@@ -61,7 +61,7 @@ export class RestService {
         } else {
           console.error('Error saving donor:', error);
           alert('Failed to save donor.');
-          return throwError(error);
+          return throwError(() => error);
         }
       })
     );

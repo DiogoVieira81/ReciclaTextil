@@ -18,25 +18,25 @@ export class EntityDetailedViewComponent implements OnInit {
   data: any;
   donorNames: any = [];
   conditionCounter: number[] = [0, 0, 0];
-  totalKg : number = 0;
+  totalKg: number = 0;
   totalItems: number = 0;
   totalPoints: number = 0;
   avgKg: number = 0;
   avgItems: number = 0;
   avgPoints: number = 0;
+  entityID: any;
+  entityData: any;
 
   constructor(
     private rest: RestService,
     private http: HttpClient,
-    private authService: AuthService,
+    private authService: AuthService
   ) {}
-  entityID: any;
-  entityData: any;
 
   ngOnInit(): void {
     this.entityID = this.authService.getUserIdFromToken();
     console.log('Entity ID:', this.entityID);
-    this.loadEntityData(this.entityID!);
+    this.getDonations();
   }
 
   logout(): void {
@@ -44,21 +44,13 @@ export class EntityDetailedViewComponent implements OnInit {
     this.authService.loggout();
   }
 
-  loadEntityData(entityID: string): void {
-    this.http
-      .get(`http://localhost:3000/entities/list/${entityID}/api`)
-      .subscribe((entity) => {
-        this.entityData = entity;
-      });
-  }
-
   getDonations() {
     this.rest.getDonations().subscribe((data) => {
-      console.log(data);
       this.data = data;
 
       if (this.data != null) {
-        this.data.forEach((data:any) => {
+        this.data.forEach((data: any) => {
+          if (data.entity._id === this.entityID) {
             let i = this.donorNames.indexOf(data.donor);
             if (i === -1) {
               this.donorNames.push(data.donor.name);
@@ -77,6 +69,7 @@ export class EntityDetailedViewComponent implements OnInit {
             this.totalKg += data.kg;
             this.totalItems += data.numberOfParts;
             this.totalPoints += data.points;
+          }
         });
         this.avgKg = this.totalKg / data.length;
         this.avgItems = this.totalItems / data.length;

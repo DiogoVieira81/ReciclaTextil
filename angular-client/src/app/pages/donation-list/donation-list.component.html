@@ -18,7 +18,9 @@
         <a class="nav-link active" [routerLink]="['/dashboard/donors']">Home</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link active" [routerLink]="['/dashboard/donation-list']">Donations</a>
+        <a class="nav-link active" [routerLink]="['/dashboard/donation-list']"
+          >Donations</a
+        >
       </li>
       <li class="nav-item">
         <a class="nav-link active" [routerLink]="['/dashboard/detailed-view']">Detailed View</a>
@@ -46,22 +48,12 @@
   </thead>
   <tbody>
     <tr *ngFor="let donation of data">
-      <ng-container>
-        <td>{{ donation.donor }}</td>
-        <td>{{ donation.kg }}</td>
-        <td>{{ donation.condition }}</td>
-        <td>{{ donation.points }}</td>
-      </ng-container>
+        <ng-container *ngIf="donation.entity._id === entityID">
+          <td>{{ donation.donor.name }}</td>
+          <td>{{ donation.kg }}</td>
+          <td>{{ donation.condition }}</td>
+          <td>{{ donation.points }}</td>
+        </ng-container>
     </tr>
-  </tbody>
-  <tbody>
-    @for(donation of data; track donation.id; let idx = $index){
-    <ng-container>
-      <td>{{idx}} : {{ donation.donor }}</td>
-      <td>{{ donation.kg }}</td>
-      <td>{{ donation.condition }}</td>
-      <td>{{ donation.points }}</td>
-    </ng-container>
-    }
   </tbody>
 </table>

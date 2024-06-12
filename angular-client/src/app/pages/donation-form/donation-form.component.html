@@ -99,9 +99,7 @@
         required
       >
         <option value="">Selecione a Entidade Beneficiadora</option>
-        <option *ngFor="let entity of entities" [value]="entity">
-          {{ entity.name }}
-        </option>
+          <option *ngFor="let entity of entities" value="">{{entity.name}}</option>
       </select>
     </div>
   </div>

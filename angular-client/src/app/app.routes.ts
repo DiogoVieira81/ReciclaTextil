@@ -62,7 +62,7 @@ export const routes: Routes = [
             },
             {
                 path: "donation-list",
-                component: DonationFormComponent, canActivate: [authGuard],
+                component: DonationListComponent, canActivate: [authGuard],
             },
         ]
     },

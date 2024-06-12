@@ -26,6 +26,7 @@ export class EntityDetailedViewComponent implements OnInit {
   avgPoints: number = 0;
   entityID: any;
   entityData: any;
+  donationCounter : number = 0;
 
   constructor(
     private rest: RestService,
@@ -69,6 +70,7 @@ export class EntityDetailedViewComponent implements OnInit {
             this.totalKg += data.kg;
             this.totalItems += data.numberOfParts;
             this.totalPoints += data.points;
+            this.donationCounter++;
           }
         });
         this.avgKg = this.totalKg / data.length;

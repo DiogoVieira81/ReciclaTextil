@@ -5,11 +5,12 @@ import { NgForOf } from '@angular/common';
 import { RestService } from '../rest.service';
 import { ChangePointsDonorComponent } from '../change-points-donor/change-points-donor.component';
 import { AuthService } from '../../../../../angular-client/src/app/auth.service';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'angular-client',
   standalone: true,
-  imports: [HttpClientModule, FormsModule, NgForOf],
+  imports: [HttpClientModule, FormsModule, NgForOf, RouterModule],
   templateUrl: './donation-form.component.html',
   styleUrls: ['./donation-form.component.css'],
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
@@ -23,7 +24,6 @@ export class DonationFormComponent implements OnInit {
     entity: '',
     points: 0
   };
-  donors: any; // Array to hold donor data
   entities: any[] = []; // Array to hold entity data
   entityData: any;
   donorData: any;
@@ -34,6 +34,7 @@ export class DonationFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadEntities();
+
   }
 
   loadEntities(): void {
@@ -48,17 +49,34 @@ export class DonationFormComponent implements OnInit {
     );
   }
 
+  setDonor(): void {
+    const donorId = this.authService.getUserIdFromToken();  // Assuming getUserId method returns the logged-in user's ID
+    if (donorId) {
+      this.donation.donor = donorId;
+    } else {
+      console.error('Donor ID is not set');
+    }
+  }
+
   calculatePoints(): any {
     return this.points.getDonorPoints();
   }
 
   onSubmit(): void {
+    this.setDonor();
+    // Ensure donor ID is set before submitting
+    if (!this.donation.donor) {
+      console.error('Donor ID is not set');
+      return;
+    }
     // Handle form submission
     const token = this.authService.getToken(); // Assuming getToken method returns the JWT token
 
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 
-    this.http.post('http://localhost:3000/donations/create', this.donation, { headers, responseType: 'text' }).subscribe({
+    console.log('Submitting donation:', this.donation);
+
+    this.http.post('http://localhost:3000/donations/create/api', this.donation, { headers, responseType: 'text' }).subscribe({
       next: (response) => {
         if (response.startsWith('<!DOCTYPE html>')) {
           console.error('Received an HTML response instead of JSON. This likely indicates a login redirection or server error.');

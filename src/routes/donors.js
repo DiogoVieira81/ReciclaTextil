@@ -43,6 +43,9 @@ router.get("/create/api", donorsController.donor_create_get);
  *               email:
  *                 type: string
  *                 format: email
+ *               password: 
+ *                 type: string
+ *                 
  *               phoneNumber:
  *                 type: string
  *               address:

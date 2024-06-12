@@ -141,7 +141,7 @@ exports.donor_create_post = asyncHandler(async (req, res, next) => {
                  { expiresIn: maxAge }
              );
              res.cookie("jwt", token, { httpOnly: true, maxAge: maxAge * 1000 });
-             res.status(201).json({ message: "Donor successfully created"});
+            res.render('donors/message')
         next();
     } catch (error) {
        

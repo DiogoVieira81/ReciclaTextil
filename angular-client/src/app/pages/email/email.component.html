@@ -92,12 +92,12 @@
     
     <div class="form-group">
       <label style="font-weight: bold;">Assunto:</label>
-      <input type="text" class="form-control" name="assunto" ngModel>
+      <input type="text" class="form-control" name="assunto" [(ngModel)]="assunto" ngModel>
     </div>
     
     <div class="form-group">
       <label style="font-weight: bold;">Mensagem:</label>
-      <textarea class="form-control" cols="30" rows="6" name="mensagem" ngModel></textarea>
+      <textarea class="form-control" cols="30" rows="6" name="message" [(ngModel)]="message" ngModel></textarea>
     </div>
     
     <button type="submit" style="margin-top:1rem;" class="btn btn-primary">Enviar</button>

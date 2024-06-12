@@ -18,7 +18,9 @@ export class EmailComponent implements OnInit{
   userType :string | null = null;
   name:string | null = null;
   email:string | null='';
+  assunto:string | null='';
   messageSent: boolean = false;
+  message: string | null = '';
   constructor(private _http: HttpClient, private service:AuthService){}
   ngOnInit(): void {
     this.userId=this.service.getUserIdFromToken();
@@ -53,8 +55,8 @@ sendMessage(body:any) {
     const formData = {
       name: this.name,
       email: this.email,
-      asunto: form.value.asunto,
-      message: form.value.message
+      asunto: this.assunto,
+      message: this.message
 
     };
     this.sendMessage(formData).subscribe(() => {

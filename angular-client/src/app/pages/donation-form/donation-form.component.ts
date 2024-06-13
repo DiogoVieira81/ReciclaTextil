@@ -103,7 +103,6 @@ export class DonationFormComponent implements OnInit {
     console.log(this.donation.id);
     this.donation.donor = this.donorID;
     this.donation.state = 'Registada';
-    this.donation.entity = '666a268da68471dda878d9dc';
     console.log(this.entityName);
     this.rest.getEntities().subscribe((data) => {
       console.log(data);
@@ -111,13 +110,12 @@ export class DonationFormComponent implements OnInit {
 
       if (this.data != null) {
         this.data.forEach((data: any) => {
-          if (data.name == this.entityName) {
+          if (data.name === this.entityName) {
             this.donation.entity = data._id;
           }
         });
       }
     });
-    console.log(this.donation.entity);
     this.rest.createDonation(this.donation).subscribe((donation: any) => {
       console.log(this.donation);
       console.log(this.donations);

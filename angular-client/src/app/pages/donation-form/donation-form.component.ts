@@ -137,7 +137,7 @@ export class DonationFormComponent implements OnInit {
         name: this.donation.donor,
         email: 'escolaEstg@sapo.pt', 
         asunto: 'Nova Doação Realizada',
-        message: `Uma nova doação de ${donation.kg} quilos foi realizada pelo doador com id nª ${this.donorID}.`
+        message: `Uma nova doação de ${donation.kg} quilos foi realizada pelo doador nª ${donation.donor}.`
     };
 
     this.http.post('http://localhost:3000/formulario', emailData).subscribe({

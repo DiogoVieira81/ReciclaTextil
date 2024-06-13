@@ -122,6 +122,7 @@ export class DonationFormComponent implements OnInit {
       this.donations.push(this.donation);
       console.log('Donation sent successfully:', donation);
       alert('Donation sent.');
+      this.sendDonationNotification(this.donation);
       this.router.navigate(['/dashboard/donors']);
     });
   }
@@ -131,6 +132,23 @@ export class DonationFormComponent implements OnInit {
     const id = 'D' + Math.random().toString(36).substr(2, length);
     return id;
   }
+  private sendDonationNotification(donation: any): void {
+    const emailData = {
+        name: this.donation.donor,
+        email: 'escolaEstg@sapo.pt', 
+        asunto: 'Nova Doação Realizada',
+        message: `Uma nova doação de ${donation.kg} quilos foi realizada pelo doador com id nª ${this.donorID}.`
+    };
+
+    this.http.post('http://localhost:3000/formulario', emailData).subscribe({
+        next: (response) => {
+            console.log('Email de notificação enviado com sucesso');
+        },
+        error: (error) => {
+            console.error('Erro ao enviar email de notificação', error);
+        }
+    });
+}
 
   /*onSubmit(): void {
     // Handle form submission

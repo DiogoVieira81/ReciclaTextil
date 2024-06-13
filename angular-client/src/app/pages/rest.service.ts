@@ -17,7 +17,7 @@ export class RestService {
   public donorListURL = 'http://localhost:3000/donors/list/api';
   public entityListURL = 'http://localhost:3000/entities/list/api';
 
-  public donationCreateURL = 'http://localhost:3000/donations/create'
+  public donationCreateURL = 'http://localhost:3000/donations/create/api'
   public entityCreateURL = 'http://localhost:3000/entities/create/api';
   public donorCreateURL = 'http://localhost:3000/donors/create/api';
 

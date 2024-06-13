@@ -40,7 +40,7 @@
 <form (ngSubmit)="onSubmit()" class="form">
   <div class="form-row">
     <div class="form-group col-md-6">
-      <label for="numberOfParts">Quantidade peças a doar:</label>
+      <label for="numberOfParts">Quantidade de peças a doar:</label>
       <input
         type="text"
         class="form-control"
@@ -62,6 +62,7 @@
         [(ngModel)]="donation.condition"
         required
         (change)="calculatePoints()"
+        [(value)]="donation.condition"
       >
         <option value="" selected disabled hidden>
           Escolha uma condição...
@@ -95,7 +96,8 @@
         class="form-control"
         id="entity"
         name="entity"
-        [(ngModel)]="donation.entity"
+        [(ngModel)]="entityName"
+        [(value)]="entityName"
         required
       >
         <option value="">Selecione a Entidade Beneficiadora</option>

@@ -9,21 +9,28 @@ import {
   HttpClient,
   HttpHeaders,
 } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
-import { NgForOf } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule, NgForOf } from '@angular/common';
 import { RestService } from '../rest.service';
 import { ChangePointsDonorComponent } from '../change-points-donor/change-points-donor.component';
 import { AuthService } from '../../../../../angular-client/src/app/auth.service';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { Donation } from '../../models/donation';
 
 @Component({
   selector: 'angular-client',
   standalone: true,
-  imports: [HttpClientModule, FormsModule, NgForOf],
+  imports: [
+    HttpClientModule,
+    FormsModule,
+    NgForOf,
+    CommonModule,
+    ReactiveFormsModule,
+    RouterLink,
+  ],
   templateUrl: './donation-form.component.html',
   styleUrls: ['./donation-form.component.css'],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
+  schemas: [],
 })
 export class DonationFormComponent implements OnInit {
   donation: Donation = {
@@ -42,6 +49,8 @@ export class DonationFormComponent implements OnInit {
   entityID: string | null = ' ';
   donorID: string | null = ' ';
   donations: any[] = [];
+  entityName: String | null = ' ';
+  data : any;
 
   constructor(
     private router: Router,
@@ -52,9 +61,10 @@ export class DonationFormComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getDonations();
-    this.entities;
     this.donorID = this.authService.getUserIdFromToken();
+    console.log(this.donorID);
+    this.getDonations();
+    this.getEntities();
   }
 
   logout(): void {
@@ -63,15 +73,15 @@ export class DonationFormComponent implements OnInit {
   }
 
   calculatePoints(): any {
-      if (this.donation.kg && this.donation.condition) {
-          if (this.donation.condition === 'nova') {
-              this.donation.points = this.donation.kg * 9;
-          } else if (this.donation.condition === 'semi-nova') {
-            this.donation.points = this.donation.kg * 5;
-          } else if (this.donation.condition === 'desgastada') {
-            this.donation.points = this.donation.kg * 2;
-          }
+    if (this.donation.kg && this.donation.condition) {
+      if (this.donation.condition === 'nova') {
+        this.donation.points = this.donation.kg * 9;
+      } else if (this.donation.condition === 'semi-nova') {
+        this.donation.points = this.donation.kg * 5;
+      } else if (this.donation.condition === 'desgastada') {
+        this.donation.points = this.donation.kg * 2;
       }
+    }
   }
 
   getDonations() {
@@ -81,7 +91,7 @@ export class DonationFormComponent implements OnInit {
     });
   }
 
-  getEntities(){
+  getEntities() {
     this.rest.getEntities().subscribe((data) => {
       console.log(data);
       this.entities = data;
@@ -89,10 +99,28 @@ export class DonationFormComponent implements OnInit {
   }
 
   onSubmit(): void {
+    this.donation.donor = this.donorID;
+    this.donation.state = 'Registada';
+    console.log(this.entityName);
+    this.rest.getEntities().subscribe((data) => {
+      console.log(data);
+      this.data = data;
+
+      if (this.data != null) {
+        this.data.forEach((data: any) => {
+          if(this.data.name === this.entityName){
+            this.donation.entity = data._id;
+          }
+        });
+      }
+    });
+    console.log(this.donation.entity);
     this.rest.createDonation(this.donation).subscribe((donation: any) => {
-      this.donation.donor = this.donorID;
+      console.log(this.donation);
+      console.log(this.donations);
       this.donations.push(this.donation);
       console.log('Donation sent successfully:', donation);
+      alert('Donation sent.');
       this.router.navigate(['/dashboard/donors']);
     });
   }

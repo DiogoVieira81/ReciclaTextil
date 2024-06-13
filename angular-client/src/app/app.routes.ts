@@ -11,6 +11,7 @@ import { DonationFormComponent } from './pages/donation-form/donation-form.compo
 import { ChangePointsDonorComponent } from './pages/change-points-donor/change-points-donor.component';
 import { EmailComponent } from './pages/email/email.component';
 import { DonorRegisterComponent } from './pages/donor-register/donor-register.component';
+import { ProfileDonorComponent } from './pages/profile-donor/profile-donor.component';
 
 
 
@@ -76,6 +77,15 @@ export const routes: Routes = [
     {
         path:'tickets',
         component:ChangePointsDonorComponent,canActivate:[authGuard],
+    },
+    {
+        path: 'profile',
+        children: [
+            {
+                path: 'donor',
+                component : ProfileDonorComponent
+            }
+        ]
     },
     {
         path:'suporte',

@@ -108,7 +108,7 @@ export class DonationFormComponent implements OnInit {
 
       if (this.data != null) {
         this.data.forEach((data: any) => {
-          if(this.data.name === this.entityName){
+          if(data.name == this.entityName){
             this.donation.entity = data._id;
           }
         });

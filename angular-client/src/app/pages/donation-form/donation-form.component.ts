@@ -34,6 +34,7 @@ import { Donation } from '../../models/donation';
 })
 export class DonationFormComponent implements OnInit {
   donation: Donation = {
+    id: this.generateId(),
     numberOfParts: 0,
     condition: ' ',
     kg: 0,
@@ -50,7 +51,7 @@ export class DonationFormComponent implements OnInit {
   donorID: string | null = ' ';
   donations: any[] = [];
   entityName: String | null = ' ';
-  data : any;
+  data: any;
 
   constructor(
     private router: Router,
@@ -99,8 +100,10 @@ export class DonationFormComponent implements OnInit {
   }
 
   onSubmit(): void {
+    console.log(this.donation.id);
     this.donation.donor = this.donorID;
     this.donation.state = 'Registada';
+    this.donation.entity = '666a268da68471dda878d9dc';
     console.log(this.entityName);
     this.rest.getEntities().subscribe((data) => {
       console.log(data);
@@ -108,7 +111,7 @@ export class DonationFormComponent implements OnInit {
 
       if (this.data != null) {
         this.data.forEach((data: any) => {
-          if(data.name == this.entityName){
+          if (data.name == this.entityName) {
             this.donation.entity = data._id;
           }
         });
@@ -123,6 +126,12 @@ export class DonationFormComponent implements OnInit {
       alert('Donation sent.');
       this.router.navigate(['/dashboard/donors']);
     });
+  }
+
+  generateId() {
+    const length = Math.floor(Math.random() * 9) + 1;
+    const id = 'D' + Math.random().toString(36).substr(2, length);
+    return id;
   }
 
   /*onSubmit(): void {

@@ -9,7 +9,7 @@ router.get("/create/api", donationController.donation_create_get);
 
 /**
  * @swagger
- * /donations/create:
+ * /donations/create/api:
  *   post:
  *     summary: Cria uma nova doação
  *     security:
